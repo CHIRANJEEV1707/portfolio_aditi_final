@@ -1,3 +1,82 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "aditi-profile",
+      "description": "A creative portrait of Aditi Agrawal.",
+      "imageUrl": "https://images.unsplash.com/photo-1557053910-d9eadeed1c58?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3b21hbiUyMHBvcnRyYWl0fGVufDB8fHx8MTc2MDk0MDg0N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "project-1",
+      "description": "Placeholder for Project 1.",
+      "imageUrl": "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGRlc2lnbnxlbnwwfHx8fDE3NjA5NTY2Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract design"
+    },
+    {
+      "id": "project-2",
+      "description": "Placeholder for Project 2.",
+      "imageUrl": "https://images.unsplash.com/photo-1562577309-4932fdd64cd1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxkaWdpdGFsJTIwbWFya2V0aW5nfGVufDB8fHx8MTc2MDk2NTU1OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "digital marketing"
+    },
+    {
+      "id": "project-3",
+      "description": "Placeholder for Project 3.",
+      "imageUrl": "https://images.unsplash.com/photo-1532622785990-d2c36a76f5a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxicmFuZCUyMHN0cmF0ZWd5fGVufDB8fHx8MTc2MTA1MTU5NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "brand strategy"
+    },
+    {
+      "id": "project-4",
+      "description": "Placeholder for Project 4.",
+      "imageUrl": "https://images.unsplash.com/photo-1758900727942-531cea0c8186?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjcmVhdGl2ZSUyMGNhbXBhaWdufGVufDB8fHx8MTc2MTA1MTU5M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "creative campaign"
+    },
+    {
+      "id": "project-1-v1",
+      "description": "Visual for Project 1.",
+      "imageUrl": "https://images.unsplash.com/photo-1633533452148-a9657d2c9a5f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxicmFuZGluZ3xlbnwwfHx8fDE3NjEwNTE1OTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "branding"
+    },
+    {
+      "id": "project-1-v2",
+      "description": "Visual for Project 1.",
+      "imageUrl": "https://images.unsplash.com/photo-1509343256512-d77a5cb3791b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkZXNpZ258ZW58MHx8fHwxNzYxMDUxNTk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "design"
+    },
+    {
+      "id": "project-2-v1",
+      "description": "Visual for Project 2.",
+      "imageUrl": "https://images.unsplash.com/photo-1735398110390-d40fefca0878?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx0cmF2ZWwlMjBzb2NpYWx8ZW58MHx8fHwxNzYxMDUxNTkzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "travel social"
+    },
+    {
+      "id": "project-2-v2",
+      "description": "Visual for Project 2.",
+      "imageUrl": "https://images.unsplash.com/photo-1640377870535-f4968f307b10?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtb2JpbGUlMjBjYW1wYWlnbnxlbnwwfHx8fDE3NjEwNTE1OTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mobile campaign"
+    },
+    {
+      "id": "project-3-v1",
+      "description": "Visual for Project 3.",
+      "imageUrl": "https://images.unsplash.com/photo-1531113463068-6f334622d795?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8b3JnYW5pYyUyMGZvb2R8ZW58MHx8fHwxNzYxMDUxMzc2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "organic food"
+    },
+    {
+      "id": "project-3-v2",
+      "description": "Visual for Project 3.",
+      "imageUrl": "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb21tdW5pdHl8ZW58MHx8fHwxNzYxMDUxNTkzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "community"
+    },
+    {
+      "id": "project-4-v1",
+      "description": "Visual for Project 4.",
+      "imageUrl": "https://images.unsplash.com/photo-1738494610263-4e27d9d4e201?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx0ZWNoJTIwcHJvZHVjdHxlbnwwfHx8fDE3NjEwMzE3MjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "tech product"
+    },
+    {
+      "id": "project-4-v2",
+      "description": "Visual for Project 4.",
+      "imageUrl": "https://images.unsplash.com/photo-1649442746245-f51f4b76963f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx3ZWJzaXRlJTIwbGF1bmNofGVufDB8fHx8MTc2MTA1MTU5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "website launch"
+    }
+  ]
 }
