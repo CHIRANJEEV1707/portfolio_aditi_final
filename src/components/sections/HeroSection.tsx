@@ -8,18 +8,34 @@ const AnimatedText = ({ text }: { text: string }) => {
   return (
     <>
       <span className="sr-only">{text}</span>
-      <span aria-hidden="true">
+      <span aria-hidden>
         {letters.map((letter, index) => (
           <span
             key={index}
             className="letter-reveal"
             style={{ animationDelay: `${index * 0.05}s` }}
           >
-            {letter === ' ' ? '\u00A0' : letter}
+            {letter === ' ' ? ' ' : letter}
           </span>
         ))}
       </span>
     </>
+  );
+};
+
+const FloatingElement = ({
+  className,
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) => {
+  return (
+    <div
+      className={`absolute text-foreground/5 text-8xl font-bold -z-10 ${className}`}
+    >
+      {children}
+    </div>
   );
 };
 
@@ -31,7 +47,23 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 bg-gradient-to-br from-background via-secondary to-background">
+    <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
+      {/* Background Grid */}
+      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:3rem_3rem]"></div>
+
+      {/* Radial Gradient */}
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(40,20,80,0.3),transparent_40%)]"></div>
+
+      {/* Floating Elements */}
+      <FloatingElement className="top-[15%] left-[10%] float-anim">UX</FloatingElement>
+      <FloatingElement className="bottom-[20%] right-[15%] float-anim-reverse">UI</FloatingElement>
+      <FloatingElement className="top-[50%] right-[5%] text-6xl float-anim">
+        A/B
+      </FloatingElement>
+      <FloatingElement className="bottom-[10%] left-[25%] text-7xl float-anim-reverse">
+        SEO
+      </FloatingElement>
+
       <div className="relative z-10">
         <h1 className="font-headline text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-foreground">
           {isMounted ? <AnimatedText text="Aditi Agrawal" /> : 'Aditi Agrawal'}
@@ -40,7 +72,7 @@ const HeroSection = () => {
           Digital Marketing Strategist & Creative Solutionist
         </p>
       </div>
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
         <ChevronDown className="w-8 h-8 text-primary animate-bounce" />
       </div>
     </section>
