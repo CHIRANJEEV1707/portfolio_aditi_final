@@ -2,6 +2,7 @@
 
 import { ChevronDown } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
+import TypingAnimation from '@/components/common/TypingAnimation';
 
 const AnimatedText = ({ text }: { text: string }) => {
   const letters = text.split('');
@@ -75,9 +76,18 @@ const HeroSection = () => {
         <h1 className="font-headline text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-foreground">
           {isMounted ? <AnimatedText text="Aditi Agrawal" /> : 'Aditi Agrawal'}
         </h1>
-        <p className="mt-4 text-lg md:text-xl lg:text-2xl text-muted-foreground font-body max-w-2xl mx-auto">
-          Digital Marketing Strategist & Creative Solutionist
-        </p>
+        <div className="mt-4 text-lg md:text-xl lg:text-2xl text-muted-foreground font-body max-w-2xl mx-auto">
+        {isMounted ? (
+            <TypingAnimation
+              texts={[
+                'Digital Marketing Strategist',
+                'Creative Solutionist',
+              ]}
+            />
+          ) : (
+            'Digital Marketing Strategist & Creative Solutionist'
+          )}
+        </div>
       </div>
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
         <ChevronDown className="w-8 h-8 text-primary animate-bounce" />
