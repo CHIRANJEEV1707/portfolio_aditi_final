@@ -32,7 +32,7 @@ const FloatingElement = ({
 }) => {
   return (
     <div
-      className={`absolute text-foreground/5 text-6xl font-bold -z-10 ${className}`}
+      className={`absolute text-foreground/10 text-6xl font-bold -z-10 ${className}`}
     >
       {children}
     </div>
@@ -52,7 +52,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:3rem_3rem]"></div>
 
       {/* Radial Gradient */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(20,40,80,0.4),transparent_40%)]"></div>
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(20,40,80,0.6),transparent_40%)]"></div>
 
       {/* Floating Elements */}
       <FloatingElement className="top-[15%] left-[10%] float-anim">🎨</FloatingElement>
@@ -63,6 +63,13 @@ const HeroSection = () => {
       <FloatingElement className="bottom-[10%] left-[25%] text-5xl float-anim-reverse">
       🚀
       </FloatingElement>
+      <FloatingElement className="top-[25%] right-[25%] text-7xl float-anim">
+        💻
+      </FloatingElement>
+      <FloatingElement className="bottom-[45%] left-[15%] text-5xl float-anim-reverse">
+        👾
+      </FloatingElement>
+
 
       <div className="relative z-10">
         <h1 className="font-headline text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-foreground">
