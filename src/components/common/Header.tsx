@@ -12,14 +12,8 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 p-4 sm:p-6">
       <AnimateOnScroll
         animation="fade-in"
-        className="container mx-auto flex justify-between items-center"
+        className="container mx-auto flex justify-end items-center"
       >
-        <Link
-          href="/"
-          className="font-headline text-2xl font-bold text-primary hover:text-accent transition-colors"
-        >
-          AA
-        </Link>
         <Button onClick={scrollToContact} variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
           Let's Talk
         </Button>
