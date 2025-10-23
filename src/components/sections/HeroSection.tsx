@@ -29,7 +29,7 @@ const AnimatedText = ({ text }: { text: string }) => {
             }}
             className="inline-block"
           >
-            {letter === ' ' ? ' ' : letter}
+            {letter === ' ' ? '\u00A0' : letter}
           </motion.span>
         ))}
       </span>
@@ -93,7 +93,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden bg-background">
+    <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
       <VantaBackground />
 
       {isMounted &&
@@ -132,7 +132,7 @@ const HeroSection = () => {
 
       <AnimatePresence>
         {activeEgg && (
-           <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+          <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
