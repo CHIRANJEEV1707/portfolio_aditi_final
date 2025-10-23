@@ -1,9 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import * as THREE from 'three';
 
-// We have to dynamically import vanta.js to avoid SSR issues
+// We have to dynamically import vanta.js and three.js to avoid SSR issues
 let DOTS: any = null;
 
 const VantaBackground = () => {
@@ -12,7 +11,10 @@ const VantaBackground = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      import('vanta/dist/vanta.dots.min.js').then((vantaModule) => {
+      Promise.all([
+        import('three'),
+        import('vanta/dist/vanta.dots.min.js')
+      ]).then(([THREE, vantaModule]) => {
         DOTS = vantaModule.default;
         if (vantaRef.current && !vantaEffect) {
           try {
@@ -42,7 +44,7 @@ const VantaBackground = () => {
             });
             setVantaEffect(effect);
           } catch (e) {
-            console.error('Error initializing Vanta:', e);
+            console.error('[VANTA] Init error', e);
           }
         }
       });
