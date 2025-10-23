@@ -28,14 +28,14 @@ function HandWrittenTitle({
                 <motion.svg
                     width="100%"
                     height="100%"
-                    viewBox="0 0 1300 500"
+                    viewBox="0 0 1400 500"
                     initial="hidden"
                     animate="visible"
                     className="w-full h-full"
                 >
                     <title>KokonutUI</title>
                     <motion.path
-                        d="M 1150,150 C 1350,250 1250,480 650,450 C 150,420 0,480 0,300 C 0,120 250,-20 650,50 C 1050,120 1150,120 1150,120"
+                        d="M 1250,150 C 1450,250 1350,480 700,450 C 50,420 -100,480 -100,300 C -100,120 200,-20 700,50 C 1200,120 1250,120 1250,120"
                         fill="none"
                         strokeWidth="12"
                         stroke="currentColor"
