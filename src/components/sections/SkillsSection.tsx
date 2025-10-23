@@ -1,4 +1,4 @@
-import { Megaphone, BrainCircuit, Lightbulb, BarChart, Users, Palette } from 'lucide-react';
+import { Megaphone, BrainCircuit, Lightbulb, BarChart3, Users, Palette } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AnimateOnScroll from '../common/AnimateOnScroll';
 import StarIcon from '../common/StarIcon';
@@ -10,7 +10,7 @@ const skills = [
     description: 'Building memorable brand identities and voices.',
   },
   {
-    icon: BarChart,
+    icon: BarChart3,
     title: 'Planning campaigns that convert.',
     description: 'Data-driven strategies for measurable results.',
   },
