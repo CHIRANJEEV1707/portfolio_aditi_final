@@ -35,7 +35,7 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
   const defaultImage = PlaceHolderImages.find((img) => img.id === 'project-1');
 
   return (
-    <section id="work" className="py-20 md:py-32 container mx-auto relative">
+    <section id="projects" className="py-20 md:py-32 container mx-auto relative">
       <StarIcon className="absolute top-10 left-0 w-24 h-24 text-accent/20 star-spin" style={{ animationDuration: '40s' }}/>
       
       <div className="relative z-10 border-t border-foreground/10">

@@ -15,6 +15,7 @@ const WorkSection = () => {
 
   return (
     <div
+      id="work"
       ref={ref}
       className="flex w-full h-[50vh] justify-center items-center bg-background relative overflow-hidden"
     >

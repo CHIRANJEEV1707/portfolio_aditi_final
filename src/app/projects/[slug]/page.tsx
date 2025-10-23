@@ -36,7 +36,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       <AnimateOnScroll animation="fade-in">
         <header className="container mx-auto mb-12">
           <Button asChild variant="ghost" className="mb-8">
-            <Link href="/#work">
+            <Link href="/#projects">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to all projects
             </Link>
