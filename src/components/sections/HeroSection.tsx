@@ -169,10 +169,10 @@ const HeroSection = () => {
   return (
     <section
       ref={constraintsRef}
-      className="relative min-h-screen flex flex-col items-center justify-center text-center p-4"
+      className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
     >
         <div
-            className="absolute inset-0 -z-10"
+            className="absolute inset-0 -z-20"
             style={{
             background: "hsl(var(--background))",
             backgroundImage: `
@@ -183,11 +183,10 @@ const HeroSection = () => {
             }}
         />
 
-      <StarIcon className="absolute top-[10%] left-[20%] w-8 h-8 text-primary/50 star-spin" style={{ animationDuration: '15s' }} />
-      <StarIcon className="absolute top-[80%] left-[5%] w-12 h-12 text-accent/50 star-spin" style={{ animationDuration: '25s' }}/>
-      <StarIcon className="absolute top-[15%] right-[5%] w-10 h-10 text-primary/50 star-spin" style={{ animationDuration: '20s' }} />
-      <StarIcon className="absolute bottom-[10%] right-[30%] w-6 h-6 text-accent/50 star-spin" style={{ animationDuration: '12s' }} />
-      <div className="absolute inset-0 -z-20 bg-background" />
+      <StarIcon className="absolute top-[10%] left-[20%] w-8 h-8 text-primary/50 star-spin -z-10" style={{ animationDuration: '15s' }} />
+      <StarIcon className="absolute top-[80%] left-[5%] w-12 h-12 text-accent/50 star-spin -z-10" style={{ animationDuration: '25s' }}/>
+      <StarIcon className="absolute top-[15%] right-[5%] w-10 h-10 text-primary/50 star-spin -z-10" style={{ animationDuration: '20s' }} />
+      <StarIcon className="absolute bottom-[10%] right-[30%] w-6 h-6 text-accent/50 star-spin -z-10" style={{ animationDuration: '12s' }} />
 
       {isMounted && (
         <FloatingImages images={floatingImages} constraintsRef={constraintsRef} />
