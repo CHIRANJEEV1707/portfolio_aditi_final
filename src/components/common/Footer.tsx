@@ -14,7 +14,7 @@ const socialLinks: Social[] = [
     name: 'LinkedIn',
     image:
       'https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png',
-    url: 'https://linkedin.com',
+    url: 'https://www.linkedin.com/in/aditi-agrawal-700502266?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app',
   },
   {
     name: 'Pinterest',
