@@ -22,10 +22,10 @@ const FloatingImages = ({
   constraintsRef: React.RefObject<HTMLElement>;
 }) => {
   const imageStyles = [
-    { top: '15%', left: '80%', size: 150, duration: 25, rotate: -5 },
-    { top: '70%', left: '10%', size: 120, duration: 30, rotate: 10 },
-    { top: '5%', left: '30%', size: 100, duration: 20, rotate: -8 },
-    { top: '80%', left: '70%', size: 180, duration: 35, rotate: 12 },
+    { top: '15%', left: '80%', width: 150, duration: 25, rotate: -5 },
+    { top: '70%', left: '10%', width: 120, duration: 30, rotate: 10 },
+    { top: '5%', left: '30%', width: 100, duration: 20, rotate: -8 },
+    { top: '80%', left: '70%', width: 180, duration: 35, rotate: 12 },
   ];
 
   return (
@@ -39,8 +39,8 @@ const FloatingImages = ({
             style={{
               top: style.top,
               left: style.left,
-              width: `${style.size}px`,
-              height: `${style.size * 0.75}px`,
+              width: `${style.width}px`,
+              height: 'auto',
             }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ 
@@ -74,9 +74,10 @@ const FloatingImages = ({
             <Image
               src={image.imageUrl}
               alt={image.description}
-              fill
+              width={style.width}
+              height={style.width * (3/4)} // Assuming a 4:3 aspect ratio for initial render, will adjust based on image file
               className="object-cover rounded-lg pointer-events-none"
-              sizes={`${style.size}px`}
+              sizes={`${style.width}px`}
               priority
             />
           </motion.div>

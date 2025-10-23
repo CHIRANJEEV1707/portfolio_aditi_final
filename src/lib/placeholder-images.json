@@ -21,7 +21,7 @@
     {
       "id": "project-3",
       "description": "Placeholder for Project 3.",
-      "imageUrl": "/images/meme3.jpg",
+      "imageUrl": "",
       "imageHint": "brand strategy"
     },
     {
@@ -81,19 +81,19 @@
     {
       "id": "hero-1",
       "description": "Floating image for hero section 1.",
-      "imageUrl": "https://images.unsplash.com/photo-1516321497487-e288fb19713f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3b3Jrc3BhY2V8ZW58MHx8fHwxNzYxMDUxNTk1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/images/meme1.jpg",
       "imageHint": "workspace"
     },
     {
       "id": "hero-2",
       "description": "Floating image for hero section 2.",
-      "imageUrl": "https://images.unsplash.com/photo-1552664730-d307ca884978?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2xsYWJvcmF0aW9ufGVufDB8fHx8MTc2MTA1MTU5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/images/meme2.jpg",
       "imageHint": "collaboration"
     },
     {
       "id": "hero-3",
       "description": "Floating image for hero section 3.",
-      "imageUrl": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0ZWFtfGVufDB8fHx8MTc2MTA1MTU5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/images/meme3.jpg",
       "imageHint": "team"
     },
     {
