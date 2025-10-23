@@ -117,7 +117,6 @@ const easterEggs = [
 
 const HeroSection = () => {
   const [isMounted, setIsMounted] = useState(false);
-  const [showTitle, setShowTitle] = useState(false);
   const [activeEgg, setActiveEgg] = useState<string | null>(null);
   const [popupMessage, setPopupMessage] = useState<string>('');
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
@@ -129,8 +128,6 @@ const HeroSection = () => {
   useEffect(() => {
     setIsMounted(true);
     setAudio(new Audio('/sounds/chime.mp3'));
-    const timer = setTimeout(() => setShowTitle(true), 500); // Delay for reveal
-    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -148,7 +145,7 @@ const HeroSection = () => {
     setActiveEgg(message);
     audio?.play().catch((err) => console.error('Audio play failed:', err));
   };
-
+  
   const title = "Aditi Agrawal";
 
   return (
@@ -185,39 +182,19 @@ const HeroSection = () => {
         ))}
 
       <div className="relative z-10 text-center flex flex-col items-center justify-center">
-        <AnimatePresence>
-          {showTitle && (
-            <div className="flex justify-center">
-              {title.split("").map((char, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05, type: 'spring', stiffness: 300, damping: 20 }}
-                >
-                  <ComicText
-                    fontSize={6}
-                    style={{
-                      '--dot-color': 'hsl(var(--primary))',
-                      '--background-color': 'hsl(var(--accent))',
-                      fontFamily: 'var(--font-headline)',
-                      padding: '0 0.1ch',
-                      minWidth: char === ' ' ? '0.5ch' : 'auto'
-                    } as React.CSSProperties}
-                  >
-                    {char === ' ' ? '\u00A0' : char}
-                  </ComicText>
-                </motion.div>
-              ))}
-            </div>
-          )}
-        </AnimatePresence>
-        <motion.div
-            className="mt-4 text-lg md:text-xl lg:text-2xl text-muted-foreground font-body max-w-2xl mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.8 }}
-        >
+        <div className="flex justify-center">
+          <ComicText
+            fontSize={6}
+            style={{
+              '--dot-color': 'hsl(var(--primary))',
+              '--background-color': 'hsl(var(--accent))',
+              fontFamily: 'var(--font-headline)',
+            } as React.CSSProperties}
+          >
+            {title}
+          </ComicText>
+        </div>
+        <div className="mt-4 text-lg md:text-xl lg:text-2xl text-muted-foreground font-body max-w-2xl mx-auto">
             {isMounted ? (
               <TypingAnimation
                 texts={[
@@ -233,7 +210,7 @@ const HeroSection = () => {
             ) : (
               'Digital Marketing Strategist & Creative Solutionist'
             )}
-        </motion.div>
+        </div>
       </div>
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30">
         <ChevronDown className="w-8 h-8 text-primary animate-bounce" />
