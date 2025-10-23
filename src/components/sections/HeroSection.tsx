@@ -3,7 +3,6 @@
 import { ChevronDown } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import TypingAnimation from '@/components/common/TypingAnimation';
-import VantaBackground from '@/components/common/VantaBackground';
 
 const AnimatedText = ({ text }: { text: string }) => {
   const letters = text.split('');
@@ -50,8 +49,6 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
-      <VantaBackground />
-
       {/* Radial Gradient Glow */}
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.25),transparent_60%)]"></div>
 
