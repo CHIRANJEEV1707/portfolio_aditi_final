@@ -171,6 +171,18 @@ const HeroSection = () => {
       ref={constraintsRef}
       className="relative min-h-screen flex flex-col items-center justify-center text-center p-4"
     >
+        <div
+            className="absolute inset-0 -z-10"
+            style={{
+            background: "hsl(var(--background))",
+            backgroundImage: `
+                linear-gradient(to right, hsla(var(--primary), 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, hsla(var(--primary), 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: "40px 40px",
+            }}
+        />
+
       <StarIcon className="absolute top-[10%] left-[20%] w-8 h-8 text-primary/50 star-spin" style={{ animationDuration: '15s' }} />
       <StarIcon className="absolute top-[80%] left-[5%] w-12 h-12 text-accent/50 star-spin" style={{ animationDuration: '25s' }}/>
       <StarIcon className="absolute top-[15%] right-[5%] w-10 h-10 text-primary/50 star-spin" style={{ animationDuration: '20s' }} />
