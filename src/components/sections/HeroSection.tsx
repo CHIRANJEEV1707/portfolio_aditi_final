@@ -155,6 +155,7 @@ const HeroSection = () => {
       className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
     >
       
+      <div className="absolute inset-0 subtle-grid z-0 pointer-events-none"></div>
 
       <StarIcon className="absolute top-[10%] left-[20%] w-8 h-8 text-primary/50 star-spin -z-10" style={{ animationDuration: '15s' }} />
       <StarIcon className="absolute top-[80%] left-[5%] w-12 h-12 text-accent/50 star-spin -z-10" style={{ animationDuration: '25s' }}/>
@@ -166,52 +167,55 @@ const HeroSection = () => {
       <SquiggleIcon className="absolute bottom-[5%] right-[5%] w-16 h-16 text-accent/30 star-spin -z-10" style={{ animationDuration: '30s' }} />
       <PlusIcon className="absolute bottom-[30%] left-[10%] w-8 h-8 text-primary/40 star-spin -z-10" style={{ animationDuration: '22s', animationDirection: 'reverse' }}/>
 
-      {isMounted && (
-        <FloatingImages images={floatingImages} constraintsRef={constraintsRef} />
-      )}
+      <div className="relative z-10">
+        {isMounted && (
+          <FloatingImages images={floatingImages} constraintsRef={constraintsRef} />
+        )}
 
-      {isMounted &&
-        easterEggs.map((egg, index) => (
-          <EasterEgg
-            key={index}
-            className={egg.className}
-            onClick={() => handleEggClick(egg.message)}
-          >
-            {egg.char}
-          </EasterEgg>
-        ))}
+        {isMounted &&
+          easterEggs.map((egg, index) => (
+            <EasterEgg
+              key={index}
+              className={egg.className}
+              onClick={() => handleEggClick(egg.message)}
+            >
+              {egg.char}
+            </EasterEgg>
+          ))}
 
-      <div className="relative z-10 text-center flex flex-col items-center justify-center">
-        <div className="flex justify-center">
-          <ComicText
-            fontSize={6}
-            style={{
-              '--dot-color': 'hsl(var(--primary))',
-              '--background-color': 'hsl(var(--accent))',
-              fontFamily: 'var(--font-headline)',
-            } as React.CSSProperties}
-          >
-            {title}
-          </ComicText>
-        </div>
-        <div className="mt-4 text-lg md:text-xl lg:text-2xl text-muted-foreground font-body max-w-2xl mx-auto">
-            {isMounted ? (
-              <TypingAnimation
-                texts={[
-                  'Digital Marketing Strategist',
-                  'Creative Solutionist',
-                  'Aesthetic Thinker',
-                  'Brand Storyteller',
-                ]}
-                typingSpeed={80}
-                deletingSpeed={40}
-                pauseDuration={2500}
-              />
-            ) : (
-              'Digital Marketing Strategist & Creative Solutionist'
-            )}
+        <div className="relative text-center flex flex-col items-center justify-center">
+          <div className="flex justify-center">
+            <ComicText
+              fontSize={6}
+              style={{
+                '--dot-color': 'hsl(var(--primary))',
+                '--background-color': 'hsl(var(--accent))',
+                fontFamily: 'var(--font-headline)',
+              } as React.CSSProperties}
+            >
+              {title}
+            </ComicText>
+          </div>
+          <div className="mt-4 text-lg md:text-xl lg:text-2xl text-muted-foreground font-body max-w-2xl mx-auto">
+              {isMounted ? (
+                <TypingAnimation
+                  texts={[
+                    'Digital Marketing Strategist',
+                    'Creative Solutionist',
+                    'Aesthetic Thinker',
+                    'Brand Storyteller',
+                  ]}
+                  typingSpeed={80}
+                  deletingSpeed={40}
+                  pauseDuration={2500}
+                />
+              ) : (
+                'Digital Marketing Strategist & Creative Solutionist'
+              )}
+          </div>
         </div>
       </div>
+      
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30">
         <ChevronDown className="w-8 h-8 text-primary animate-bounce" />
       </div>
@@ -231,8 +235,6 @@ const HeroSection = () => {
           </div>
         )}
       </AnimatePresence>
-
-      <div className="absolute inset-0 subtle-grid z-40 pointer-events-none"></div>
     </section>
   );
 };
