@@ -24,7 +24,7 @@ const EasterEgg = ({ children, className, onClick }: EasterEggProps) => {
     <motion.div
       className={cn(
         'absolute text-4xl md:text-5xl cursor-pointer transition-opacity duration-500 hover:opacity-100 hover:drop-shadow-[0_0_10px_hsl(var(--primary))]',
-        isFound ? 'opacity-50 cursor-default' : 'opacity-30',
+        isFound ? 'opacity-70 cursor-default' : 'opacity-50',
         className
       )}
       onClick={handleClick}

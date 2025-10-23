@@ -131,27 +131,27 @@ const FloatingShapes = () => {
 const easterEggs = [
   {
     char: '✨',
-    className: 'top-[10%] left-[5%]',
+    className: 'top-[15%] left-[10%]',
     message: 'You found me! 🌸',
   },
   {
     char: '🎨',
-    className: 'bottom-[15%] right-[5%]',
+    className: 'bottom-[10%] right-[15%]',
     message: 'Creative minds notice details 💙',
   },
   {
     char: '💡',
-    className: 'top-[15%] right-[8%]',
+    className: 'top-[20%] right-[20%]',
     message: 'Hidden spark unlocked ✨',
   },
   {
     char: '💭',
-    className: 'bottom-[45%] left-[2%]',
+    className: 'bottom-[25%] left-[25%]',
     message: 'Imagination builds worlds ✨',
   },
   {
     char: '✦',
-    className: 'top-[30%] left-[15%]',
+    className: 'top-[55%] right-[40%]',
     message: 'Every pixel has a purpose ✦',
   },
 ];
