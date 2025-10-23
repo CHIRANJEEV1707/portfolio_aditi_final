@@ -152,7 +152,7 @@ const HeroSection = () => {
     <section
       id="home"
       ref={constraintsRef}
-      className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden subtle-grid"
+      className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
     >
       
 
@@ -231,6 +231,8 @@ const HeroSection = () => {
           </div>
         )}
       </AnimatePresence>
+
+      <div className="absolute inset-0 subtle-grid z-20 pointer-events-none"></div>
     </section>
   );
 };
