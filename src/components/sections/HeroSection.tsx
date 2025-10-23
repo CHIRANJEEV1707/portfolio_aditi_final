@@ -5,6 +5,13 @@ import React, { useEffect, useState, useCallback } from 'react';
 import TypingAnimation from '@/components/common/TypingAnimation';
 import EasterEgg from '@/components/common/EasterEgg';
 import SuccessPopup from '@/components/common/SuccessPopup';
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
 const AnimatedText = ({ text }: { text: string }) => {
   const letters = text.split('');
@@ -35,7 +42,7 @@ const FloatingElement = ({
 }) => {
   return (
     <div
-      className={`absolute text-foreground/5 text-6xl font-bold -z-20 ${className}`}
+      className={`absolute text-foreground/5 text-6xl font-bold -z-10 ${className}`}
     >
       {children}
     </div>
@@ -52,34 +59,39 @@ const HeroSection = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [foundEggs, setFoundEggs] = useState<string[]>([]);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-  
+  const [isQuoteOpen, setIsQuoteOpen] = useState(false);
+  const [currentQuote, setCurrentQuote] = useState('');
+
   useEffect(() => {
     setIsMounted(true);
-    // Preload audio
     new Audio('/sounds/chime.mp3');
   }, []);
 
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (isQuoteOpen) {
+      timer = setTimeout(() => {
+        setIsQuoteOpen(false);
+      }, 4000); // Auto-close after 4 seconds
+    }
+    return () => clearTimeout(timer);
+  }, [isQuoteOpen]);
+
   const handleEggFound = useCallback((id: string) => {
+    const egg = easterEggs.find(e => e.id === id);
+    if(egg) {
+      setCurrentQuote(egg.message);
+      setIsQuoteOpen(true);
+    }
+    
     setFoundEggs((prev) => {
       const newFound = prev.includes(id) ? prev : [...prev, id];
-      console.log(`Found Easter Egg: ${id}. Total found: ${newFound.length}`);
-
       if (newFound.length === easterEggs.length) {
-        console.log('All Easter Eggs found!');
         setTimeout(() => setShowSuccessPopup(true), 500);
       }
       return newFound;
     });
   }, []);
-
-  const floatingElements = [
-    { emoji: '🎨', className: 'top-[15%] left-[10%] float-anim' },
-    { emoji: '✨', className: 'bottom-[20%] right-[15%] float-anim-reverse' },
-    { emoji: '💡', className: 'top-[50%] right-[5%] text-5xl float-anim' },
-    { emoji: '🚀', className: 'bottom-[10%] left-[25%] text-5xl float-anim-reverse' },
-    { emoji: '💻', className: 'top-[25%] right-[25%] text-7xl float-anim' },
-    { emoji: '👾', className: 'bottom-[45%] left-[15%] text-5xl float-anim-reverse' },
-  ];
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden subtle-grid">
@@ -93,15 +105,25 @@ const HeroSection = () => {
           key={egg.id}
           id={egg.id}
           character={egg.char}
-          message={egg.message}
-          onFound={handleEggFound}
+          onFound={() => handleEggFound(egg.id)}
           className={egg.className}
         />
       ))}
       
+      <AlertDialog open={isQuoteOpen} onOpenChange={setIsQuoteOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-center text-2xl">✨</AlertDialogTitle>
+            <AlertDialogDescription className="text-center text-lg text-foreground">
+              {currentQuote}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+        </AlertDialogContent>
+      </AlertDialog>
+
       <SuccessPopup isOpen={showSuccessPopup} onClose={() => setShowSuccessPopup(false)} />
 
-      <div className="relative z-30">
+      <div className="relative z-10">
         <h1 className="font-headline text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-foreground">
           {isMounted ? <AnimatedText text="Aditi Agrawal" /> : 'Aditi Agrawal'}
         </h1>
@@ -123,7 +145,6 @@ const HeroSection = () => {
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30">
         <ChevronDown className="w-8 h-8 text-primary animate-bounce" />
       </div>
-
     </section>
   );
 };
