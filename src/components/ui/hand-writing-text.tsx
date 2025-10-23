@@ -35,7 +35,7 @@ function HandWrittenTitle({
                 >
                     <title>KokonutUI</title>
                     <motion.path
-                        d="M 1500,150 C 1700,250 1600,480 950,450 C 300,420 50,480 50,300 C 50,120 450,-20 950,50 C 1450,120 1500,120 1500,120"
+                        d="M 1500,120 C 1700,220 1600,450 950,420 C 300,390 -50,450 -50,270 C -50,90 450,-50 950,20 C 1450,90 1500,90 1500,90"
                         fill="none"
                         strokeWidth="12"
                         stroke="currentColor"
