@@ -9,25 +9,25 @@
     {
       "id": "project-1",
       "description": "Placeholder for Project 1.",
-      "imageUrl": "/images/meme1.jpg",
+      "imageUrl": "/images/court.jpeg",
       "imageHint": "abstract design"
     },
     {
       "id": "project-2",
       "description": "Placeholder for Project 2.",
-      "imageUrl": "/images/meme2.jpg",
+      "imageUrl": "/images/zora.jpeg",
       "imageHint": "digital marketing"
     },
     {
       "id": "project-3",
       "description": "Placeholder for Project 3.",
-      "imageUrl": "",
+      "imageUrl": "/images/hukam.jpeg",
       "imageHint": "brand strategy"
     },
     {
       "id": "project-4",
       "description": "Placeholder for Project 4.",
-      "imageUrl": "https://images.unsplash.com/photo-1758900727942-531cea0c8186?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjcmVhdGl2ZSUyMGNhbXBhaWdufGVufDB8fHx8MTc2MTA1MTU5M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/images/wasabi.png",
       "imageHint": "creative campaign"
     },
     {
@@ -99,8 +99,32 @@
     {
       "id": "hero-4",
       "description": "Floating image for hero section 4.",
-      "imageUrl": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxpbWFnZSUyMGZyb20lMjBhJTIwbWVldGluZ3xlbnwwfHx8fDE3NjEwNTE1OTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/images/Chill guy.jpeg",
       "imageHint": "meeting"
+    },
+    {
+      "id": "work-trail-1",
+      "description": "Image for work trail animation 1.",
+      "imageUrl": "/images/court.jpeg",
+      "imageHint": "abstract"
+    },
+    {
+      "id": "work-trail-2",
+      "description": "Image for work trail animation 2.",
+      "imageUrl": "/images/zora.jpeg",
+      "imageHint": "marketing"
+    },
+    {
+      "id": "work-trail-3",
+      "description": "Image for work trail animation 3.",
+      "imageUrl": "/images/hukam.jpeg",
+      "imageHint": "strategy"
+    },
+    {
+      "id": "work-trail-4",
+      "description": "Image for work trail animation 4.",
+      "imageUrl": "/images/wasabi.png",
+      "imageHint": "creative"
     }
   ]
 }
