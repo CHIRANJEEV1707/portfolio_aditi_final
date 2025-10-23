@@ -5,6 +5,8 @@ import React, { useEffect, useState } from 'react';
 import TypingAnimation from '@/components/common/TypingAnimation';
 import EasterEgg from '@/components/common/EasterEgg';
 import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const AnimatedText = ({ text }: { text: string }) => {
   const letters = text.split('');
@@ -40,7 +42,7 @@ const FloatingShapes = () => {
         height: '15rem',
         top: '10%',
         left: '10%',
-        background: 'hsla(var(--primary), 0.1)',
+        background: 'hsla(var(--foreground), 0.1)',
       },
       animate: {
         x: [0, 20, 0, -20, 0],
@@ -78,7 +80,7 @@ const FloatingShapes = () => {
         height: '8rem',
         top: '75%',
         left: '20%',
-        background: 'hsla(var(--primary), 0.12)',
+        background: 'hsla(var(--foreground), 0.12)',
       },
       animate: {
         x: [0, 30, 0, -30, 0],
@@ -123,6 +125,55 @@ const FloatingShapes = () => {
           transition={shape.transition}
         />
       ))}
+    </div>
+  );
+};
+
+const FloatingImages = () => {
+  const imageIds = ['project-1', 'project-2', 'project-3', 'project-4'];
+  const images = PlaceHolderImages.filter(img => imageIds.includes(img.id));
+
+  const imageStyles = [
+    { top: '15%', left: '80%', size: 150, duration: 25, rotate: -5 },
+    { top: '70%', left: '10%', size: 120, duration: 30, rotate: 10 },
+    { top: '40%', left: '30%', size: 100, duration: 20, rotate: -8 },
+    { top: '80%', left: '70%', size: 180, duration: 35, rotate: 12 },
+  ];
+
+  return (
+    <div className="absolute inset-0 -z-10 overflow-hidden">
+      {images.map((image, index) => {
+        if (!image) return null;
+        const style = imageStyles[index % imageStyles.length];
+        return (
+          <motion.div
+            key={image.id}
+            className="absolute rounded-lg shadow-lg"
+            style={{
+              top: style.top,
+              left: style.left,
+              width: `${style.size}px`,
+              height: `${style.size * 0.75}px`,
+            }}
+            initial={{ y: 0, rotate: style.rotate }}
+            animate={{ y: [-20, 20], rotate: [style.rotate - 3, style.rotate + 3] }}
+            transition={{
+              duration: style.duration,
+              repeat: Infinity,
+              repeatType: 'reverse',
+              ease: 'easeInOut',
+            }}
+          >
+            <Image
+              src={image.imageUrl}
+              alt={image.description}
+              fill
+              className="object-cover rounded-lg"
+              sizes={`${style.size}px`}
+            />
+          </motion.div>
+        );
+      })}
     </div>
   );
 };
@@ -187,6 +238,7 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
       <div className="absolute inset-0 -z-20 bg-background" />
       <FloatingShapes />
+      <FloatingImages />
       
       {isMounted &&
         easterEggs.map((egg, index) => (
