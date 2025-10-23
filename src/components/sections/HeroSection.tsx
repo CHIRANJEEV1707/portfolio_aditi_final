@@ -8,8 +8,8 @@ import {
   AlertDialogAction,
   AlertDialogContent,
   AlertDialogDescription,
-  AlertDialogHeader,
   AlertDialogFooter,
+  AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
@@ -107,20 +107,20 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 -z-20">
         <div className="absolute inset-0 bg-background" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.25),transparent_60%)]" />
-
-        {floatingElements.map(({ emoji, className }) => (
-          <FloatingElement
-            key={emoji}
-            className={className}
-            onClick={() => handleElementClick(emoji)}
-          >
-            {emoji}
-          </FloatingElement>
-        ))}
       </div>
+
+      {floatingElements.map(({ emoji, className }) => (
+        <FloatingElement
+          key={emoji}
+          className={className}
+          onClick={() => handleElementClick(emoji)}
+        >
+          {emoji}
+        </FloatingElement>
+      ))}
 
       <div className="relative z-10">
         <h1 className="font-headline text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-foreground">
