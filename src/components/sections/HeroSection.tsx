@@ -1,11 +1,12 @@
 'use client';
 
 import { ChevronDown } from 'lucide-react';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import TypingAnimation from '@/components/common/TypingAnimation';
 import EasterEgg from '@/components/common/EasterEgg';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import VantaBackground from '../common/VantaBackground';
 
 const AnimatedText = ({ text }: { text: string }) => {
   const letters = text.split('');
@@ -34,11 +35,31 @@ const AnimatedText = ({ text }: { text: string }) => {
 };
 
 const easterEggs = [
-  { char: '✨', className: 'top-[10%] left-[5%]', message: 'You found me! 🌸' },
-  { char: '🎨', className: 'bottom-[15%] right-[5%]', message: 'Creative minds notice details 💙' },
-  { char: '💡', className: 'top-[15%] right-[8%]', message: 'Hidden spark unlocked ✨' },
-  { char: '💭', className: 'bottom-[15%] left-[5%]', message: 'Imagination builds worlds ✨' },
-  { char: '✦', className: 'top-[30%] left-[15%]', message: 'Every pixel has a purpose ✦' },
+  {
+    char: '✨',
+    className: 'top-[10%] left-[5%]',
+    message: 'You found me! 🌸',
+  },
+  {
+    char: '🎨',
+    className: 'bottom-[15%] right-[5%]',
+    message: 'Creative minds notice details 💙',
+  },
+  {
+    char: '💡',
+    className: 'top-[15%] right-[8%]',
+    message: 'Hidden spark unlocked ✨',
+  },
+  {
+    char: '💭',
+    className: 'bottom-[40%] left-[10%]',
+    message: 'Imagination builds worlds ✨',
+  },
+  {
+    char: '✦',
+    className: 'top-[30%] left-[15%]',
+    message: 'Every pixel has a purpose ✦',
+  },
 ];
 
 const HeroSection = () => {
@@ -65,23 +86,24 @@ const HeroSection = () => {
   const handleEggClick = (message: string) => {
     setPopupMessage(message);
     setActiveEgg(message);
-    audio?.play().catch(err => console.error("Audio play failed:", err));
+    audio?.play().catch((err) => console.error('Audio play failed:', err));
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden bg-background subtle-grid">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.15),transparent_60%)]" />
-
-      {isMounted && easterEggs.map((egg, index) => (
-        <EasterEgg
-          key={index}
-          className={egg.className}
-          onClick={() => handleEggClick(egg.message)}
-        >
-          {egg.char}
-        </EasterEgg>
-      ))}
+    <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden bg-background">
+      <VantaBackground />
       
+      {isMounted &&
+        easterEggs.map((egg, index) => (
+          <EasterEgg
+            key={index}
+            className={egg.className}
+            onClick={() => handleEggClick(egg.message)}
+          >
+            {egg.char}
+          </EasterEgg>
+        ))}
+
       <div className="relative z-10">
         <h1 className="font-headline text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-foreground">
           {isMounted ? <AnimatedText text="Aditi Agrawal" /> : 'Aditi Agrawal'}
@@ -104,7 +126,7 @@ const HeroSection = () => {
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30">
         <ChevronDown className="w-8 h-8 text-primary animate-bounce" />
       </div>
-      
+
       <AnimatePresence>
         {activeEgg && (
           <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
@@ -120,7 +142,6 @@ const HeroSection = () => {
           </div>
         )}
       </AnimatePresence>
-
     </section>
   );
 };
