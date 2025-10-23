@@ -149,17 +149,17 @@
   .wave-g .wave1 {
     animation-delay: -2s;
     animation-duration: 7s;
-    fill: hsla(var(--primary), 0.7);
+    fill: hsla(var(--foreground), 0.7);
   }
   .wave-g .wave2 {
     animation-delay: -3s;
     animation-duration: 10s;
-    fill: hsla(var(--primary), 0.5);
+    fill: hsla(var(--foreground), 0.5);
   }
   .wave-g .wave3 {
     animation-delay: -4s;
     animation-duration: 13s;
-    fill: hsla(var(--accent), 0.3);
+    fill: hsla(var(--foreground), 0.3);
   }
   .wave-g .wave4 {
     animation-delay: -5s;
