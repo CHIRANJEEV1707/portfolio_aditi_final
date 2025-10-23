@@ -14,7 +14,9 @@ interface ProjectsSectionProps {
 }
 
 const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
-  const [hoveredProjectImage, setHoveredProjectImage] = useState<string | null>(null);
+  const [hoveredProjectImage, setHoveredProjectImage] = useState<string | null>(
+    null
+  );
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
   const [isClient, setIsClient] = useState(false);
 
@@ -47,15 +49,13 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
             (img) => img.id === project.imageId
           );
           return (
-            <AnimateOnScroll
-              key={project.slug}
-              animation="fade-in"
-              asChild
-            >
+            <AnimateOnScroll key={project.slug} animation="fade-in" asChild>
               <Link
                 href={`/projects/${project.slug}`}
                 className="group block"
-                onMouseEnter={() => setHoveredProjectImage(projectImage?.imageUrl || null)}
+                onMouseEnter={() =>
+                  setHoveredProjectImage(projectImage?.imageUrl || null)
+                }
                 onMouseLeave={() => setHoveredProjectImage(null)}
               >
                 <div className="border-b border-foreground/10 transition-colors duration-300 group-hover:bg-primary/5">
@@ -80,7 +80,7 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
       </div>
 
       {isClient && (
-         <div
+        <div
           className={cn(
             'pointer-events-none fixed top-0 left-0 z-0 transition-opacity duration-300 hidden md:block',
             hoveredProjectImage ? 'opacity-100' : 'opacity-0'
