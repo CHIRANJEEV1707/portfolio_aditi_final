@@ -132,11 +132,11 @@ const ContactSection = () => {
                 name="message"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-muted-foreground">Message</FormLabel>
+                    <FormLabel>Message</FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Tell me about your project..."
-                        className="min-h-[150px] bg-background border-input"
+                        className="min-h-[150px] bg-background border"
                         {...field}
                       />
                     </FormControl>
