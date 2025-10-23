@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
 import StarIcon from '../common/StarIcon';
-import { HandWrittenTitle } from '../ui/hand-writing-text';
+import { ComicText } from '../ui/comic-text';
 
 
 const FloatingImages = ({
@@ -113,6 +113,7 @@ const easterEggs = [
 
 const HeroSection = () => {
   const [isMounted, setIsMounted] = useState(false);
+  const [showTitle, setShowTitle] = useState(false);
   const [activeEgg, setActiveEgg] = useState<string | null>(null);
   const [popupMessage, setPopupMessage] = useState<string>('');
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
@@ -124,6 +125,8 @@ const HeroSection = () => {
   useEffect(() => {
     setIsMounted(true);
     setAudio(new Audio('/sounds/chime.mp3'));
+    const timer = setTimeout(() => setShowTitle(true), 500); // Delay for reveal
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -150,7 +153,8 @@ const HeroSection = () => {
       <div
         className="absolute inset-0 -z-20 subtle-grid"
         style={{
-          backgroundColor: 'hsl(var(--background))'
+          backgroundColor: 'hsl(var(--background))',
+          backgroundImage: 'linear-gradient(to right, hsla(var(--primary), 0.2) 1px, transparent 1px), linear-gradient(to bottom, hsla(var(--primary), 0.2) 1px, transparent 1px)'
         }}
       />
       
@@ -175,11 +179,27 @@ const HeroSection = () => {
           </EasterEgg>
         ))}
 
-      <div className="relative z-10">
-        <HandWrittenTitle
-          title="Aditi Agrawal"
-          subtitle={
-            isMounted ? (
+      <div className="relative z-10 text-center flex flex-col items-center justify-center">
+        <AnimatePresence>
+          {showTitle && (
+            <ComicText
+              fontSize={6}
+              style={{
+                '--dot-color': 'hsl(var(--primary))',
+                '--background-color': 'hsl(var(--accent))',
+              } as React.CSSProperties}
+            >
+              Aditi Agrawal
+            </ComicText>
+          )}
+        </AnimatePresence>
+        <motion.div
+            className="mt-4 text-lg md:text-xl lg:text-2xl text-muted-foreground font-body max-w-2xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.8 }}
+        >
+            {isMounted ? (
               <TypingAnimation
                 texts={[
                   'Digital Marketing Strategist',
@@ -190,9 +210,8 @@ const HeroSection = () => {
               />
             ) : (
               'Digital Marketing Strategist & Creative Solutionist'
-            )
-          }
-        />
+            )}
+        </motion.div>
       </div>
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30">
         <ChevronDown className="w-8 h-8 text-primary animate-bounce" />
@@ -218,3 +237,5 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
+    
