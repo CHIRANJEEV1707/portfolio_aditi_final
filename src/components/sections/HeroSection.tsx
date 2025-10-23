@@ -73,7 +73,7 @@ const FloatingElement = ({
   return (
     <button
       onClick={onClick}
-      className={`absolute text-foreground/5 text-6xl font-bold -z-10 hover:text-primary/20 transition-colors duration-300 ${className}`}
+      className={`absolute text-foreground/5 text-6xl font-bold z-20 hover:text-primary/20 transition-colors duration-300 ${className}`}
       aria-label={`Reveal a quote with ${children}`}
     >
       {children}
@@ -122,7 +122,7 @@ const HeroSection = () => {
         </FloatingElement>
       ))}
 
-      <div className="relative z-10">
+      <div className="relative z-30">
         <h1 className="font-headline text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-foreground">
           {isMounted ? <AnimatedText text="Aditi Agrawal" /> : 'Aditi Agrawal'}
         </h1>
@@ -141,7 +141,7 @@ const HeroSection = () => {
           )}
         </div>
       </div>
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30">
         <ChevronDown className="w-8 h-8 text-primary animate-bounce" />
       </div>
 
