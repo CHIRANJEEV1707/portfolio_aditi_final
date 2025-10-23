@@ -3,7 +3,8 @@
 import { ChevronDown } from 'lucide-react';
 import React, { useEffect, useState, useCallback } from 'react';
 import TypingAnimation from '@/components/common/TypingAnimation';
-import { motion } from 'framer-motion';
+import EasterEgg from '@/components/common/EasterEgg';
+import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 const AnimatedText = ({ text }: { text: string }) => {
@@ -32,20 +33,41 @@ const AnimatedText = ({ text }: { text: string }) => {
   );
 };
 
-const floatingEmojis = [
-    { char: '✨', className: 'top-[20%] left-[5%] md:left-[15%] float-1' },
-    { char: '🎨', className: 'top-[75%] right-[5%] md:right-[15%] float-2' },
-    { char: '💡', className: 'bottom-[15%] left-[30%] float-3' },
-    { char: '💭', className: 'top-[15%] right-[25%] float-1' },
-    { char: '✦', className: 'top-[10%] left-[10%] float-2' },
-  ];
+const easterEggs = [
+  { char: '✨', className: 'top-[20%] left-[5%] md:left-[15%] float-1', message: 'You found me! 🌸' },
+  { char: '🎨', className: 'top-[75%] right-[5%] md:right-[15%] float-2', message: 'Creative minds notice details 💙' },
+  { char: '💡', className: 'top-[50%] left-[25%] float-3', message: 'Hidden spark unlocked ✨' },
+  { char: '💭', className: 'top-[15%] right-[25%] float-1', message: 'Imagination builds worlds ✨' },
+  { char: '✦', className: 'top-[10%] left-[10%] float-2', message: 'Every pixel has a purpose ✦' },
+];
 
 const HeroSection = () => {
   const [isMounted, setIsMounted] = useState(false);
+  const [activeEgg, setActiveEgg] = useState<string | null>(null);
+  const [popupMessage, setPopupMessage] = useState<string>('');
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
+    setAudio(new Audio('/sounds/chime.mp3'));
   }, []);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (activeEgg) {
+      timer = setTimeout(() => {
+        setActiveEgg(null);
+      }, 4000);
+    }
+    return () => clearTimeout(timer);
+  }, [activeEgg]);
+
+  const handleEggClick = (message: string) => {
+    console.log(`Easter Egg found: ${message}`);
+    setPopupMessage(message);
+    setActiveEgg(message);
+    audio?.play().catch(err => console.error("Audio play failed:", err));
+  };
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden subtle-grid">
@@ -54,16 +76,14 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.25),transparent_60%)] -z-10" />
       </div>
 
-      {isMounted && floatingEmojis.map((emoji, index) => (
-        <div
+      {isMounted && easterEggs.map((egg, index) => (
+        <EasterEgg
           key={index}
-          className={cn(
-            'absolute text-4xl md:text-5xl opacity-20',
-            emoji.className
-          )}
+          className={egg.className}
+          onClick={() => handleEggClick(egg.message)}
         >
-          {emoji.char}
-        </div>
+          {egg.char}
+        </EasterEgg>
       ))}
       
       <div className="relative z-30">
@@ -88,6 +108,23 @@ const HeroSection = () => {
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30">
         <ChevronDown className="w-8 h-8 text-primary animate-bounce" />
       </div>
+      
+      <AnimatePresence>
+        {activeEgg && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            transition={{ type: 'spring', damping: 20, stiffness: 300 }}
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50"
+          >
+            <div className="bg-background/80 backdrop-blur-lg border border-primary/20 shadow-2xl rounded-2xl p-6 text-center">
+              <p className="text-primary text-lg font-medium">{popupMessage}</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </section>
   );
 };
