@@ -109,7 +109,7 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
       <div className="absolute inset-0 -z-20">
         <div className="absolute inset-0 bg-background" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.25),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.25),transparent_60%)] z-10" />
       </div>
 
       {floatingElements.map(({ emoji, className }) => (
