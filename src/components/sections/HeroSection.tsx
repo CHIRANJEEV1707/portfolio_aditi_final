@@ -36,9 +36,9 @@ const AnimatedText = ({ text }: { text: string }) => {
 const easterEggs = [
   { char: '✨', className: 'top-[10%] left-[5%]', message: 'You found me! 🌸' },
   { char: '🎨', className: 'bottom-[15%] right-[5%]', message: 'Creative minds notice details 💙' },
-  { char: '💡', className: 'top-[20%] right-[10%]', message: 'Hidden spark unlocked ✨' },
-  { char: '💭', className: 'bottom-[25%] left-[2%]', message: 'Imagination builds worlds ✨' },
-  { char: '✦', className: 'bottom-[20%] left-[10%]', message: 'Every pixel has a purpose ✦' },
+  { char: '💡', className: 'top-[15%] right-[8%]', message: 'Hidden spark unlocked ✨' },
+  { char: '💭', className: 'bottom-[10%] left-[2%]', message: 'Imagination builds worlds ✨' },
+  { char: '✦', className: 'top-[30%] left-[15%]', message: 'Every pixel has a purpose ✦' },
 ];
 
 const HeroSection = () => {
@@ -69,10 +69,11 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden subtle-grid">
-      <div className="absolute inset-0 -z-20">
+    <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
+      <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-background" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.25),transparent_60%)] -z-10" />
+        <div className="absolute inset-0 subtle-grid" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.25),transparent_60%)]" />
       </div>
 
       {isMounted && easterEggs.map((egg, index) => (
@@ -111,15 +112,14 @@ const HeroSection = () => {
       <AnimatePresence>
         {activeEgg && (
           <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
-            <motion.div
+             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ type: 'spring', damping: 20, stiffness: 300 }}
+              className="bg-background/80 backdrop-blur-lg border border-primary/20 shadow-2xl rounded-2xl p-6 text-center"
             >
-              <div className="bg-background/80 backdrop-blur-lg border border-primary/20 shadow-2xl rounded-2xl p-6 text-center">
-                <p className="text-primary text-lg font-medium">{popupMessage}</p>
-              </div>
+              <p className="text-primary text-lg font-medium">{popupMessage}</p>
             </motion.div>
           </div>
         )}
