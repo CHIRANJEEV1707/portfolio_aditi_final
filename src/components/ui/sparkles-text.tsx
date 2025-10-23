@@ -1,3 +1,4 @@
+
 "use client";
 
 import { CSSProperties, ReactElement, useEffect, useState } from "react";
@@ -64,7 +65,7 @@ const SparklesText: React.FC<SparklesTextProps> = ({
   text,
   colors = { first: "#9E7AFF", second: "#FE8BBB" },
   className,
-  sparklesCount = 20,
+  sparklesCount = 10,
   ...props
 }) => {
   const [sparkles, setSparkles] = useState<Sparkle[]>([]);
@@ -75,7 +76,7 @@ const SparklesText: React.FC<SparklesTextProps> = ({
       const starY = `${Math.random() * 100}%`;
       const color = Math.random() > 0.5 ? colors.first : colors.second;
       const delay = Math.random() * 2;
-      const scale = Math.random() * 1 + 0.3;
+      const scale = Math.random() * 0.5 + 0.3;
       const lifespan = Math.random() * 10 + 5;
       const id = `${starX}-${starY}-${Date.now()}`;
       return { id, x: starX, y: starY, color, delay, scale, lifespan };
@@ -134,7 +135,7 @@ const Sparkle: React.FC<Sparkle> = ({ id, x, y, color, delay, scale }) => {
         scale: [0, scale, 0],
         rotate: [75, 120, 150],
       }}
-      transition={{ duration: 0.8, repeat: Infinity, delay }}
+      transition={{ duration: 1.5, repeat: Infinity, delay }}
       width="21"
       height="21"
       viewBox="0 0 21 21"
