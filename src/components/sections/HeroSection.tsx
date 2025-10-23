@@ -1,18 +1,10 @@
 'use client';
 
 import { ChevronDown } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import TypingAnimation from '@/components/common/TypingAnimation';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
+import EasterEgg from '@/components/common/EasterEgg';
+import SuccessPopup from '@/components/common/SuccessPopup';
 
 const AnimatedText = ({ text }: { text: string }) => {
   const letters = text.split('');
@@ -34,33 +26,6 @@ const AnimatedText = ({ text }: { text: string }) => {
   );
 };
 
-const quotes: { [key: string]: { quote: string; author: string } } = {
-  '🎨': {
-    quote: 'Creativity is intelligence having fun.',
-    author: 'Albert Einstein',
-  },
-  '✨': {
-    quote: 'The details are not the details. They make the design.',
-    author: 'Charles Eames',
-  },
-  '💡': {
-    quote: 'Design is thinking made visual.',
-    author: 'Saul Bass',
-  },
-  '🚀': {
-    quote: 'Good marketing makes the company look smart. Great marketing makes the customer feel smart.',
-    author: 'Joe Chernov',
-  },
-  '💻': {
-    quote: 'Simplicity is the ultimate sophistication.',
-    author: 'Leonardo da Vinci'
-  },
-  '👾': {
-    quote: 'The best way to predict the future is to create it.',
-    author: 'Peter Drucker'
-  }
-};
-
 const FloatingElement = ({
   className,
   children,
@@ -70,18 +35,41 @@ const FloatingElement = ({
 }) => {
   return (
     <div
-      className={`absolute text-foreground/5 text-6xl font-bold -z-10 ${className}`}
+      className={`absolute text-foreground/5 text-6xl font-bold -z-20 ${className}`}
     >
       {children}
     </div>
   );
 };
 
+const easterEggs = [
+  { id: 'sparkle', char: '✨', message: 'You found me! 🌸', className: 'top-[20%] left-[5%] md:left-[15%]' },
+  { id: 'art', char: '🎨', message: 'Creative minds notice details 💙', className: 'top-[75%] right-[5%] md:right-[15%]' },
+  { id: 'idea', char: '💡', message: 'Hidden spark unlocked ✨', className: 'top-[40%] right-[10%] md:right-[20%]' },
+];
+
 const HeroSection = () => {
   const [isMounted, setIsMounted] = useState(false);
+  const [foundEggs, setFoundEggs] = useState<string[]>([]);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   
   useEffect(() => {
     setIsMounted(true);
+    // Preload audio
+    new Audio('/sounds/chime.mp3');
+  }, []);
+
+  const handleEggFound = useCallback((id: string) => {
+    setFoundEggs((prev) => {
+      const newFound = prev.includes(id) ? prev : [...prev, id];
+      console.log(`Found Easter Egg: ${id}. Total found: ${newFound.length}`);
+
+      if (newFound.length === easterEggs.length) {
+        console.log('All Easter Eggs found!');
+        setTimeout(() => setShowSuccessPopup(true), 500);
+      }
+      return newFound;
+    });
   }, []);
 
   const floatingElements = [
@@ -94,20 +82,24 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
+    <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden subtle-grid">
       <div className="absolute inset-0 -z-20">
         <div className="absolute inset-0 bg-background" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.25),transparent_60%)] z-10" />
       </div>
 
-      {floatingElements.map(({ emoji, className }) => (
-        <FloatingElement
-          key={emoji}
-          className={className}
-        >
-          {emoji}
-        </FloatingElement>
+      {isMounted && easterEggs.map((egg) => (
+        <EasterEgg
+          key={egg.id}
+          id={egg.id}
+          character={egg.char}
+          message={egg.message}
+          onFound={handleEggFound}
+          className={egg.className}
+        />
       ))}
+      
+      <SuccessPopup isOpen={showSuccessPopup} onClose={() => setShowSuccessPopup(false)} />
 
       <div className="relative z-30">
         <h1 className="font-headline text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-foreground">
