@@ -75,40 +75,12 @@ export default function ProjectPage({ params }: ProjectPageProps) {
         )}
 
         <AnimateOnScroll animation="slide-in-up" className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="md:col-span-2">
+          <div>
+            <div>
               <h2 className="font-headline text-3xl font-bold mb-4">The Story</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
+              <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line max-w-4xl">
                 {project.story}
               </p>
-            </div>
-            <div>
-              <div className="bg-secondary/50 p-6 rounded-lg sticky top-28">
-                <h3 className="font-headline text-2xl font-bold mb-4">
-                  Project Info
-                </h3>
-                <ul className="space-y-3">
-                  <li>
-                    <strong className="block text-sm">Client:</strong>
-                    <span>{project.client}</span>
-                  </li>
-                  <li>
-                    <strong className="block text-sm">Year:</strong>
-                    <span>{project.date}</span>
-                  </li>
-                  <li>
-                    <strong className="block text-sm">Services:</strong>
-                    <span className="text-sm">
-                      Digital Strategy, Branding, Campaign Management
-                    </span>
-                  </li>
-                </ul>
-                <Button asChild className="mt-6 w-full bg-primary hover:bg-primary/90">
-                  <a href="#" target="_blank" rel="noopener noreferrer">
-                    View Live Site <ExternalLink className="ml-2 h-4 w-4" />
-                  </a>
-                </Button>
-              </div>
             </div>
           </div>
         </AnimateOnScroll>
