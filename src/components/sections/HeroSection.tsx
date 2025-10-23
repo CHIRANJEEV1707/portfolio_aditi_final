@@ -8,42 +8,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
 import StarIcon from '../common/StarIcon';
-import { SparklesText } from '../ui/sparkles-text';
+import { HandWrittenTitle } from '../ui/hand-writing-text';
 
-const AnimatedText = ({ text, onAnimationComplete }: { text: string, onAnimationComplete: () => void }) => {
-  const letters = text.split('');
-  
-  useEffect(() => {
-    const totalAnimationTime = (letters.length * 0.05 + 0.5) * 1000;
-    const timer = setTimeout(() => {
-      onAnimationComplete();
-    }, totalAnimationTime);
-    return () => clearTimeout(timer);
-  }, [letters.length, onAnimationComplete]);
-
-  return (
-    <>
-      <span className="sr-only">{text}</span>
-      <span aria-hidden>
-        {letters.map((letter, index) => (
-          <motion.span
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: index * 0.05,
-              duration: 0.5,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            className="inline-block"
-          >
-            {letter === ' ' ? '\u00A0' : letter}
-          </motion.span>
-        ))}
-      </span>
-    </>
-  );
-};
 
 const FloatingImages = ({
   images,
@@ -147,7 +113,6 @@ const easterEggs = [
 
 const HeroSection = () => {
   const [isMounted, setIsMounted] = useState(false);
-  const [revealAnimationComplete, setRevealAnimationComplete] = useState(false);
   const [activeEgg, setActiveEgg] = useState<string | null>(null);
   const [popupMessage, setPopupMessage] = useState<string>('');
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
@@ -185,8 +150,6 @@ const HeroSection = () => {
       <div
         className="absolute inset-0 -z-20 subtle-grid"
         style={{
-          backgroundImage: 'linear-gradient(to right, hsla(var(--primary), 0.2) 1px, transparent 1px), linear-gradient(to bottom, hsla(var(--primary), 0.2) 1px, transparent 1px)',
-          backgroundSize: '40px 40px',
           backgroundColor: 'hsl(var(--background))'
         }}
       />
@@ -213,30 +176,23 @@ const HeroSection = () => {
         ))}
 
       <div className="relative z-10">
-        <h1 className="font-headline text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-foreground">
-          {isMounted && !revealAnimationComplete ? (
-              <AnimatedText text="Aditi Agrawal" onAnimationComplete={() => setRevealAnimationComplete(true)} />
-            ) : (
-              <SparklesText
-                text="Aditi Agrawal"
-                colors={{ first: '#FF4040', second: '#7DF9FF' }}
+        <HandWrittenTitle
+          title="Aditi Agrawal"
+          subtitle={
+            isMounted ? (
+              <TypingAnimation
+                texts={[
+                  'Digital Marketing Strategist',
+                  'Creative Solutionist',
+                  'Aesthetic Thinker',
+                  'Brand Storyteller',
+                ]}
               />
-            )}
-        </h1>
-        <div className="mt-4 text-lg md:text-xl lg:text-2xl text-muted-foreground font-body max-w-2xl mx-auto">
-          {isMounted ? (
-            <TypingAnimation
-              texts={[
-                'Digital Marketing Strategist',
-                'Creative Solutionist',
-                'Aesthetic Thinker',
-                'Brand Storyteller',
-              ]}
-            />
-          ) : (
-            'Digital Marketing Strategist & Creative Solutionist'
-          )}
-        </div>
+            ) : (
+              'Digital Marketing Strategist & Creative Solutionist'
+            )
+          }
+        />
       </div>
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30">
         <ChevronDown className="w-8 h-8 text-primary animate-bounce" />
