@@ -5,10 +5,10 @@ import Link from 'next/link';
 
 const socialLinks: Social[] = [
   {
-    name: 'Twitter',
+    name: 'Instagram',
     image:
-      'https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg',
-    url: 'https://twitter.com',
+      'https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png',
+    url: 'https://instagram.com',
   },
   {
     name: 'LinkedIn',
@@ -17,10 +17,10 @@ const socialLinks: Social[] = [
     url: 'https://linkedin.com',
   },
   {
-    name: 'GitHub',
+    name: 'Pinterest',
     image:
-      'https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg',
-    url: 'https://github.com',
+      'https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png',
+    url: 'https://pinterest.com',
   },
 ];
 
@@ -30,10 +30,7 @@ const Footer = () => {
       <div className="container mx-auto text-center text-muted-foreground">
         <div className="flex justify-center gap-6 mb-4">
           <AnimatedSocialLinks
-            socials={socialLinks.map((s) => ({
-              name: s.name,
-              image: s.image,
-            }))}
+            socials={socialLinks}
             className="!gap-6"
           />
         </div>

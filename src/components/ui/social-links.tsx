@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 export type Social = {
   name: string;
   image: string;
+  url: string;
 };
 
 interface AnimatedSocialLinksProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -44,7 +45,9 @@ const AnimatedSocialLinks = React.forwardRef<
     >
       {socials.map((social, index) => (
         <a
-          href="#"
+          href={social.url}
+          target="_blank"
+          rel="noopener noreferrer"
           className={`relative cursor-pointer px-5 py-2 transition-opacity duration-200 ${
             hoveredSocial && hoveredSocial !== social.name
               ? 'opacity-50'
