@@ -18,6 +18,7 @@ import { useToast } from '@/hooks/use-toast';
 import AnimateOnScroll from '../common/AnimateOnScroll';
 import { Loader2 } from 'lucide-react';
 import React from 'react';
+import StarIcon from '../common/StarIcon';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -72,7 +73,9 @@ const ContactSection = () => {
   }
 
   return (
-    <section id="contact" className="py-20 md:py-32 bg-background">
+    <section id="contact" className="py-20 md:py-32 bg-background relative overflow-hidden">
+      <StarIcon className="absolute top-1/2 left-1/4 w-32 h-32 text-primary/10 star-spin" style={{ animationDuration: '50s' }} />
+      <StarIcon className="absolute top-20 right-10 w-16 h-16 text-accent/20 star-spin" style={{ animationDuration: '30s', animationDirection: 'reverse' }} />
       <div className="container mx-auto max-w-3xl text-center">
         <AnimateOnScroll animation="slide-in-up">
           <h2 className="font-headline text-5xl md:text-6xl font-bold mb-4">

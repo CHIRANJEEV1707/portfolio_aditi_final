@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import AnimateOnScroll from '@/components/common/AnimateOnScroll';
+import StarIcon from '@/components/common/StarIcon';
 
 type ProjectPageProps = {
   params: {
@@ -29,7 +30,9 @@ export default function ProjectPage({ params }: ProjectPageProps) {
   const heroImage = PlaceHolderImages.find((img) => img.id === project.imageId);
 
   return (
-    <div className="pt-24 pb-12">
+    <div className="pt-24 pb-12 relative overflow-hidden">
+      <StarIcon className="absolute -top-10 -left-10 w-32 h-32 text-primary/10 star-spin" />
+      <StarIcon className="absolute bottom-20 -right-10 w-24 h-24 text-accent/10 star-spin" style={{ animationDuration: '30s' }} />
       <AnimateOnScroll animation="fade-in">
         <header className="container mx-auto mb-12">
           <Button asChild variant="ghost" className="mb-8">

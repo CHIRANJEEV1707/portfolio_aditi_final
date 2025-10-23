@@ -7,6 +7,7 @@ import EasterEgg from '@/components/common/EasterEgg';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
+import StarIcon from '../common/StarIcon';
 
 const AnimatedText = ({ text }: { text: string }) => {
   const letters = text.split('');
@@ -170,6 +171,10 @@ const HeroSection = () => {
       ref={constraintsRef}
       className="relative min-h-screen flex flex-col items-center justify-center text-center p-4"
     >
+      <StarIcon className="absolute top-[10%] left-[20%] w-8 h-8 text-primary/50 star-spin" style={{ animationDuration: '15s' }} />
+      <StarIcon className="absolute top-[80%] left-[5%] w-12 h-12 text-accent/50 star-spin" style={{ animationDuration: '25s' }}/>
+      <StarIcon className="absolute top-[15%] right-[5%] w-10 h-10 text-primary/50 star-spin" style={{ animationDuration: '20s' }} />
+      <StarIcon className="absolute bottom-[10%] right-[30%] w-6 h-6 text-accent/50 star-spin" style={{ animationDuration: '12s' }} />
       <div className="absolute inset-0 -z-20 bg-background" />
 
       {isMounted && (
