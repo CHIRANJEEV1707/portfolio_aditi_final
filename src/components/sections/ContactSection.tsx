@@ -12,13 +12,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import AnimateOnScroll from '../common/AnimateOnScroll';
 import { Loader2 } from 'lucide-react';
 import React from 'react';
 import StarIcon from '../common/StarIcon';
+import { AnimatedInput } from '../ui/animated-input';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -100,16 +100,15 @@ const ContactSection = () => {
         </AnimateOnScroll>
         <AnimateOnScroll animation="fade-in" delay="delay-300">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 text-left">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12 text-left">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your Name" {...field} />
+                        <AnimatedInput label="Your Name" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -120,9 +119,8 @@ const ContactSection = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="your@email.com" {...field} />
+                        <AnimatedInput label="your@email.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -134,11 +132,11 @@ const ContactSection = () => {
                 name="message"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Message</FormLabel>
+                    <FormLabel className="text-muted-foreground">Message</FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Tell me about your project..."
-                        className="min-h-[150px]"
+                        className="min-h-[150px] bg-transparent border-x-0 border-t-0 border-b-2 border-primary rounded-none focus-visible:ring-0 focus-visible:ring-offset-0"
                         {...field}
                       />
                     </FormControl>
