@@ -185,6 +185,7 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
+      <div className="absolute inset-0 -z-20 bg-background" />
       <FloatingShapes />
       
       {isMounted &&
