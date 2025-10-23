@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import TypingAnimation from '@/components/common/TypingAnimation';
 import EasterEgg from '@/components/common/EasterEgg';
 import { AnimatePresence, motion } from 'framer-motion';
+import WaveAnimation from '../common/WaveAnimation';
 
 const AnimatedText = ({ text }: { text: string }) => {
   const letters = text.split('');
@@ -237,6 +238,9 @@ const HeroSection = () => {
           </div>
         )}
       </AnimatePresence>
+      <div className="absolute bottom-0 left-0 right-0">
+        <WaveAnimation />
+      </div>
     </section>
   );
 };
