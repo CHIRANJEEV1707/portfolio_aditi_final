@@ -109,7 +109,7 @@ const easterEggs = [
   },
   {
     char: '✦',
-    className: 'top-[55%] right-[10%]',
+    className: 'top-[55%] right-[5%]',
     message: 'Every pixel has a purpose ✦',
   },
 ];
