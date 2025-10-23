@@ -4,20 +4,20 @@
 
 @layer base {
   :root {
-    --background: 217 91% 60%; /* #3b82f6 */
-    --foreground: 27 27% 94%; /* #f5efeb */
+    --background: 27 27% 94%; /* #f5efeb */
+    --foreground: 217 91% 60%; /* #3b82f6 */
     --card: 217 91% 55%;
     --card-foreground: 27 27% 94%;
     --popover: 217 91% 55%;
     --popover-foreground: 27 27% 94%;
-    --primary: 27 27% 94%;
-    --primary-foreground: 217 91% 60%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 27 27% 94%;
     --secondary: 217 91% 50%;
     --secondary-foreground: 27 27% 94%;
     --muted: 217 91% 50%;
     --muted-foreground: 27 27% 80%;
-    --accent: 27 27% 94%;
-    --accent-foreground: 217 91% 60%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 27 27% 94%;
     --destructive: 0 70% 50%;
     --destructive-foreground: 27 27% 94%;
     --border: 217 91% 50%;
@@ -67,12 +67,6 @@
     @apply bg-background text-foreground;
   }
   
-  @media (hover: hover) and (pointer: fine) {
-    html:not(.no-cursor), html:not(.no-cursor) body, html:not(.no-cursor) a, html:not(.no-cursor) button {
-      cursor: none;
-    }
-  }
-
   .letter-reveal {
     display: inline-block;
     opacity: 0;
