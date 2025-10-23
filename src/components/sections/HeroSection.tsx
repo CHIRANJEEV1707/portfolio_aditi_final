@@ -37,7 +37,7 @@ const easterEggs = [
   { char: '✨', className: 'top-[10%] left-[5%]', message: 'You found me! 🌸' },
   { char: '🎨', className: 'bottom-[15%] right-[5%]', message: 'Creative minds notice details 💙' },
   { char: '💡', className: 'top-[20%] right-[10%]', message: 'Hidden spark unlocked ✨' },
-  { char: '💭', className: 'bottom-[35%] left-[5%]', message: 'Imagination builds worlds ✨' },
+  { char: '💭', className: 'bottom-[35%] left-[2%]', message: 'Imagination builds worlds ✨' },
   { char: '✦', className: 'bottom-[20%] left-[10%]', message: 'Every pixel has a purpose ✦' },
 ];
 
@@ -111,9 +111,9 @@ const HeroSection = () => {
       <AnimatePresence>
         {activeEgg && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
             transition={{ type: 'spring', damping: 20, stiffness: 300 }}
             className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50"
           >
