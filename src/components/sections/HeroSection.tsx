@@ -115,7 +115,7 @@ const FloatingShapes = () => {
   ];
 
   return (
-    <div className="absolute inset-0 -z-10 overflow-hidden">
+    <div className="absolute inset-0 -z-10">
       {shapes.map((shape, index) => (
         <motion.div
           key={index}
@@ -141,7 +141,7 @@ const FloatingImages = ({ constraintsRef }: { constraintsRef: React.RefObject<HT
   ];
 
   return (
-    <div className="absolute inset-0 -z-10 overflow-hidden">
+    <div className="absolute inset-0 -z-10">
       {images.map((image, index) => {
         if (!image) return null;
         const style = imageStyles[index % imageStyles.length];
