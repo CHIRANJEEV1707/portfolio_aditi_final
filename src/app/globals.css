@@ -110,7 +110,17 @@
   }
 
   .subtle-grid {
-    background-image: linear-gradient(to right, hsla(var(--foreground), 0.05) 1px, transparent 1px), linear-gradient(to bottom, hsla(var(--foreground), 0.05) 1px, transparent 1px);
+    background-image: linear-gradient(to right, hsla(var(--primary), 0.1) 1px, transparent 1px), linear-gradient(to bottom, hsla(var(--primary), 0.1) 1px, transparent 1px);
     background-size: 40px 40px;
+    animation: pulse-grid 8s infinite ease-in-out;
+  }
+  
+  @keyframes pulse-grid {
+    0%, 100% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
   }
 }

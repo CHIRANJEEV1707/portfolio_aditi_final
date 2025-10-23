@@ -73,7 +73,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-background" />
         <div className="absolute inset-0 subtle-grid" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.25),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.15),transparent_60%)]" />
       </div>
 
       {isMounted && easterEggs.map((egg, index) => (
