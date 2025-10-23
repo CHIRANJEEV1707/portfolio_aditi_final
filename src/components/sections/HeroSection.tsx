@@ -1,8 +1,18 @@
 'use client';
 
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Heart } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import TypingAnimation from '@/components/common/TypingAnimation';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import { Button } from '../ui/button';
 
 const AnimatedText = ({ text }: { text: string }) => {
   const letters = text.split('');
@@ -16,7 +26,7 @@ const AnimatedText = ({ text }: { text: string }) => {
             className="letter-reveal"
             style={{ animationDelay: `${index * 0.05}s` }}
           >
-            {letter === ' ' ? ' ' : letter}
+            {letter === ' ' ? ' ' : letter}
           </span>
         ))}
       </span>
@@ -42,6 +52,7 @@ const FloatingElement = ({
 
 const HeroSection = () => {
   const [isMounted, setIsMounted] = useState(false);
+  const [isEasterEggVisible, setIsEasterEggVisible] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
@@ -49,12 +60,10 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
-      {/* Container for background elements */}
-      <div className="absolute inset-0 z-0">
-        {/* Radial Gradient Glow */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-background" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.25),transparent_60%)]" />
 
-        {/* Floating Elements */}
         <FloatingElement className="top-[15%] left-[10%] float-anim">🎨</FloatingElement>
         <FloatingElement className="bottom-[20%] right-[15%] float-anim-reverse">✨</FloatingElement>
         <FloatingElement className="top-[50%] right-[5%] text-5xl float-anim">
@@ -69,6 +78,15 @@ const HeroSection = () => {
         <FloatingElement className="bottom-[45%] left-[15%] text-5xl float-anim-reverse">
           👾
         </FloatingElement>
+
+        <button
+          onClick={() => setIsEasterEggVisible(true)}
+          className="absolute top-[30%] left-[5%] text-2xl float-anim-reverse"
+          style={{ animationDuration: '10s' }}
+          aria-label="A little secret"
+        >
+          <Heart className="w-8 h-8 text-primary/50 hover:text-primary transition-colors" />
+        </button>
       </div>
 
       <div className="relative z-10">
@@ -93,6 +111,23 @@ const HeroSection = () => {
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
         <ChevronDown className="w-8 h-8 text-primary animate-bounce" />
       </div>
+
+      <AlertDialog open={isEasterEggVisible} onOpenChange={setIsEasterEggVisible}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>You Found a Secret!</AlertDialogTitle>
+            <AlertDialogDescription className="text-lg py-4">
+              My secret to creativity is a good cup of coffee and a playlist of lo-fi beats.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction asChild>
+              <Button onClick={() => setIsEasterEggVisible(false)} className="bg-primary hover:bg-primary/90">Got it!</Button>
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
     </section>
   );
 };

@@ -126,4 +126,9 @@
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
   }
+
+  .subtle-grid {
+    background-image: linear-gradient(to right, hsla(var(--foreground), 0.05) 1px, transparent 1px), linear-gradient(to bottom, hsla(var(--foreground), 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
 }
