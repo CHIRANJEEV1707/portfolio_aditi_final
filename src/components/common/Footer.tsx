@@ -8,7 +8,7 @@ const socialLinks: Social[] = [
     name: 'Instagram',
     image:
       'https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png',
-    url: 'https://instagram.com',
+    url: 'https://www.instagram.com/aditiii_a13?igsh=bXIycnp1YWhuNm1p&utm_source=qr',
   },
   {
     name: 'LinkedIn',
