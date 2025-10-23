@@ -5,7 +5,6 @@ import React, { useEffect, useState, useCallback } from 'react';
 import TypingAnimation from '@/components/common/TypingAnimation';
 import EasterEgg from '@/components/common/EasterEgg';
 import SuccessPopup from '@/components/common/SuccessPopup';
-import { cn } from '@/lib/utils';
 
 const AnimatedText = ({ text }: { text: string }) => {
   const letters = text.split('');
@@ -30,7 +29,7 @@ const AnimatedText = ({ text }: { text: string }) => {
 const easterEggs = [
   { id: 'sparkle', char: '✨', message: 'You found me! 🌸', className: 'top-[20%] left-[5%] md:left-[15%]' },
   { id: 'art', char: '🎨', message: 'Creative minds notice details 💙', className: 'top-[75%] right-[5%] md:right-[15%]' },
-  { id: 'idea', char: '💡', message: 'Hidden spark unlocked ✨', className: 'top-[40%] right-[10%] md:right-[20%]' },
+  { id: 'idea', char: '💡', message: 'Hidden spark unlocked ✨', className: 'bottom-[15%] left-[20%] md:left-[30%]' },
 ];
 
 const HeroSection = () => {
