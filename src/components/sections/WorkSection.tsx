@@ -8,7 +8,15 @@ import Image from 'next/image';
 const WorkSection = () => {
   const ref = useRef<HTMLDivElement>(null);
 
-  const imageIds = ['work-trail-1', 'work-trail-2', 'work-trail-3', 'work-trail-4'];
+  const imageIds = [
+    'work-trail-1',
+    'work-trail-2',
+    'work-trail-3',
+    'work-trail-4',
+    'work-trail-5',
+    'work-trail-6',
+    'work-trail-7',
+  ];
   const trailImages = PlaceHolderImages.filter((img) =>
     imageIds.includes(img.id)
   );
