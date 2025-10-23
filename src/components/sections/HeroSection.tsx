@@ -6,7 +6,7 @@ import TypingAnimation from '@/components/common/TypingAnimation';
 import EasterEgg from '@/components/common/EasterEgg';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
 
 const AnimatedText = ({ text }: { text: string }) => {
   const letters = text.split('');
@@ -34,105 +34,13 @@ const AnimatedText = ({ text }: { text: string }) => {
   );
 };
 
-const FloatingShapes = () => {
-  const shapes = [
-    {
-      style: {
-        width: '15rem',
-        height: '15rem',
-        top: '10%',
-        left: '10%',
-        background: 'hsla(var(--foreground), 0.1)',
-      },
-      animate: {
-        x: [0, 20, 0, -20, 0],
-        y: [0, -30, 0, 30, 0],
-      },
-      transition: {
-        duration: 20,
-        repeat: Infinity,
-        repeatType: 'reverse',
-        ease: 'easeInOut',
-      },
-    },
-    {
-      style: {
-        width: '10rem',
-        height: '10rem',
-        top: '60%',
-        left: '80%',
-        background: 'hsla(var(--accent), 0.15)',
-      },
-      animate: {
-        x: [0, -40, 0, 40, 0],
-        y: [0, 50, 0, -50, 0],
-      },
-      transition: {
-        duration: 25,
-        repeat: Infinity,
-        repeatType: 'reverse',
-        ease: 'easeInOut',
-      },
-    },
-    {
-      style: {
-        width: '8rem',
-        height: '8rem',
-        top: '75%',
-        left: '20%',
-        background: 'hsla(var(--foreground), 0.12)',
-      },
-      animate: {
-        x: [0, 30, 0, -30, 0],
-        y: [0, -20, 0, 20, 0],
-      },
-      transition: {
-        duration: 18,
-        repeat: Infinity,
-        repeatType: 'reverse',
-        ease: 'easeInOut',
-      },
-    },
-     {
-      style: {
-        width: '20rem',
-        height: '20rem',
-        top: '25%',
-        left: '50%',
-        background: 'hsla(var(--accent), 0.08)',
-      },
-      animate: {
-        x: [0, 50, 0, -50, 0],
-        y: [0, -40, 0, 40, 0],
-      },
-      transition: {
-        duration: 30,
-        repeat: Infinity,
-        repeatType: 'reverse',
-        ease: 'easeInOut',
-      },
-    },
-  ];
-
-  return (
-    <div className="absolute inset-0 -z-10">
-      {shapes.map((shape, index) => (
-        <motion.div
-          key={index}
-          className="absolute rounded-full filter blur-3xl"
-          style={shape.style}
-          animate={shape.animate}
-          transition={shape.transition}
-        />
-      ))}
-    </div>
-  );
-};
-
-const FloatingImages = ({ constraintsRef }: { constraintsRef: React.RefObject<HTMLElement> }) => {
-  const imageIds = ['project-1', 'project-2', 'project-3', 'project-4'];
-  const images = PlaceHolderImages.filter(img => imageIds.includes(img.id));
-
+const FloatingImages = ({
+  images,
+  constraintsRef,
+}: {
+  images: ImagePlaceholder[];
+  constraintsRef: React.RefObject<HTMLElement>;
+}) => {
   const imageStyles = [
     { top: '15%', left: '80%', size: 150, duration: 25, rotate: -5 },
     { top: '70%', left: '10%', size: 120, duration: 30, rotate: 10 },
@@ -141,9 +49,8 @@ const FloatingImages = ({ constraintsRef }: { constraintsRef: React.RefObject<HT
   ];
 
   return (
-    <div className="absolute inset-0 -z-10">
+    <>
       {images.map((image, index) => {
-        if (!image) return null;
         const style = imageStyles[index % imageStyles.length];
         return (
           <motion.div
@@ -155,17 +62,34 @@ const FloatingImages = ({ constraintsRef }: { constraintsRef: React.RefObject<HT
               width: `${style.size}px`,
               height: `${style.size * 0.75}px`,
             }}
-            animate={{ y: [-10, 10], rotate: [style.rotate - 2, style.rotate + 2] }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ 
+              opacity: 1, 
+              scale: 1,
+              y: [-10, 10], 
+              rotate: [style.rotate - 2, style.rotate + 2] 
+            }}
             transition={{
-              duration: style.duration,
-              repeat: Infinity,
-              repeatType: 'reverse',
-              ease: 'easeInOut',
+              opacity: { duration: 0.5, delay: index * 0.2 },
+              scale: { duration: 0.5, delay: index * 0.2 },
+              y: {
+                duration: style.duration,
+                repeat: Infinity,
+                repeatType: 'reverse',
+                ease: 'easeInOut',
+              },
+               rotate: {
+                duration: style.duration,
+                repeat: Infinity,
+                repeatType: 'reverse',
+                ease: 'easeInOut',
+              }
             }}
             drag
             dragConstraints={constraintsRef}
             dragMomentum={false}
-            whileDrag={{ scale: 1.1, zIndex: 50, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)" }}
+            whileHover={{ scale: 1.1, zIndex: 20, filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.2))' }}
+            whileDrag={{ scale: 1.2, zIndex: 30, filter: 'drop-shadow(0 25px 25px rgba(0,0,0,0.3))' }}
           >
             <Image
               src={image.imageUrl}
@@ -173,14 +97,14 @@ const FloatingImages = ({ constraintsRef }: { constraintsRef: React.RefObject<HT
               fill
               className="object-cover rounded-lg pointer-events-none"
               sizes={`${style.size}px`}
+              priority
             />
           </motion.div>
         );
       })}
-    </div>
+    </>
   );
 };
-
 
 const easterEggs = [
   {
@@ -217,6 +141,8 @@ const HeroSection = () => {
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const constraintsRef = useRef<HTMLDivElement>(null);
 
+  const imageIds = ['project-1', 'project-2', 'project-3', 'project-4'];
+  const floatingImages = PlaceHolderImages.filter(img => imageIds.includes(img.id));
 
   useEffect(() => {
     setIsMounted(true);
@@ -240,14 +166,16 @@ const HeroSection = () => {
   };
 
   return (
-    <section 
+    <section
       ref={constraintsRef}
-      className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center text-center p-4"
     >
       <div className="absolute inset-0 -z-20 bg-background" />
-      <FloatingShapes />
-      <FloatingImages constraintsRef={constraintsRef}/>
-      
+
+      {isMounted && (
+        <FloatingImages images={floatingImages} constraintsRef={constraintsRef} />
+      )}
+
       {isMounted &&
         easterEggs.map((egg, index) => (
           <EasterEgg
