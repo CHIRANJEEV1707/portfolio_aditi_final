@@ -25,10 +25,9 @@ export function ComicText({
 
   return (
     <motion.div
-      className={cn("select-none text-center", className)}
+      className={cn("select-none text-center font-headline", className)}
       style={{
         fontSize: `${fontSize}rem`,
-        fontFamily: "'Bangers', 'Comic Sans MS', 'Impact', sans-serif",
         fontWeight: "900",
         WebkitTextStroke: `${fontSize * 0.35}px #000000`, // Thick black outline
         transform: "skewX(-10deg)",
@@ -57,5 +56,3 @@ export function ComicText({
     </motion.div>
   );
 }
-
-    
