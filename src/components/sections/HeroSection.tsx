@@ -24,10 +24,10 @@ const FloatingImages = ({
   constraintsRef: React.RefObject<HTMLElement>;
 }) => {
   const imageStyles = [
-    { top: '15%', left: '80%', width: 150, duration: 25, rotate: -5 },
-    { top: '70%', left: '10%', width: 120, duration: 30, rotate: 10 },
-    { top: '5%', left: '20%', width: 100, duration: 20, rotate: -8 },
-    { top: '80%', left: '75%', width: 180, duration: 35, rotate: 12 },
+    { top: '10%', left: '10%', width: 150, duration: 25, rotate: -5 },
+    { top: '65%', left: '80%', width: 120, duration: 30, rotate: 10 },
+    { top: '5%', left: '70%', width: 100, duration: 20, rotate: -8 },
+    { top: '75%', left: '5%', width: 180, duration: 35, rotate: 12 },
   ];
 
   return (
@@ -100,27 +100,27 @@ const FloatingImages = ({
 const easterEggs = [
   {
     char: '✨',
-    className: 'top-[15%] left-[5%]',
+    className: 'top-[10%] left-[5%]',
     message: 'You found me! 🌸',
   },
   {
     char: '🎨',
-    className: 'bottom-[10%] right-[5%]',
+    className: 'bottom-[15%] right-[5%]',
     message: 'Creative minds notice details 💙',
   },
   {
     char: '💡',
-    className: 'top-[20%] right-[10%]',
+    className: 'top-[15%] right-[5%]',
     message: 'Hidden spark unlocked ✨',
   },
   {
     char: '💭',
-    className: 'bottom-[25%] left-[15%]',
+    className: 'bottom-[20%] left-[10%]',
     message: 'Imagination builds worlds ✨',
   },
   {
     char: '✦',
-    className: 'top-[55%] right-[2%]',
+    className: 'top-[50%] right-[2%]',
     message: 'Every pixel has a purpose ✦',
   },
 ];
@@ -166,7 +166,7 @@ const HeroSection = () => {
       ref={constraintsRef}
       className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
     >
-      <div className="absolute inset-0 subtle-grid z-0 pointer-events-none"></div>
+      <div className="absolute inset-0 subtle-grid opacity-50 z-0 pointer-events-none"></div>
 
       <StarIcon
         className="absolute top-[10%] left-[20%] w-8 h-8 text-primary/50 star-spin -z-10"
