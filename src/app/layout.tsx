@@ -6,6 +6,7 @@ import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import CustomCursor from '@/components/common/CustomCursor';
+import PageTransition from '@/components/common/PageTransition';
 
 const fontHeadline = Poppins({
   subsets: ['latin'],
@@ -41,7 +42,9 @@ export default function RootLayout({
       >
         <CustomCursor />
         <Header />
-        <main className="flex-grow">{children}</main>
+        <PageTransition>
+          <main className="flex-grow">{children}</main>
+        </PageTransition>
         <Footer />
         <Toaster />
       </body>
