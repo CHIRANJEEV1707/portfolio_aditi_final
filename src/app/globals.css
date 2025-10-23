@@ -126,13 +126,4 @@
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
   }
-  
-  .subtle-grid {
-    background-image: linear-gradient(hsl(var(--foreground)) 1px, transparent 1px),
-      linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px);
-    background-size: 4rem 4rem;
-    background-position: center center;
-    background-color: hsl(var(--background));
-    opacity: 0.05;
-  }
 }

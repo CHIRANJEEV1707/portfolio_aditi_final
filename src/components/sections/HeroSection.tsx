@@ -48,7 +48,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden subtle-grid">
+    <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
       {/* Container for background elements */}
       <div className="absolute inset-0 z-0">
         {/* Radial Gradient Glow */}
