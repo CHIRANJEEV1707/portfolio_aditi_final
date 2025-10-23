@@ -7,12 +7,14 @@ import TypingAnimation from '@/components/common/TypingAnimation';
 import EasterEgg from '@/components/common/EasterEgg';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
+import {
+  PlaceHolderImages,
+  type ImagePlaceholder,
+} from '@/lib/placeholder-images';
 import StarIcon from '../common/StarIcon';
 import { ComicText } from '../ui/comic-text';
 import SquiggleIcon from '../common/SquiggleIcon';
 import PlusIcon from '../common/PlusIcon';
-
 
 const FloatingImages = ({
   images,
@@ -24,8 +26,8 @@ const FloatingImages = ({
   const imageStyles = [
     { top: '15%', left: '80%', width: 150, duration: 25, rotate: -5 },
     { top: '70%', left: '10%', width: 120, duration: 30, rotate: 10 },
-    { top: '5%', left: '30%', width: 100, duration: 20, rotate: -8 },
-    { top: '80%', left: '70%', width: 180, duration: 35, rotate: 12 },
+    { top: '5%', left: '20%', width: 100, duration: 20, rotate: -8 },
+    { top: '80%', left: '75%', width: 180, duration: 35, rotate: 12 },
   ];
 
   return (
@@ -43,11 +45,11 @@ const FloatingImages = ({
               height: 'auto',
             }}
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ 
-              opacity: 1, 
+            animate={{
+              opacity: 1,
               scale: 1,
-              y: [-10, 10], 
-              rotate: [style.rotate - 2, style.rotate + 2] 
+              y: [-10, 10],
+              rotate: [style.rotate - 2, style.rotate + 2],
             }}
             transition={{
               opacity: { duration: 0.5, delay: index * 0.2 },
@@ -58,18 +60,26 @@ const FloatingImages = ({
                 repeatType: 'reverse',
                 ease: 'easeInOut',
               },
-               rotate: {
+              rotate: {
                 duration: style.duration,
                 repeat: Infinity,
                 repeatType: 'reverse',
                 ease: 'easeInOut',
-              }
+              },
             }}
             drag
             dragConstraints={constraintsRef}
             dragMomentum={false}
-            whileHover={{ scale: 1.1, zIndex: 20, filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.2))' }}
-            whileDrag={{ scale: 1.2, zIndex: 30, filter: 'drop-shadow(0 25px 25px rgba(0,0,0,0.3))' }}
+            whileHover={{
+              scale: 1.1,
+              zIndex: 20,
+              filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.2))',
+            }}
+            whileDrag={{
+              scale: 1.2,
+              zIndex: 30,
+              filter: 'drop-shadow(0 25px 25px rgba(0,0,0,0.3))',
+            }}
           >
             <Image
               src={image.imageUrl}
@@ -90,27 +100,27 @@ const FloatingImages = ({
 const easterEggs = [
   {
     char: '✨',
-    className: 'top-[15%] left-[10%]',
+    className: 'top-[15%] left-[5%]',
     message: 'You found me! 🌸',
   },
   {
     char: '🎨',
-    className: 'bottom-[10%] right-[15%]',
+    className: 'bottom-[10%] right-[5%]',
     message: 'Creative minds notice details 💙',
   },
   {
     char: '💡',
-    className: 'top-[20%] right-[20%]',
+    className: 'top-[20%] right-[10%]',
     message: 'Hidden spark unlocked ✨',
   },
   {
     char: '💭',
-    className: 'bottom-[25%] left-[25%]',
+    className: 'bottom-[25%] left-[15%]',
     message: 'Imagination builds worlds ✨',
   },
   {
     char: '✦',
-    className: 'top-[55%] right-[5%]',
+    className: 'top-[55%] right-[2%]',
     message: 'Every pixel has a purpose ✦',
   },
 ];
@@ -123,7 +133,9 @@ const HeroSection = () => {
   const constraintsRef = useRef<HTMLDivElement>(null);
 
   const imageIds = ['hero-1', 'hero-2', 'hero-3', 'hero-4'];
-  const floatingImages = PlaceHolderImages.filter(img => imageIds.includes(img.id));
+  const floatingImages = PlaceHolderImages.filter((img) =>
+    imageIds.includes(img.id)
+  );
 
   useEffect(() => {
     setIsMounted(true);
@@ -145,8 +157,8 @@ const HeroSection = () => {
     setActiveEgg(message);
     audio?.play().catch((err) => console.error('Audio play failed:', err));
   };
-  
-  const title = "Aditi Agrawal";
+
+  const title = 'Aditi Agrawal';
 
   return (
     <section
@@ -154,22 +166,48 @@ const HeroSection = () => {
       ref={constraintsRef}
       className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
     >
-      
       <div className="absolute inset-0 subtle-grid z-0 pointer-events-none"></div>
 
-      <StarIcon className="absolute top-[10%] left-[20%] w-8 h-8 text-primary/50 star-spin -z-10" style={{ animationDuration: '15s' }} />
-      <StarIcon className="absolute top-[80%] left-[5%] w-12 h-12 text-accent/50 star-spin -z-10" style={{ animationDuration: '25s' }}/>
-      <StarIcon className="absolute top-[15%] right-[5%] w-10 h-10 text-primary/50 star-spin -z-10" style={{ animationDuration: '20s' }} />
-      <StarIcon className="absolute bottom-[10%] right-[30%] w-6 h-6 text-accent/50 star-spin -z-10" style={{ animationDuration: '12s' }} />
-      
-      <SquiggleIcon className="absolute top-[5%] left-[50%] w-24 h-24 text-primary/20 star-spin -z-10" style={{ animationDuration: '40s', animationDirection: 'reverse' }} />
-      <PlusIcon className="absolute top-[85%] left-[85%] w-10 h-10 text-accent/50 star-spin -z-10" style={{ animationDuration: '18s' }} />
-      <SquiggleIcon className="absolute bottom-[5%] right-[5%] w-16 h-16 text-accent/30 star-spin -z-10" style={{ animationDuration: '30s' }} />
-      <PlusIcon className="absolute bottom-[30%] left-[10%] w-8 h-8 text-primary/40 star-spin -z-10" style={{ animationDuration: '22s', animationDirection: 'reverse' }}/>
+      <StarIcon
+        className="absolute top-[10%] left-[20%] w-8 h-8 text-primary/50 star-spin -z-10"
+        style={{ animationDuration: '15s' }}
+      />
+      <StarIcon
+        className="absolute top-[80%] left-[5%] w-12 h-12 text-accent/50 star-spin -z-10"
+        style={{ animationDuration: '25s' }}
+      />
+      <StarIcon
+        className="absolute top-[15%] right-[5%] w-10 h-10 text-primary/50 star-spin -z-10"
+        style={{ animationDuration: '20s' }}
+      />
+      <StarIcon
+        className="absolute bottom-[10%] right-[30%] w-6 h-6 text-accent/50 star-spin -z-10"
+        style={{ animationDuration: '12s' }}
+      />
+
+      <SquiggleIcon
+        className="absolute top-[5%] left-[50%] w-24 h-24 text-primary/20 star-spin -z-10"
+        style={{ animationDuration: '40s', animationDirection: 'reverse' }}
+      />
+      <PlusIcon
+        className="absolute top-[85%] left-[85%] w-10 h-10 text-accent/50 star-spin -z-10"
+        style={{ animationDuration: '18s' }}
+      />
+      <SquiggleIcon
+        className="absolute bottom-[5%] right-[5%] w-16 h-16 text-accent/30 star-spin -z-10"
+        style={{ animationDuration: '30s' }}
+      />
+      <PlusIcon
+        className="absolute bottom-[30%] left-[10%] w-8 h-8 text-primary/40 star-spin -z-10"
+        style={{ animationDuration: '22s', animationDirection: 'reverse' }}
+      />
 
       <div className="relative z-10">
         {isMounted && (
-          <FloatingImages images={floatingImages} constraintsRef={constraintsRef} />
+          <FloatingImages
+            images={floatingImages}
+            constraintsRef={constraintsRef}
+          />
         )}
 
         {isMounted &&
@@ -187,35 +225,37 @@ const HeroSection = () => {
           <div className="flex justify-center">
             <ComicText
               fontSize={6}
-              style={{
-                '--dot-color': 'hsl(var(--primary))',
-                '--background-color': 'hsl(var(--accent))',
-                fontFamily: 'var(--font-headline)',
-              } as React.CSSProperties}
+              style={
+                {
+                  '--dot-color': 'hsl(var(--primary))',
+                  '--background-color': 'hsl(var(--accent))',
+                  fontFamily: 'var(--font-headline)',
+                } as React.CSSProperties
+              }
             >
               {title}
             </ComicText>
           </div>
           <div className="mt-4 text-lg md:text-xl lg:text-2xl text-muted-foreground font-body max-w-2xl mx-auto">
-              {isMounted ? (
-                <TypingAnimation
-                  texts={[
-                    'Digital Marketing Strategist',
-                    'Creative Solutionist',
-                    'Aesthetic Thinker',
-                    'Brand Storyteller',
-                  ]}
-                  typingSpeed={80}
-                  deletingSpeed={40}
-                  pauseDuration={2500}
-                />
-              ) : (
-                'Digital Marketing Strategist & Creative Solutionist'
-              )}
+            {isMounted ? (
+              <TypingAnimation
+                texts={[
+                  'Digital Marketing Strategist',
+                  'Creative Solutionist',
+                  'Aesthetic Thinker',
+                  'Brand Storyteller',
+                ]}
+                typingSpeed={80}
+                deletingSpeed={40}
+                pauseDuration={2500}
+              />
+            ) : (
+              'Digital Marketing Strategist & Creative Solutionist'
+            )}
           </div>
         </div>
       </div>
-      
+
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30">
         <ChevronDown className="w-8 h-8 text-primary animate-bounce" />
       </div>
@@ -240,5 +280,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
-    
