@@ -53,7 +53,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,hsl(var(--foreground))_0.5px,transparent_0.5px),linear-gradient(to_bottom,hsl(var(--foreground))_0.5px,transparent_0.5px)] bg-[size:3rem_3rem] opacity-10"></div>
 
       {/* Radial Gradient Glow */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.15),transparent_50%)]"></div>
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.15),transparent_60%)]"></div>
 
       {/* Floating Elements */}
       <FloatingElement className="top-[15%] left-[10%] float-anim">🎨</FloatingElement>
@@ -82,6 +82,8 @@ const HeroSection = () => {
               texts={[
                 'Digital Marketing Strategist',
                 'Creative Solutionist',
+                'Aesthetic Thinker',
+                'Brand Storyteller',
               ]}
             />
           ) : (
