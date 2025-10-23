@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -106,6 +107,7 @@
   .subtle-grid {
     background-image: linear-gradient(to right, hsla(var(--primary), 0.2) 1px, transparent 1px), linear-gradient(to bottom, hsla(var(--primary), 0.2) 1px, transparent 1px);
     background-size: 40px 40px;
+    animation: pulse-grid 8s ease-in-out infinite;
   }
   
   @keyframes pulse-grid {

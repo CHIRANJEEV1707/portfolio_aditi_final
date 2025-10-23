@@ -75,7 +75,7 @@ const FloatingImages = ({
               src={image.imageUrl}
               alt={image.description}
               width={style.width}
-              height={style.width * (3/4)} // Assuming a 4:3 aspect ratio for initial render, will adjust based on image file
+              height={(style.width * 3) / 4}
               className="object-cover rounded-lg pointer-events-none"
               sizes={`${style.width}px`}
               priority
@@ -149,6 +149,8 @@ const HeroSection = () => {
     audio?.play().catch((err) => console.error('Audio play failed:', err));
   };
 
+  const title = "Aditi Agrawal";
+
   return (
     <section
       id="home"
@@ -185,16 +187,29 @@ const HeroSection = () => {
       <div className="relative z-10 text-center flex flex-col items-center justify-center">
         <AnimatePresence>
           {showTitle && (
-            <ComicText
-              fontSize={6}
-              style={{
-                '--dot-color': 'hsl(var(--primary))',
-                '--background-color': 'hsl(var(--accent))',
-                fontFamily: 'var(--font-headline)',
-              } as React.CSSProperties}
-            >
-              Aditi Agrawal
-            </ComicText>
+            <div className="flex justify-center">
+              {title.split("").map((char, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05, type: 'spring', stiffness: 300, damping: 20 }}
+                >
+                  <ComicText
+                    fontSize={6}
+                    style={{
+                      '--dot-color': 'hsl(var(--primary))',
+                      '--background-color': 'hsl(var(--accent))',
+                      fontFamily: 'var(--font-headline)',
+                      padding: '0 0.1ch',
+                      minWidth: char === ' ' ? '0.5ch' : 'auto'
+                    } as React.CSSProperties}
+                  >
+                    {char === ' ' ? '\u00A0' : char}
+                  </ComicText>
+                </motion.div>
+              ))}
+            </div>
           )}
         </AnimatePresence>
         <motion.div
@@ -211,6 +226,9 @@ const HeroSection = () => {
                   'Aesthetic Thinker',
                   'Brand Storyteller',
                 ]}
+                typingSpeed={80}
+                deletingSpeed={40}
+                pauseDuration={2500}
               />
             ) : (
               'Digital Marketing Strategist & Creative Solutionist'
