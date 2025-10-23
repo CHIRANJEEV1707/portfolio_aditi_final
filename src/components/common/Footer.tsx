@@ -20,7 +20,7 @@ const socialLinks: Social[] = [
     name: 'Pinterest',
     image:
       'https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png',
-    url: 'https://pinterest.com',
+    url: 'https://pin.it/5Ld21II1O',
   },
 ];
 
