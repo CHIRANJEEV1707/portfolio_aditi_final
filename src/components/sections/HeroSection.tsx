@@ -24,10 +24,10 @@ const FloatingImages = ({
   constraintsRef: React.RefObject<HTMLElement>;
 }) => {
   const imageStyles = [
-    { top: '10%', left: '10%', width: 150, duration: 25, rotate: -5 },
-    { top: '65%', left: '80%', width: 120, duration: 30, rotate: 10 },
-    { top: '5%', left: '70%', width: 100, duration: 20, rotate: -8 },
-    { top: '75%', left: '5%', width: 180, duration: 35, rotate: 12 },
+    { top: '5%', left: '5%', width: 150, duration: 25, rotate: -5 },
+    { top: '60%', left: '90%', width: 120, duration: 30, rotate: 10 },
+    { top: '5%', left: '85%', width: 100, duration: 20, rotate: -8 },
+    { top: '70%', left: '5%', width: 180, duration: 35, rotate: 12 },
   ];
 
   return (
@@ -85,7 +85,7 @@ const FloatingImages = ({
               src={image.imageUrl}
               alt={image.description}
               width={style.width}
-              height={(style.width * 3) / 4}
+              height={(style.width * 4) / 3}
               className="object-cover rounded-lg pointer-events-none"
               sizes={`${style.width}px`}
               priority
@@ -100,27 +100,27 @@ const FloatingImages = ({
 const easterEggs = [
   {
     char: '✨',
-    className: 'top-[10%] left-[5%]',
+    className: 'top-[5%] left-[2%]',
     message: 'You found me! 🌸',
   },
   {
     char: '🎨',
-    className: 'bottom-[15%] right-[5%]',
+    className: 'bottom-[5%] right-[2%]',
     message: 'Creative minds notice details 💙',
   },
   {
     char: '💡',
-    className: 'top-[15%] right-[5%]',
+    className: 'top-[5%] right-[2%]',
     message: 'Hidden spark unlocked ✨',
   },
   {
     char: '💭',
-    className: 'bottom-[20%] left-[10%]',
+    className: 'bottom-[5%] left-[2%]',
     message: 'Imagination builds worlds ✨',
   },
   {
     char: '✦',
-    className: 'top-[50%] right-[2%]',
+    className: 'top-[50%] right-[1%]',
     message: 'Every pixel has a purpose ✦',
   },
 ];
@@ -166,7 +166,7 @@ const HeroSection = () => {
       ref={constraintsRef}
       className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
     >
-      <div className="absolute inset-0 subtle-grid opacity-50 z-0 pointer-events-none"></div>
+      <div className="absolute inset-0 subtle-grid bg-accent/5 z-0 pointer-events-none"></div>
 
       <StarIcon
         className="absolute top-[10%] left-[20%] w-8 h-8 text-primary/50 star-spin -z-10"
@@ -201,8 +201,9 @@ const HeroSection = () => {
         className="absolute bottom-[30%] left-[10%] w-8 h-8 text-primary/40 star-spin -z-10"
         style={{ animationDuration: '22s', animationDirection: 'reverse' }}
       />
-
+      
       <div className="relative z-10">
+
         {isMounted && (
           <FloatingImages
             images={floatingImages}
