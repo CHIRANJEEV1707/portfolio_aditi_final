@@ -49,25 +49,27 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
-      {/* Radial Gradient Glow */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.25),transparent_60%)]"></div>
+      {/* Container for background elements */}
+      <div className="absolute inset-0 z-0">
+        {/* Radial Gradient Glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.25),transparent_60%)]" />
 
-      {/* Floating Elements */}
-      <FloatingElement className="top-[15%] left-[10%] float-anim">🎨</FloatingElement>
-      <FloatingElement className="bottom-[20%] right-[15%] float-anim-reverse">✨</FloatingElement>
-      <FloatingElement className="top-[50%] right-[5%] text-5xl float-anim">
-      💡
-      </FloatingElement>
-      <FloatingElement className="bottom-[10%] left-[25%] text-5xl float-anim-reverse">
-      🚀
-      </FloatingElement>
-      <FloatingElement className="top-[25%] right-[25%] text-7xl float-anim">
-        💻
-      </FloatingElement>
-      <FloatingElement className="bottom-[45%] left-[15%] text-5xl float-anim-reverse">
-        👾
-      </FloatingElement>
-
+        {/* Floating Elements */}
+        <FloatingElement className="top-[15%] left-[10%] float-anim">🎨</FloatingElement>
+        <FloatingElement className="bottom-[20%] right-[15%] float-anim-reverse">✨</FloatingElement>
+        <FloatingElement className="top-[50%] right-[5%] text-5xl float-anim">
+        💡
+        </FloatingElement>
+        <FloatingElement className="bottom-[10%] left-[25%] text-5xl float-anim-reverse">
+        🚀
+        </FloatingElement>
+        <FloatingElement className="top-[25%] right-[25%] text-7xl float-anim">
+          💻
+        </FloatingElement>
+        <FloatingElement className="bottom-[45%] left-[15%] text-5xl float-anim-reverse">
+          👾
+        </FloatingElement>
+      </div>
 
       <div className="relative z-10">
         <h1 className="font-headline text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-foreground">
