@@ -100,36 +100,6 @@
     }
   }
 
-  @keyframes float-1 {
-    0% { transform: translate(0, 0); }
-    50% { transform: translate(-10px, 15px); }
-    100% { transform: translate(0, 0); }
-  }
-
-  @keyframes float-2 {
-    0% { transform: translate(0, 0); }
-    50% { transform: translate(15px, -10px); }
-    100% { transform: translate(0, 0); }
-  }
-
-  @keyframes float-3 {
-    0% { transform: translate(0, 0); }
-    50% { transform: translate(-5px, -15px); }
-    100% { transform: translate(0, 0); }
-  }
-
-  .float-1 {
-    animation: float-1 25s ease-in-out infinite;
-  }
-
-  .float-2 {
-    animation: float-2 28s ease-in-out infinite;
-  }
-
-  .float-3 {
-    animation: float-3 30s ease-in-out infinite;
-  }
-
   .typing-cursor {
     animation: blink 0.7s infinite;
   }

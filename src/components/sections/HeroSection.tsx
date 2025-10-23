@@ -34,11 +34,11 @@ const AnimatedText = ({ text }: { text: string }) => {
 };
 
 const easterEggs = [
-  { char: '✨', className: 'top-[20%] left-[5%] md:left-[15%] float-1', message: 'You found me! 🌸' },
-  { char: '🎨', className: 'top-[75%] right-[5%] md:right-[15%] float-2', message: 'Creative minds notice details 💙' },
-  { char: '💡', className: 'top-[50%] left-[25%] float-3', message: 'Hidden spark unlocked ✨' },
-  { char: '💭', className: 'top-[15%] right-[25%] float-1', message: 'Imagination builds worlds ✨' },
-  { char: '✦', className: 'top-[10%] left-[10%] float-2', message: 'Every pixel has a purpose ✦' },
+  { char: '✨', className: 'top-[15%] left-[5%]', message: 'You found me! 🌸' },
+  { char: '🎨', className: 'bottom-[15%] right-[5%]', message: 'Creative minds notice details 💙' },
+  { char: '💡', className: 'top-[50%] right-[15%]', message: 'Hidden spark unlocked ✨' },
+  { char: '💭', className: 'top-[15%] right-[10%]', message: 'Imagination builds worlds ✨' },
+  { char: '✦', className: 'bottom-[20%] left-[10%]', message: 'Every pixel has a purpose ✦' },
 ];
 
 const HeroSection = () => {
@@ -46,7 +46,7 @@ const HeroSection = () => {
   const [activeEgg, setActiveEgg] = useState<string | null>(null);
   const [popupMessage, setPopupMessage] = useState<string>('');
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
-
+  
   useEffect(() => {
     setIsMounted(true);
     setAudio(new Audio('/sounds/chime.mp3'));
@@ -63,7 +63,6 @@ const HeroSection = () => {
   }, [activeEgg]);
 
   const handleEggClick = (message: string) => {
-    console.log(`Easter Egg found: ${message}`);
     setPopupMessage(message);
     setActiveEgg(message);
     audio?.play().catch(err => console.error("Audio play failed:", err));
@@ -86,7 +85,7 @@ const HeroSection = () => {
         </EasterEgg>
       ))}
       
-      <div className="relative z-30">
+      <div className="relative z-10">
         <h1 className="font-headline text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-foreground">
           {isMounted ? <AnimatedText text="Aditi Agrawal" /> : 'Aditi Agrawal'}
         </h1>
