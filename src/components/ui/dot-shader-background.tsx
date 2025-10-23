@@ -91,7 +91,6 @@ const DotMaterial = shaderMaterial(
       vec3 composition = mix(bgColor, dotColor, smoothDot * combinedMask * dotOpacity * (1.0 + opacityInfluence));
 
       gl_FragColor = vec4(composition, 1.0);
-
     }
   `
 )
