@@ -14,9 +14,6 @@ const Header = () => {
         animation="fade-in"
         className="container mx-auto flex justify-end items-center"
       >
-        <Button onClick={scrollToContact} variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-          Let's Talk
-        </Button>
       </AnimateOnScroll>
     </header>
   );
