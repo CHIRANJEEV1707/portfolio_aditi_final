@@ -44,7 +44,7 @@ const FloatingImages = ({
   const imageStyles = [
     { top: '15%', left: '80%', size: 150, duration: 25, rotate: -5 },
     { top: '70%', left: '10%', size: 120, duration: 30, rotate: 10 },
-    { top: '40%', left: '30%', size: 100, duration: 20, rotate: -8 },
+    { top: '5%', left: '30%', size: 100, duration: 20, rotate: -8 },
     { top: '80%', left: '70%', size: 180, duration: 35, rotate: 12 },
   ];
 
@@ -129,7 +129,7 @@ const easterEggs = [
   },
   {
     char: '✦',
-    className: 'top-[55%] right-[40%]',
+    className: 'top-[55%] right-[10%]',
     message: 'Every pixel has a purpose ✦',
   },
 ];
