@@ -15,17 +15,9 @@ export default function AboutPage() {
     <div className="pt-24 pb-12 relative overflow-hidden bg-background">
       <StarIcon className="absolute -top-10 -left-10 w-32 h-32 text-primary/10 star-spin" />
       <StarIcon className="absolute bottom-20 -right-10 w-24 h-24 text-accent/10 star-spin" style={{ animationDuration: '30s' }} />
-      <AnimateOnScroll animation="fade-in" className="container mx-auto">
-        <Button asChild variant="ghost" className="mb-8">
-          <Link href="/">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Home
-          </Link>
-        </Button>
-      </AnimateOnScroll>
       
       <AnimateOnScroll animation="fade-in" delay="delay-100" className="container mx-auto">
-        <header className="text-center mb-16">
+        <header className="text-center my-16">
           <h1 className="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4">
             Aditi Agrawal
           </h1>
