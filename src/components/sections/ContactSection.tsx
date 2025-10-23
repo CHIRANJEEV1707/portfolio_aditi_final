@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useForm } from 'react-hook-form';
@@ -34,8 +33,7 @@ type FormData = z.infer<typeof formSchema>;
 
 async function submitAction(data: FormData) {
   try {
-    // IMPORTANT: Replace the URL with your own Formspree endpoint URL
-    const response = await fetch('https://formspree.io/f/YOUR_UNIQUE_ID', {
+    const response = await fetch('https://formspree.io/f/xeoryjgy', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
