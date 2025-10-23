@@ -32,11 +32,24 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 async function submitAction(data: FormData) {
-  // Simulate API call
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  console.log(data);
-  // In a real app, you would send this to your backend or a service like Formspree.
-  return { success: true, message: "Thanks for reaching out! I'll be in touch soon." };
+  try {
+    const response = await fetch('https://formspree.io/f/mqkrvvqd', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      return { success: true, message: "Thanks for reaching out! I'll be in touch soon." };
+    } else {
+      return { success: false, message: 'Something went wrong. Please try again.' };
+    }
+  } catch (error) {
+    console.error(error);
+    return { success: false, message: 'Something went wrong. Please try again.' };
+  }
 }
 
 const ContactSection = () => {
@@ -67,7 +80,7 @@ const ContactSection = () => {
       toast({
         variant: 'destructive',
         title: 'Uh oh! Something went wrong.',
-        description: 'There was a problem with your request.',
+        description: result.message,
       });
     }
   }
