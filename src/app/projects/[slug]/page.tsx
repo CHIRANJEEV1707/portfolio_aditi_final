@@ -9,6 +9,7 @@ import { ArrowLeft, ExternalLink } from 'lucide-react';
 import AnimateOnScroll from '@/components/common/AnimateOnScroll';
 import StarIcon from '@/components/common/StarIcon';
 import PageTransition from '@/components/common/PageTransition';
+import { cn } from '@/lib/utils';
 
 type ProjectPageProps = {
   params: {
@@ -99,7 +100,14 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                   animation="fade-in"
                   delay={`delay-${index * 200}`}
                 >
-                  <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-md">
+                  <div
+                    className={cn(
+                      'relative w-full overflow-hidden rounded-lg shadow-md',
+                      project.slug === 'hukams-lalit-mahal'
+                        ? 'aspect-[4/3]'
+                        : 'aspect-video'
+                    )}
+                  >
                     <Image
                       src={visualImage.imageUrl}
                       alt={`Visual for ${project.name}`}
