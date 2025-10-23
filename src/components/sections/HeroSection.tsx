@@ -1,7 +1,7 @@
 'use client';
 
 import { ChevronDown } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import TypingAnimation from '@/components/common/TypingAnimation';
 import EasterEgg from '@/components/common/EasterEgg';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -129,7 +129,7 @@ const FloatingShapes = () => {
   );
 };
 
-const FloatingImages = () => {
+const FloatingImages = ({ constraintsRef }: { constraintsRef: React.RefObject<HTMLElement> }) => {
   const imageIds = ['project-1', 'project-2', 'project-3', 'project-4'];
   const images = PlaceHolderImages.filter(img => imageIds.includes(img.id));
 
@@ -148,27 +148,30 @@ const FloatingImages = () => {
         return (
           <motion.div
             key={image.id}
-            className="absolute rounded-lg shadow-lg"
+            className="absolute rounded-lg shadow-lg cursor-grab active:cursor-grabbing"
             style={{
               top: style.top,
               left: style.left,
               width: `${style.size}px`,
               height: `${style.size * 0.75}px`,
             }}
-            initial={{ y: 0, rotate: style.rotate }}
-            animate={{ y: [-20, 20], rotate: [style.rotate - 3, style.rotate + 3] }}
+            animate={{ y: [-10, 10], rotate: [style.rotate - 2, style.rotate + 2] }}
             transition={{
               duration: style.duration,
               repeat: Infinity,
               repeatType: 'reverse',
               ease: 'easeInOut',
             }}
+            drag
+            dragConstraints={constraintsRef}
+            dragMomentum={false}
+            whileDrag={{ scale: 1.1, zIndex: 50, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)" }}
           >
             <Image
               src={image.imageUrl}
               alt={image.description}
               fill
-              className="object-cover rounded-lg"
+              className="object-cover rounded-lg pointer-events-none"
               sizes={`${style.size}px`}
             />
           </motion.div>
@@ -212,6 +215,8 @@ const HeroSection = () => {
   const [activeEgg, setActiveEgg] = useState<string | null>(null);
   const [popupMessage, setPopupMessage] = useState<string>('');
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+  const constraintsRef = useRef<HTMLDivElement>(null);
+
 
   useEffect(() => {
     setIsMounted(true);
@@ -235,10 +240,13 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
+    <section 
+      ref={constraintsRef}
+      className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
+    >
       <div className="absolute inset-0 -z-20 bg-background" />
       <FloatingShapes />
-      <FloatingImages />
+      <FloatingImages constraintsRef={constraintsRef}/>
       
       {isMounted &&
         easterEggs.map((egg, index) => (
