@@ -5,13 +5,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import TypingAnimation from '@/components/common/TypingAnimation';
 import EasterEgg from '@/components/common/EasterEgg';
 import SuccessPopup from '@/components/common/SuccessPopup';
-import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+import { cn } from '@/lib/utils';
 
 const AnimatedText = ({ text }: { text: string }) => {
   const letters = text.split('');
@@ -33,22 +27,6 @@ const AnimatedText = ({ text }: { text: string }) => {
   );
 };
 
-const FloatingElement = ({
-  className,
-  children,
-}: {
-  className?: string;
-  children: React.ReactNode;
-}) => {
-  return (
-    <div
-      className={`absolute text-foreground/5 text-6xl font-bold -z-10 ${className}`}
-    >
-      {children}
-    </div>
-  );
-};
-
 const easterEggs = [
   { id: 'sparkle', char: '✨', message: 'You found me! 🌸', className: 'top-[20%] left-[5%] md:left-[15%]' },
   { id: 'art', char: '🎨', message: 'Creative minds notice details 💙', className: 'top-[75%] right-[5%] md:right-[15%]' },
@@ -64,6 +42,7 @@ const HeroSection = () => {
 
   useEffect(() => {
     setIsMounted(true);
+    // Preload audio
     new Audio('/sounds/chime.mp3');
   }, []);
 
@@ -86,12 +65,15 @@ const HeroSection = () => {
     
     setFoundEggs((prev) => {
       const newFound = prev.includes(id) ? prev : [...prev, id];
-      if (newFound.length === easterEggs.length) {
-        setTimeout(() => setShowSuccessPopup(true), 500);
+      if (newFound.length === easterEggs.length && !showSuccessPopup) {
+         setTimeout(() => {
+            setIsQuoteOpen(false); // Close any open quote before showing the final popup
+            setShowSuccessPopup(true);
+         }, 500);
       }
       return newFound;
     });
-  }, []);
+  }, [showSuccessPopup]);
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden subtle-grid">
@@ -110,20 +92,26 @@ const HeroSection = () => {
         />
       ))}
       
-      <AlertDialog open={isQuoteOpen} onOpenChange={setIsQuoteOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle className="text-center text-2xl">✨</AlertDialogTitle>
-            <AlertDialogDescription className="text-center text-lg text-foreground">
+      {isQuoteOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          onClick={() => setIsQuoteOpen(false)}
+        >
+          <div
+            className="popup-content-animation relative max-w-sm rounded-2xl border border-white/20 bg-background/70 p-8 text-center shadow-2xl backdrop-blur-sm"
+            onClick={(e) => e.stopPropagation()}
+          >
+             <p className="text-center text-2xl mb-2">✨</p>
+             <p className="text-center text-lg text-foreground">
               {currentQuote}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-        </AlertDialogContent>
-      </AlertDialog>
+            </p>
+          </div>
+        </div>
+      )}
 
       <SuccessPopup isOpen={showSuccessPopup} onClose={() => setShowSuccessPopup(false)} />
 
-      <div className="relative z-10">
+      <div className="relative z-30">
         <h1 className="font-headline text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-foreground">
           {isMounted ? <AnimatedText text="Aditi Agrawal" /> : 'Aditi Agrawal'}
         </h1>
