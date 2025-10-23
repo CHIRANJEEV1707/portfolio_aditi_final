@@ -5,11 +5,6 @@ import React, { useEffect, useState } from 'react';
 import TypingAnimation from '@/components/common/TypingAnimation';
 import EasterEgg from '@/components/common/EasterEgg';
 import { AnimatePresence, motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
-
-const VantaBackground = dynamic(() => import('../common/VantaBackground'), {
-  ssr: false,
-});
 
 const AnimatedText = ({ text }: { text: string }) => {
   const letters = text.split('');
@@ -37,6 +32,102 @@ const AnimatedText = ({ text }: { text: string }) => {
   );
 };
 
+const FloatingShapes = () => {
+  const shapes = [
+    {
+      style: {
+        width: '15rem',
+        height: '15rem',
+        top: '10%',
+        left: '10%',
+        background: 'hsla(var(--primary), 0.1)',
+      },
+      animate: {
+        x: [0, 20, 0, -20, 0],
+        y: [0, -30, 0, 30, 0],
+      },
+      transition: {
+        duration: 20,
+        repeat: Infinity,
+        repeatType: 'reverse',
+        ease: 'easeInOut',
+      },
+    },
+    {
+      style: {
+        width: '10rem',
+        height: '10rem',
+        top: '60%',
+        left: '80%',
+        background: 'hsla(var(--accent), 0.15)',
+      },
+      animate: {
+        x: [0, -40, 0, 40, 0],
+        y: [0, 50, 0, -50, 0],
+      },
+      transition: {
+        duration: 25,
+        repeat: Infinity,
+        repeatType: 'reverse',
+        ease: 'easeInOut',
+      },
+    },
+    {
+      style: {
+        width: '8rem',
+        height: '8rem',
+        top: '75%',
+        left: '20%',
+        background: 'hsla(var(--primary), 0.12)',
+      },
+      animate: {
+        x: [0, 30, 0, -30, 0],
+        y: [0, -20, 0, 20, 0],
+      },
+      transition: {
+        duration: 18,
+        repeat: Infinity,
+        repeatType: 'reverse',
+        ease: 'easeInOut',
+      },
+    },
+     {
+      style: {
+        width: '20rem',
+        height: '20rem',
+        top: '25%',
+        left: '50%',
+        background: 'hsla(var(--accent), 0.08)',
+      },
+      animate: {
+        x: [0, 50, 0, -50, 0],
+        y: [0, -40, 0, 40, 0],
+      },
+      transition: {
+        duration: 30,
+        repeat: Infinity,
+        repeatType: 'reverse',
+        ease: 'easeInOut',
+      },
+    },
+  ];
+
+  return (
+    <div className="absolute inset-0 -z-10 overflow-hidden">
+      {shapes.map((shape, index) => (
+        <motion.div
+          key={index}
+          className="absolute rounded-full filter blur-3xl"
+          style={shape.style}
+          animate={shape.animate}
+          transition={shape.transition}
+        />
+      ))}
+    </div>
+  );
+};
+
+
 const easterEggs = [
   {
     char: '✨',
@@ -55,7 +146,7 @@ const easterEggs = [
   },
   {
     char: '💭',
-    className: 'bottom-[25%] left-[10%]',
+    className: 'bottom-[45%] left-[2%]',
     message: 'Imagination builds worlds ✨',
   },
   {
@@ -94,8 +185,8 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
-      <VantaBackground />
-
+      <FloatingShapes />
+      
       {isMounted &&
         easterEggs.map((egg, index) => (
           <EasterEgg
