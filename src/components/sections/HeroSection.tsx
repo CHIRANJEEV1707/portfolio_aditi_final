@@ -3,6 +3,7 @@
 import { ChevronDown } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import TypingAnimation from '@/components/common/TypingAnimation';
+import VantaBackground from '@/components/common/VantaBackground';
 
 const AnimatedText = ({ text }: { text: string }) => {
   const letters = text.split('');
@@ -16,7 +17,7 @@ const AnimatedText = ({ text }: { text: string }) => {
             className="letter-reveal"
             style={{ animationDelay: `${index * 0.05}s` }}
           >
-            {letter === ' ' ? '\u00A0' : letter}
+            {letter === ' ' ? ' ' : letter}
           </span>
         ))}
       </span>
@@ -49,11 +50,10 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
-      {/* Background Grid */}
-      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,hsl(var(--foreground))_0.5px,transparent_0.5px),linear-gradient(to_bottom,hsl(var(--foreground))_0.5px,transparent_0.5px)] bg-[size:3rem_3rem] opacity-10"></div>
+      <VantaBackground />
 
       {/* Radial Gradient Glow */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.15),transparent_60%)]"></div>
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.25),transparent_60%)]"></div>
 
       {/* Floating Elements */}
       <FloatingElement className="top-[15%] left-[10%] float-anim">🎨</FloatingElement>
