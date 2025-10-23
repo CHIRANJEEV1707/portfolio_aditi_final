@@ -1,8 +1,8 @@
+
 import type { Metadata } from 'next';
 import { Poppins, PT_Sans } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
-import Footer from '@/components/common/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/common/Header';
 
@@ -33,14 +33,13 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          'min-h-screen bg-background font-body antialiased',
+          'min-h-screen bg-background font-body antialiased flex flex-col',
           fontHeadline.variable,
           fontBody.variable
         )}
       >
         <Header />
         <main className="flex-grow">{children}</main>
-        <Footer />
         <Toaster />
       </body>
     </html>
