@@ -125,15 +125,15 @@
   }
 
   .gentle-drift-1 {
-    animation: gentle-drift-1 15s ease-in-out infinite;
+    animation: gentle-drift-1 25s ease-in-out infinite;
   }
 
   .gentle-drift-2 {
-    animation: gentle-drift-2 18s ease-in-out infinite;
+    animation: gentle-drift-2 28s ease-in-out infinite;
   }
 
   .gentle-drift-3 {
-    animation: gentle-drift-3 20s ease-in-out infinite;
+    animation: gentle-drift-3 30s ease-in-out infinite;
   }
 
 
