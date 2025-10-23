@@ -55,6 +55,9 @@ const HeroSection = () => {
       {/* Radial Gradient */}
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.1),transparent_40%)]"></div>
 
+      {/* Aesthetic Aura */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full blur-3xl aura-pulse -z-10"></div>
+
       {/* Floating Elements */}
       <FloatingElement className="top-[15%] left-[10%] float-anim">🎨</FloatingElement>
       <FloatingElement className="bottom-[20%] right-[15%] float-anim-reverse">✨</FloatingElement>
