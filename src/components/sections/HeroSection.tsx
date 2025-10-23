@@ -232,7 +232,7 @@ const HeroSection = () => {
         )}
       </AnimatePresence>
 
-      <div className="absolute inset-0 subtle-grid z-20 pointer-events-none"></div>
+      <div className="absolute inset-0 subtle-grid z-40 pointer-events-none"></div>
     </section>
   );
 };
