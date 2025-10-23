@@ -4,7 +4,6 @@ import { ChevronDown } from 'lucide-react';
 import React, { useEffect, useState, useCallback } from 'react';
 import TypingAnimation from '@/components/common/TypingAnimation';
 import EasterEgg from '@/components/common/EasterEgg';
-import SuccessPopup from '@/components/common/SuccessPopup';
 
 const AnimatedText = ({ text }: { text: string }) => {
   const letters = text.split('');
@@ -34,8 +33,6 @@ const easterEggs = [
 
 const HeroSection = () => {
   const [isMounted, setIsMounted] = useState(false);
-  const [foundEggs, setFoundEggs] = useState<string[]>([]);
-  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const [currentQuote, setCurrentQuote] = useState('');
 
@@ -61,18 +58,7 @@ const HeroSection = () => {
       setCurrentQuote(egg.message);
       setIsQuoteOpen(true);
     }
-    
-    setFoundEggs((prev) => {
-      const newFound = prev.includes(id) ? prev : [...prev, id];
-      if (newFound.length === easterEggs.length && !showSuccessPopup) {
-         setTimeout(() => {
-            setIsQuoteOpen(false); // Close any open quote before showing the final popup
-            setShowSuccessPopup(true);
-         }, 500);
-      }
-      return newFound;
-    });
-  }, [showSuccessPopup]);
+  }, []);
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden subtle-grid">
@@ -107,8 +93,6 @@ const HeroSection = () => {
           </div>
         </div>
       )}
-
-      <SuccessPopup isOpen={showSuccessPopup} onClose={() => setShowSuccessPopup(false)} />
 
       <div className="relative z-30">
         <h1 className="font-headline text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-foreground">
