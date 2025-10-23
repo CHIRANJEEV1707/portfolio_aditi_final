@@ -150,6 +150,7 @@ const HeroSection = () => {
 
   return (
     <section
+      id="home"
       ref={constraintsRef}
       className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
     >
