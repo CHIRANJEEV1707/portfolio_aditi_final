@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Project } from '@/lib/data';
@@ -14,23 +14,25 @@ interface ProjectsSectionProps {
 }
 
 const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
-  const [hoveredProjectImage, setHoveredProjectImage] = useState<string | null>(
-    null
-  );
+  const [hoveredProjectImage, setHoveredProjectImage] = useState<string | null>(null);
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
+  const [isClient, setIsClient] = useState(false);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    setImagePosition({ x: e.clientX, y: e.clientY });
-  };
+  useEffect(() => {
+    setIsClient(true);
+    const handleMouseMove = (e: MouseEvent) => {
+      setImagePosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   const defaultImage = PlaceHolderImages.find((img) => img.id === 'project-1');
 
   return (
-    <section
-      id="work"
-      className="py-20 md:py-32 container mx-auto relative"
-      onMouseMove={handleMouseMove}
-    >
+    <section id="work" className="py-20 md:py-32 container mx-auto relative">
       <AnimateOnScroll
         as="h2"
         animation="slide-in-up"
@@ -77,24 +79,27 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
         })}
       </div>
 
-      <div
-        className={cn(
-          'pointer-events-none fixed top-0 left-0 z-0 transition-opacity duration-300',
-          hoveredProjectImage ? 'opacity-100' : 'opacity-0'
-        )}
-        style={{
-          transform: `translate(calc(${imagePosition.x}px - 200px), calc(${imagePosition.y}px - 150px))`,
-        }}
-      >
-        <div className="relative w-[400px] h-[300px] rounded-lg overflow-hidden shadow-2xl rotate-[-3deg]">
-          <Image
-            src={hoveredProjectImage || defaultImage?.imageUrl || ''}
-            alt="Project preview"
-            fill
-            className="object-cover"
-          />
+      {isClient && (
+         <div
+          className={cn(
+            'pointer-events-none fixed top-0 left-0 z-0 transition-opacity duration-300 hidden md:block',
+            hoveredProjectImage ? 'opacity-100' : 'opacity-0'
+          )}
+          style={{
+            transform: `translate(calc(${imagePosition.x}px - 200px), calc(${imagePosition.y}px - 150px))`,
+          }}
+          aria-hidden="true"
+        >
+          <div className="relative w-[400px] h-[300px] rounded-lg overflow-hidden shadow-2xl rotate-[-3deg]">
+            <Image
+              src={hoveredProjectImage || defaultImage?.imageUrl || ''}
+              alt="Project preview"
+              fill
+              className="object-cover"
+            />
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 };
