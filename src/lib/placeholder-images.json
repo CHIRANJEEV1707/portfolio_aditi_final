@@ -77,6 +77,30 @@
       "description": "Visual for Project 4.",
       "imageUrl": "https://images.unsplash.com/photo-1649442746245-f51f4b76963f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx3ZWJzaXRlJTIwbGF1bmNofGVufDB8fHx8MTc2MTA1MTU5NXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "website launch"
+    },
+    {
+      "id": "hero-1",
+      "description": "Floating image for hero section 1.",
+      "imageUrl": "https://images.unsplash.com/photo-1516321497487-e288fb19713f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3b3Jrc3BhY2V8ZW58MHx8fHwxNzYxMDUxNTk1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "workspace"
+    },
+    {
+      "id": "hero-2",
+      "description": "Floating image for hero section 2.",
+      "imageUrl": "https://images.unsplash.com/photo-1552664730-d307ca884978?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2xsYWJvcmF0aW9ufGVufDB8fHx8MTc2MTA1MTU5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "collaboration"
+    },
+    {
+      "id": "hero-3",
+      "description": "Floating image for hero section 3.",
+      "imageUrl": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0ZWFtfGVufDB8fHx8MTc2MTA1MTU5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "team"
+    },
+    {
+      "id": "hero-4",
+      "description": "Floating image for hero section 4.",
+      "imageUrl": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxpbWFnZSUyMGZyb20lMjBhJTIwbWVldGluZ3xlbnwwfHx8fDE3NjEwNTE1OTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "meeting"
     }
   ]
 }

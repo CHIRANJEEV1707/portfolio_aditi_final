@@ -122,7 +122,7 @@ const HeroSection = () => {
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const constraintsRef = useRef<HTMLDivElement>(null);
 
-  const imageIds = ['project-1', 'project-2', 'project-3', 'project-4'];
+  const imageIds = ['hero-1', 'hero-2', 'hero-3', 'hero-4'];
   const floatingImages = PlaceHolderImages.filter(img => imageIds.includes(img.id));
 
   useEffect(() => {
@@ -196,6 +196,7 @@ const HeroSection = () => {
               style={{
                 '--dot-color': 'hsl(var(--primary))',
                 '--background-color': 'hsl(var(--accent))',
+                fontFamily: 'var(--font-headline)',
               } as React.CSSProperties}
             >
               Aditi Agrawal
@@ -246,3 +247,5 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
+    
