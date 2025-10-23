@@ -34,10 +34,10 @@ const AnimatedText = ({ text }: { text: string }) => {
 };
 
 const easterEggs = [
-  { char: '✨', className: 'top-[15%] left-[5%]', message: 'You found me! 🌸' },
+  { char: '✨', className: 'top-[10%] left-[5%]', message: 'You found me! 🌸' },
   { char: '🎨', className: 'bottom-[15%] right-[5%]', message: 'Creative minds notice details 💙' },
-  { char: '💡', className: 'top-[50%] right-[15%]', message: 'Hidden spark unlocked ✨' },
-  { char: '💭', className: 'top-[15%] right-[10%]', message: 'Imagination builds worlds ✨' },
+  { char: '💡', className: 'top-[20%] right-[10%]', message: 'Hidden spark unlocked ✨' },
+  { char: '💭', className: 'top-[45%] left-[15%]', message: 'Imagination builds worlds ✨' },
   { char: '✦', className: 'bottom-[20%] left-[10%]', message: 'Every pixel has a purpose ✦' },
 ];
 
