@@ -1,3 +1,4 @@
+
 'use client';
 
 import { ChevronDown } from 'lucide-react';
@@ -9,6 +10,8 @@ import Image from 'next/image';
 import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
 import StarIcon from '../common/StarIcon';
 import { ComicText } from '../ui/comic-text';
+import SquiggleIcon from '../common/SquiggleIcon';
+import PlusIcon from '../common/PlusIcon';
 
 
 const FloatingImages = ({
@@ -163,6 +166,11 @@ const HeroSection = () => {
       <StarIcon className="absolute top-[80%] left-[5%] w-12 h-12 text-accent/50 star-spin -z-10" style={{ animationDuration: '25s' }}/>
       <StarIcon className="absolute top-[15%] right-[5%] w-10 h-10 text-primary/50 star-spin -z-10" style={{ animationDuration: '20s' }} />
       <StarIcon className="absolute bottom-[10%] right-[30%] w-6 h-6 text-accent/50 star-spin -z-10" style={{ animationDuration: '12s' }} />
+      
+      <SquiggleIcon className="absolute top-[5%] left-[50%] w-24 h-24 text-primary/20 star-spin -z-10" style={{ animationDuration: '40s', animationDirection: 'reverse' }} />
+      <PlusIcon className="absolute top-[85%] left-[85%] w-10 h-10 text-accent/50 star-spin -z-10" style={{ animationDuration: '18s' }} />
+      <SquiggleIcon className="absolute bottom-[5%] right-[5%] w-16 h-16 text-accent/30 star-spin -z-10" style={{ animationDuration: '30s' }} />
+      <PlusIcon className="absolute bottom-[30%] left-[10%] w-8 h-8 text-primary/40 star-spin -z-10" style={{ animationDuration: '22s', animationDirection: 'reverse' }}/>
 
       {isMounted && (
         <FloatingImages images={floatingImages} constraintsRef={constraintsRef} />
@@ -237,5 +245,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
-    
