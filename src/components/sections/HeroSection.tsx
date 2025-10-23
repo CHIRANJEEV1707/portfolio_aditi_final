@@ -25,7 +25,7 @@ const AnimatedText = ({ text }: { text: string }) => {
             }}
             className="inline-block"
           >
-            {letter === ' ' ? ' ' : letter}
+            {letter === ' ' ? ' ' : letter}
           </motion.span>
         ))}
       </span>
@@ -37,7 +37,7 @@ const easterEggs = [
   { char: '✨', className: 'top-[10%] left-[5%]', message: 'You found me! 🌸' },
   { char: '🎨', className: 'bottom-[15%] right-[5%]', message: 'Creative minds notice details 💙' },
   { char: '💡', className: 'top-[15%] right-[8%]', message: 'Hidden spark unlocked ✨' },
-  { char: '💭', className: 'bottom-[10%] left-[2%]', message: 'Imagination builds worlds ✨' },
+  { char: '💭', className: 'bottom-[25%] left-[10%]', message: 'Imagination builds worlds ✨' },
   { char: '✦', className: 'top-[30%] left-[15%]', message: 'Every pixel has a purpose ✦' },
 ];
 
