@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import { Toaster } from '@/components/ui/toaster';
-import CustomCursor from '@/components/common/CustomCursor';
+import { SplashCursorController } from '@/components/common/SplashCursorController';
 
 const fontHeadline = Poppins({
   subsets: ['latin'],
@@ -39,7 +39,7 @@ export default function RootLayout({
           fontBody.variable
         )}
       >
-        <CustomCursor />
+        <SplashCursorController />
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />
