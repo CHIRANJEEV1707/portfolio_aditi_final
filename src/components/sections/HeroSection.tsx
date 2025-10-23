@@ -33,11 +33,11 @@ const AnimatedText = ({ text }: { text: string }) => {
 };
 
 const easterEggs = [
-  { id: 'sparkle', char: '✨', message: 'You found me! 🌸', className: 'top-[20%] left-[5%] md:left-[15%] subtle-float-anim' },
-  { id: 'art', char: '🎨', message: 'Creative minds notice details 💙', className: 'top-[75%] right-[5%] md:right-[15%] subtle-float-anim-reverse' },
-  { id: 'idea', char: '💡', message: 'Hidden spark unlocked ✨', className: 'bottom-[15%] left-[30%] subtle-float-anim' },
-  { id: 'thought', char: '💭', message: 'Imagination builds worlds ✨', className: 'top-[15%] right-[25%] subtle-float-anim-reverse' },
-  { id: 'pixel', char: '✦', message: 'Every pixel has a purpose', className: 'top-[10%] left-[10%] subtle-float-anim' },
+  { id: 'sparkle', char: '✨', message: 'You found me! 🌸', className: 'top-[20%] left-[5%] md:left-[15%] gentle-drift-1' },
+  { id: 'art', char: '🎨', message: 'Creative minds notice details 💙', className: 'top-[75%] right-[5%] md:right-[15%] gentle-drift-2' },
+  { id: 'idea', char: '💡', message: 'Hidden spark unlocked ✨', className: 'bottom-[15%] left-[30%] gentle-drift-3' },
+  { id: 'thought', char: '💭', message: 'Imagination builds worlds ✨', className: 'top-[15%] right-[25%] gentle-drift-1' },
+  { id: 'pixel', char: '✦', message: 'Every pixel has a purpose', className: 'top-[10%] left-[10%] gentle-drift-2' },
 ];
 
 const HeroSection = () => {
