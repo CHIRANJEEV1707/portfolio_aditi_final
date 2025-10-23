@@ -5,6 +5,7 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/common/Header';
+import { ThemeProvider } from '@/components/common/ThemeProvider';
 
 const fontHeadline = Poppins({
   subsets: ['latin'],
@@ -38,9 +39,16 @@ export default function RootLayout({
           fontBody.variable
         )}
       >
-        <Header />
-        <main className="flex-grow">{children}</main>
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          <main className="flex-grow">{children}</main>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

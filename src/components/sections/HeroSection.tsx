@@ -12,6 +12,7 @@ import StarIcon from '../common/StarIcon';
 import { ComicText } from '../ui/comic-text';
 import SquiggleIcon from '../common/SquiggleIcon';
 import PlusIcon from '../common/PlusIcon';
+import { DotScreenShader } from '../ui/dot-shader-background';
 
 
 const FloatingImages = ({
@@ -155,13 +156,9 @@ const HeroSection = () => {
       ref={constraintsRef}
       className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
     >
-      <div
-        className="absolute inset-0 -z-20 subtle-grid"
-        style={{
-          backgroundColor: 'hsl(var(--background))',
-          backgroundImage: 'linear-gradient(to right, hsla(var(--primary), 0.2) 1px, transparent 1px), linear-gradient(to bottom, hsla(var(--primary), 0.2) 1px, transparent 1px)'
-        }}
-      />
+      <div className="absolute inset-0 -z-20">
+        <DotScreenShader />
+      </div>
       
 
       <StarIcon className="absolute top-[10%] left-[20%] w-8 h-8 text-primary/50 star-spin -z-10" style={{ animationDuration: '15s' }} />
