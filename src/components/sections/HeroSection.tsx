@@ -64,37 +64,25 @@ const quotes: { [key: string]: { quote: string; author: string } } = {
 const FloatingElement = ({
   className,
   children,
-  onClick,
 }: {
   className?: string;
   children: React.ReactNode;
-  onClick: () => void;
 }) => {
   return (
-    <button
-      onClick={onClick}
-      className={`absolute text-foreground/5 text-6xl font-bold z-20 hover:text-primary/20 transition-colors duration-300 ${className}`}
-      aria-label={`Reveal a quote with ${children}`}
+    <div
+      className={`absolute text-foreground/5 text-6xl font-bold -z-10 ${className}`}
     >
       {children}
-    </button>
+    </div>
   );
 };
 
 const HeroSection = () => {
   const [isMounted, setIsMounted] = useState(false);
-  const [selectedQuote, setSelectedQuote] = useState<{
-    quote: string;
-    author: string;
-  } | null>(null);
-
+  
   useEffect(() => {
     setIsMounted(true);
   }, []);
-
-  const handleElementClick = (emoji: string) => {
-    setSelectedQuote(quotes[emoji]);
-  };
 
   const floatingElements = [
     { emoji: '🎨', className: 'top-[15%] left-[10%] float-anim' },
@@ -116,7 +104,6 @@ const HeroSection = () => {
         <FloatingElement
           key={emoji}
           className={className}
-          onClick={() => handleElementClick(emoji)}
         >
           {emoji}
         </FloatingElement>
@@ -145,31 +132,6 @@ const HeroSection = () => {
         <ChevronDown className="w-8 h-8 text-primary animate-bounce" />
       </div>
 
-      <AlertDialog
-        open={!!selectedQuote}
-        onOpenChange={(isOpen) => !isOpen && setSelectedQuote(null)}
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>A Spark of Inspiration</AlertDialogTitle>
-            <AlertDialogDescription className="text-lg py-4">
-              &quot;{selectedQuote?.quote}&quot;
-              <br />
-              <em className="text-sm">- {selectedQuote?.author}</em>
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogAction asChild>
-              <Button
-                onClick={() => setSelectedQuote(null)}
-                className="bg-primary hover:bg-primary/90"
-              >
-                Nice!
-              </Button>
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </section>
   );
 };
