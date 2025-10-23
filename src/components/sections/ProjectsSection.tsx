@@ -37,14 +37,7 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
   return (
     <section id="work" className="py-20 md:py-32 container mx-auto relative">
       <StarIcon className="absolute top-10 left-0 w-24 h-24 text-accent/20 star-spin" style={{ animationDuration: '40s' }}/>
-      <AnimateOnScroll
-        as="h2"
-        animation="slide-in-up"
-        className="font-headline text-5xl md:text-6xl font-bold mb-12"
-      >
-        Selected Work
-      </AnimateOnScroll>
-
+      
       <div className="relative z-10 border-t border-foreground/10">
         {projects.map((project) => {
           const projectImage = PlaceHolderImages.find(
