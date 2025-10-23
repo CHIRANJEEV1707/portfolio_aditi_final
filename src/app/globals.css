@@ -100,42 +100,35 @@
     }
   }
 
-  @keyframes gentle-drift-1 {
-    0% { transform: translate(0px, 0px); }
-    25% { transform: translate(5px, 10px); }
-    50% { transform: translate(-5px, -10px); }
-    75% { transform: translate(10px, -5px); }
-    100% { transform: translate(0px, 0px); }
-  }
-
-  @keyframes gentle-drift-2 {
-    0% { transform: translate(0px, 0px); }
-    25% { transform: translate(-8px, -12px); }
-    50% { transform: translate(8px, -4px); }
-    75% { transform: translate(-12px, 8px); }
-    100% { transform: translate(0px, 0px); }
-  }
-
-  @keyframes gentle-drift-3 {
-    0% { transform: translate(0px, 0px); }
-    25% { transform: translate(10px, 5px); }
+  @keyframes float-1 {
+    0% { transform: translate(0, 0); }
     50% { transform: translate(-10px, 15px); }
-    75% { transform: translate(5px, -10px); }
-    100% { transform: translate(0px, 0px); }
+    100% { transform: translate(0, 0); }
   }
 
-  .gentle-drift-1 {
-    animation: gentle-drift-1 25s ease-in-out infinite;
+  @keyframes float-2 {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(15px, -10px); }
+    100% { transform: translate(0, 0); }
   }
 
-  .gentle-drift-2 {
-    animation: gentle-drift-2 28s ease-in-out infinite;
+  @keyframes float-3 {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(-5px, -15px); }
+    100% { transform: translate(0, 0); }
   }
 
-  .gentle-drift-3 {
-    animation: gentle-drift-3 30s ease-in-out infinite;
+  .float-1 {
+    animation: float-1 25s ease-in-out infinite;
   }
 
+  .float-2 {
+    animation: float-2 28s ease-in-out infinite;
+  }
+
+  .float-3 {
+    animation: float-3 30s ease-in-out infinite;
+  }
 
   .typing-cursor {
     animation: blink 0.7s infinite;
@@ -149,21 +142,5 @@
   .subtle-grid {
     background-image: linear-gradient(to right, hsla(var(--foreground), 0.05) 1px, transparent 1px), linear-gradient(to bottom, hsla(var(--foreground), 0.05) 1px, transparent 1px);
     background-size: 40px 40px;
-  }
-
-  /* Easter Egg Animations */
-  @keyframes fade-in-pop {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  
-  .popup-content-animation {
-    animation: fade-in-pop 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   }
 }
