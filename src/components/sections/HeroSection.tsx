@@ -4,6 +4,7 @@ import { ChevronDown } from 'lucide-react';
 import React, { useEffect, useState, useCallback } from 'react';
 import TypingAnimation from '@/components/common/TypingAnimation';
 import EasterEgg from '@/components/common/EasterEgg';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const AnimatedText = ({ text }: { text: string }) => {
   const letters = text.split('');
@@ -12,13 +13,19 @@ const AnimatedText = ({ text }: { text: string }) => {
       <span className="sr-only">{text}</span>
       <span aria-hidden>
         {letters.map((letter, index) => (
-          <span
+          <motion.span
             key={index}
-            className="letter-reveal"
-            style={{ animationDelay: `${index * 0.05}s` }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: index * 0.05,
+              duration: 0.5,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
+            className="inline-block"
           >
-            {letter === ' ' ? ' ' : letter}
-          </span>
+            {letter === ' ' ? '\u00A0' : letter}
+          </motion.span>
         ))}
       </span>
     </>
@@ -28,7 +35,9 @@ const AnimatedText = ({ text }: { text: string }) => {
 const easterEggs = [
   { id: 'sparkle', char: '✨', message: 'You found me! 🌸', className: 'top-[20%] left-[5%] md:left-[15%]' },
   { id: 'art', char: '🎨', message: 'Creative minds notice details 💙', className: 'top-[75%] right-[5%] md:right-[15%]' },
-  { id: 'idea', char: '💡', message: 'Hidden spark unlocked ✨', className: 'bottom-[15%] left-[20%] md:left-[30%]' },
+  { id: 'idea', char: '💡', message: 'Hidden spark unlocked ✨', className: 'bottom-[15%] left-[30%]' },
+  { id: 'thought', char: '💭', message: 'Imagination builds worlds ✨', className: 'top-[15%] left-1/2 -translate-x-1/2' },
+  { id: 'pixel', char: '✦', message: 'Every pixel has a purpose', className: 'top-[10%] right-[10%]' },
 ];
 
 const HeroSection = () => {
@@ -64,7 +73,7 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden subtle-grid">
       <div className="absolute inset-0 -z-20">
         <div className="absolute inset-0 bg-background" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.25),transparent_60%)] z-10" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary),0.25),transparent_60%)] -z-10" />
       </div>
 
       {isMounted && easterEggs.map((egg) => (
@@ -77,22 +86,30 @@ const HeroSection = () => {
         />
       ))}
       
-      {isQuoteOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center"
-          onClick={() => setIsQuoteOpen(false)}
-        >
-          <div
-            className="popup-content-animation relative max-w-sm rounded-2xl border border-white/20 bg-background/70 p-8 text-center shadow-2xl backdrop-blur-sm"
-            onClick={(e) => e.stopPropagation()}
+      <AnimatePresence>
+        {isQuoteOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsQuoteOpen(false)}
           >
-             <p className="text-center text-2xl mb-2">✨</p>
-             <p className="text-center text-lg text-foreground">
-              {currentQuote}
-            </p>
-          </div>
-        </div>
-      )}
+            <motion.div
+              className="relative max-w-sm rounded-2xl border border-white/20 bg-background/70 p-8 text-center shadow-2xl backdrop-blur-sm"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1, transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] } }}
+              exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+              onClick={(e) => e.stopPropagation()}
+            >
+               <p className="text-center text-2xl mb-2">✨</p>
+               <p className="text-center text-lg text-foreground">
+                {currentQuote}
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="relative z-30">
         <h1 className="font-headline text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-foreground">
