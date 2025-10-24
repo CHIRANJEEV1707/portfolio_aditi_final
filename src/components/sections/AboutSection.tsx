@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import AnimateOnScroll from '@/components/common/AnimateOnScroll';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -10,24 +11,30 @@ const AboutSection = () => {
   );
 
   return (
-    <section id="about" className="py-20 md:py-32 container mx-auto relative z-10">
+    <section id="about" className="py-20 md:py-32 container mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
         <AnimateOnScroll
           animation="fade-in"
           className="lg:col-span-2 relative"
         >
-            <Link href="/about">
+            <Link href="/about" className="group">
               <div className="aspect-[4/5] relative rounded-lg overflow-hidden shadow-lg">
                 {profileImage && (
                   <Image
                     src={profileImage.imageUrl}
                     alt={profileImage.description}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
                     data-ai-hint={profileImage.imageHint}
                     sizes="(max-width: 1024px) 100vw, 40vw"
                   />
                 )}
+                <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="text-white text-lg font-bold flex items-center">
+                    Read more about me
+                    <ArrowUpRight className="ml-2 w-5 h-5" />
+                  </div>
+                </div>
               </div>
             </Link>
         </AnimateOnScroll>
@@ -42,9 +49,6 @@ const AboutSection = () => {
             storytelling. I believe in crafting marketing that not only converts
             but also connects with people on a deeper level.
           </p>
-           <Link href="/about" className="inline-flex items-center text-primary mt-4 font-bold">
-            Read more about me <ArrowUpRight className="ml-2 w-4 h-4" />
-          </Link>
         </AnimateOnScroll>
       </div>
     </section>
