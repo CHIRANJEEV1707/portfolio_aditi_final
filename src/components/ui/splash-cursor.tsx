@@ -58,7 +58,6 @@ function SplashCursor({
     };
 
     let pointers = [new pointerPrototype()];
-    let isRunning = false;
     let splatStack = [];
 
     const { gl, ext } = getWebGLContext(canvas);
@@ -796,22 +795,8 @@ function SplashCursor({
     let lastUpdateTime = Date.now();
     let colorUpdateTimer = 0.0;
     
-    let lastMouseTime = Date.now();
-    let isMouseIdle = false;
-
     function updateFrame() {
       const dt = calcDeltaTime();
-
-      const now = Date.now();
-      if (now - lastMouseTime > 1000) { // 1 second of inactivity
-        isMouseIdle = true;
-      }
-
-      if (isMouseIdle && splatStack.length === 0) {
-        stop();
-        return;
-      }
-      
       if (resizeCanvas()) initFramebuffers();
       updateColors(dt);
       applyInputs();
@@ -1057,20 +1042,6 @@ function SplashCursor({
       if (aspectRatio > 1) radius *= aspectRatio;
       return radius;
     }
-    
-    function start() {
-      if (isRunning) return;
-      isRunning = true;
-      animationFrameId.current = requestAnimationFrame(updateFrame);
-    }
-    
-    function stop() {
-      isRunning = false;
-      if (animationFrameId.current) {
-        cancelAnimationFrame(animationFrameId.current);
-        animationFrameId.current = null;
-      }
-    }
 
     function updatePointerDownData(pointer, id, posX, posY) {
       pointer.id = id;
@@ -1086,9 +1057,6 @@ function SplashCursor({
     }
 
     function updatePointerMoveData(pointer, posX, posY) {
-      lastMouseTime = Date.now();
-      isMouseIdle = false;
-      
       pointer.prevTexcoordX = pointer.texcoordX;
       pointer.prevTexcoordY = pointer.texcoordY;
       pointer.texcoordX = posX / canvas.width;
@@ -1097,10 +1065,6 @@ function SplashCursor({
       pointer.deltaY = correctDeltaY(pointer.texcoordY - pointer.prevTexcoordY);
       pointer.moved =
         Math.abs(pointer.deltaX) > 0 || Math.abs(pointer.deltaY) > 0;
-      
-      if (!isRunning) {
-        start();
-      }
     }
 
     function updatePointerUpData(pointer) {
@@ -1209,7 +1173,6 @@ function SplashCursor({
       let posY = scaleByPixelRatio(e.clientY);
       updatePointerDownData(pointer, -1, posX, posY);
       splatStack.push(parseInt(Math.random() * 20) + 5);
-      if (!isRunning) start();
     }
     
     function onMouseMove(e) {
@@ -1227,7 +1190,6 @@ function SplashCursor({
         let posY = scaleByPixelRatio(touches[i].clientY);
         updatePointerDownData(pointer, touches[i].identifier, posX, posY);
       }
-      if (!isRunning) start();
     }
 
     function onTouchMove(e) {
@@ -1245,6 +1207,17 @@ function SplashCursor({
       let pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
         updatePointerUpData(pointer);
+      }
+    }
+
+    function start() {
+      animationFrameId.current = requestAnimationFrame(updateFrame);
+    }
+
+    function stop() {
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+        animationFrameId.current = null;
       }
     }
 
@@ -1290,3 +1263,5 @@ function SplashCursor({
 }
 
 export { SplashCursor };
+
+    
