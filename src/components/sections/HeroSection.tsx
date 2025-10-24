@@ -11,6 +11,7 @@ import {
   PlaceHolderImages,
   type ImagePlaceholder,
 } from '@/lib/placeholder-images';
+import { GridBackground } from '../ui/grid-background';
 
 const FloatingImages = ({
   images,
@@ -157,6 +158,9 @@ const HeroSection = () => {
       ref={constraintsRef}
       className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
     >
+      <GridBackground />
+      <div className="absolute inset-0 -z-10 pointer-events-none bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.1),transparent_60%)]" />
+
       {isMounted && (
         <div className="absolute inset-0 z-10">
           <FloatingImages
