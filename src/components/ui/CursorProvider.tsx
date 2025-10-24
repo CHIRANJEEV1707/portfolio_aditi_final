@@ -10,29 +10,27 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
   const [showCursor, setShowCursor] = useState(false);
 
   useEffect(() => {
-    // These are the sections on the homepage to disable the cursor on
-    const homepageSectionsToDisable = ['#work', '#projects'];
     // These are the route prefixes to disable the cursor on
     const routesToDisable = ['/projects/'];
+    const homepageSectionsToDisable = ['#work', '#projects'];
 
-    const shouldShow =
-      !routesToDisable.some((route) => pathname.startsWith(route)) &&
-      !homepageSectionsToDisable.some((section) => window.location.hash.startsWith(section));
+    const updateCursorVisibility = () => {
+      const currentHash = window.location.hash;
+      const onHomepage = pathname === '/';
 
-    setShowCursor(shouldShow);
+      const isDisabledByHash = onHomepage && homepageSectionsToDisable.some(section => currentHash.startsWith(section));
+      const isDisabledByRoute = routesToDisable.some(route => pathname.startsWith(route));
+      
+      setShowCursor(!isDisabledByHash && !isDisabledByRoute);
+    };
 
-    const handleHashChange = () => {
-        const shouldShow =
-        !routesToDisable.some((route) => pathname.startsWith(route)) &&
-        !homepageSectionsToDisable.some((section) => window.location.hash.startsWith(section));
-        setShowCursor(shouldShow);
-    }
+    updateCursorVisibility();
+
+    window.addEventListener('hashchange', updateCursorVisibility);
     
-    window.addEventListener('hashchange', handleHashChange);
-
     return () => {
-        window.removeEventListener('hashchange', handleHashChange);
-    }
+      window.removeEventListener('hashchange', updateCursorVisibility);
+    };
 
   }, [pathname]);
 
