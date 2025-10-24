@@ -4,6 +4,7 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/common/Header';
+import { CursorProvider } from '@/components/ui/CursorProvider';
 
 export const metadata: Metadata = {
   title: 'Aditi Agrawal | Digital Marketing Strategist & Creative Solutionist',
@@ -23,9 +24,11 @@ export default function RootLayout({
           'min-h-screen bg-background antialiased flex flex-col',
         )}
       >
-          <Header />
-          <main className="flex-grow">{children}</main>
-          <Toaster />
+          <CursorProvider>
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <Toaster />
+          </CursorProvider>
       </body>
     </html>
   );
