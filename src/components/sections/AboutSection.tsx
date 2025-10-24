@@ -63,15 +63,6 @@ const AboutSection = () => {
                 />
               )}
               <div
-                className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{
-                  clipPath: isHovering
-                    ? `circle(80px at ${mousePosition.x}px ${mousePosition.y}px)`
-                    : 'circle(0px at 50% 50%)',
-                  transition: 'clip-path 0.2s ease-out',
-                }}
-              />
-              <div
                 className="absolute text-white text-lg font-bold flex items-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 style={{
                   top: mousePosition.y,
