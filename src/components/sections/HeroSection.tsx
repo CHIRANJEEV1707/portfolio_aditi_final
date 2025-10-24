@@ -20,10 +20,10 @@ const FloatingImages = ({
   constraintsRef: React.RefObject<HTMLElement>;
 }) => {
   const imageStyles = [
-    { top: '15%', left: '10%', width: 150, duration: 25, rotate: -5 },
-    { top: '70%', left: '80%', width: 120, duration: 30, rotate: 10 },
-    { top: '10%', left: '85%', width: 100, duration: 20, rotate: -8 },
-    { top: '75%', left: '5%', width: 180, duration: 35, rotate: 12 },
+    { top: '10%', left: '5%', width: 150, duration: 25, rotate: -5 },
+    { top: '60%', left: '85%', width: 120, duration: 30, rotate: 10 },
+    { top: '5%', left: '90%', width: 100, duration: 20, rotate: -8 },
+    { top: '75%', left: '2%', width: 180, duration: 35, rotate: 12 },
   ];
 
   return (
@@ -157,29 +157,29 @@ const HeroSection = () => {
       ref={constraintsRef}
       className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
     >
-        {isMounted && (
-          <div className="absolute inset-0 z-10">
-            <FloatingImages
-              images={floatingImages}
-              constraintsRef={constraintsRef}
-            />
-          </div>
-        )}
+      {isMounted && (
+        <div className="absolute inset-0 z-10">
+          <FloatingImages
+            images={floatingImages}
+            constraintsRef={constraintsRef}
+          />
+        </div>
+      )}
 
-        {isMounted &&
-          easterEggs.map((egg, index) => (
-            <EasterEgg
-              key={index}
-              className={egg.className}
-              onClick={() => handleEggClick(egg.message)}
-            >
-              {egg.char}
-            </EasterEgg>
-          ))}
+      {isMounted &&
+        easterEggs.map((egg, index) => (
+          <EasterEgg
+            key={index}
+            className={`${egg.className} z-30`}
+            onClick={() => handleEggClick(egg.message)}
+          >
+            {egg.char}
+          </EasterEgg>
+        ))}
       <div className="relative z-20">
         <div className="relative text-center flex flex-col items-center justify-center">
           <div className="flex justify-center">
-            <h1 className="font-headline text-6xl md:text-8xl font-black uppercase tracking-tighter">
+            <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter">
               {title}
             </h1>
           </div>
