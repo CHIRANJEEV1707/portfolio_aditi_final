@@ -96,22 +96,22 @@ const FloatingImages = ({
 const easterEggs = [
   {
     char: '✨',
-    className: 'top-[10%] left-[5%]',
+    className: 'top-[15%] left-[80%]',
     message: 'You found me! 🌸',
   },
   {
     char: '🎨',
-    className: 'bottom-[10%] right-[5%]',
+    className: 'bottom-[15%] right-[80%]',
     message: 'Creative minds notice details 💙',
   },
   {
     char: '💡',
-    className: 'top-[10%] right-[5%]',
+    className: 'top-[15%] right-[80%]',
     message: 'Hidden spark unlocked ✨',
   },
   {
     char: '💭',
-    className: 'bottom-[10%] left-[5%]',
+    className: 'bottom-[15%] left-[80%]',
     message: 'Imagination builds worlds ✨',
   },
 ];
@@ -158,7 +158,7 @@ const HeroSection = () => {
       className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
     >
         {isMounted && (
-          <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 z-10">
             <FloatingImages
               images={floatingImages}
               constraintsRef={constraintsRef}
@@ -176,7 +176,7 @@ const HeroSection = () => {
               {egg.char}
             </EasterEgg>
           ))}
-      <div className="relative z-10">
+      <div className="relative z-20">
         <div className="relative text-center flex flex-col items-center justify-center">
           <div className="flex justify-center">
             <h1 className="font-headline text-6xl md:text-8xl font-black uppercase tracking-tighter">
