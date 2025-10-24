@@ -10,7 +10,7 @@ const AboutSection = () => {
   );
 
   return (
-    <section id="about" className="py-20 md:py-32 container mx-auto">
+    <section id="about" className="py-20 md:py-32 container mx-auto relative z-10">
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
         <AnimateOnScroll
           animation="fade-in"

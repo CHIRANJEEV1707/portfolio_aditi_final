@@ -85,8 +85,8 @@ const ContactSection = () => {
   }
 
   return (
-    <section id="contact" className="py-20 md:py-32 relative overflow-hidden">
-      <div className="container mx-auto max-w-3xl text-center">
+    <section id="contact" className="py-20 md:py-32 relative overflow-hidden bg-background">
+      <div className="container mx-auto max-w-3xl text-center relative z-10">
         <AnimateOnScroll animation="fade-in">
           <h2 className="text-5xl md:text-6xl font-bold mb-4">
             Let’s Build Something Bold Together.

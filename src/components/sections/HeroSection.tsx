@@ -158,10 +158,12 @@ const HeroSection = () => {
       className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
     >
         {isMounted && (
-          <FloatingImages
-            images={floatingImages}
-            constraintsRef={constraintsRef}
-          />
+          <div className="absolute inset-0 z-0">
+            <FloatingImages
+              images={floatingImages}
+              constraintsRef={constraintsRef}
+            />
+          </div>
         )}
 
         {isMounted &&

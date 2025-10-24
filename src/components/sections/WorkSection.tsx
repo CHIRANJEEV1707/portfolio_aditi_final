@@ -25,7 +25,7 @@ const WorkSection = () => {
     <div
       id="work"
       ref={ref}
-      className="flex w-full h-[50vh] justify-center items-center bg-background relative overflow-hidden"
+      className="flex w-full h-[50vh] justify-center items-center relative overflow-hidden"
     >
       <div className="absolute top-0 left-0 z-0 h-full w-full">
         <ImageTrail containerRef={ref}>
