@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import AnimateOnScroll from '@/components/common/AnimateOnScroll';
-import StarIcon from '@/components/common/StarIcon';
 import PageTransition from '@/components/common/PageTransition';
 import { cn } from '@/lib/utils';
 
@@ -35,8 +34,6 @@ export default function ProjectPage({ params }: ProjectPageProps) {
   return (
     <PageTransition>
       <div className="pt-24 pb-12 relative overflow-hidden">
-        <StarIcon className="absolute -top-10 -left-10 w-32 h-32 text-primary/10 star-spin" />
-        <StarIcon className="absolute bottom-20 -right-10 w-24 h-24 text-accent/10 star-spin" style={{ animationDuration: '30s' }} />
         <AnimateOnScroll animation="fade-in">
           <header className="container mx-auto mb-12">
             <Button asChild variant="ghost" className="mb-8">
@@ -58,7 +55,6 @@ export default function ProjectPage({ params }: ProjectPageProps) {
         {heroImage && (
           <AnimateOnScroll
             animation="fade-in"
-            delay="delay-200"
             className="container mx-auto mb-16"
           >
             <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-lg">
@@ -75,7 +71,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           </AnimateOnScroll>
         )}
 
-        <AnimateOnScroll animation="slide-in-up" className="container mx-auto">
+        <AnimateOnScroll animation="fade-in" className="container mx-auto">
           <div>
             <div>
               <h2 className="font-headline text-3xl font-bold mb-4">The Story</h2>
@@ -98,7 +94,6 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                 <AnimateOnScroll
                   key={visualId}
                   animation="fade-in"
-                  delay={`delay-${index * 200}`}
                 >
                   <div
                     className={cn(

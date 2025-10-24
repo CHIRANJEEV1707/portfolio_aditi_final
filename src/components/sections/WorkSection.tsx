@@ -45,7 +45,7 @@ const WorkSection = () => {
           ))}
         </ImageTrail>
       </div>
-      <h2 className="font-headline text-7xl md:text-9xl font-black z-10 select-none text-center uppercase tracking-tighter">
+      <h2 className="text-7xl md:text-9xl font-black z-10 select-none text-center uppercase tracking-tighter">
         Work
       </h2>
     </div>

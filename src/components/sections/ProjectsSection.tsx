@@ -8,7 +8,6 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import AnimateOnScroll from '../common/AnimateOnScroll';
 import { ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import StarIcon from '../common/StarIcon';
 
 interface ProjectsSectionProps {
   projects: Project[];
@@ -36,9 +35,8 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
 
   return (
     <section id="projects" className="py-20 md:py-32 container mx-auto relative">
-      <StarIcon className="absolute top-10 left-0 w-24 h-24 text-accent/20 star-spin" style={{ animationDuration: '40s' }}/>
       
-      <div className="relative z-10 border-t border-foreground/10">
+      <div className="relative z-10 border-t">
         {projects.map((project) => {
           const projectImage = PlaceHolderImages.find(
             (img) => img.id === project.imageId
@@ -53,17 +51,17 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
                 }
                 onMouseLeave={() => setHoveredProjectImage(null)}
               >
-                <div className="border-b border-foreground/10 transition-colors duration-300 group-hover:bg-primary/5">
+                <div className="border-b transition-colors duration-300 group-hover:bg-accent">
                   <div className="container mx-auto py-8 flex justify-between items-center">
                     <div>
                       <p className="text-muted-foreground mb-1 text-sm">
                         {project.client}
                       </p>
-                      <h3 className="font-headline text-3xl md:text-5xl font-bold group-hover:text-primary transition-colors duration-300">
+                      <h3 className="text-3xl md:text-5xl font-bold group-hover:text-primary transition-colors duration-300">
                         {project.name}
                       </h3>
                     </div>
-                    <div className="w-12 h-12 rounded-full border border-foreground/20 flex items-center justify-center transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary group-hover:rotate-45 shrink-0">
+                    <div className="w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary group-hover:rotate-45 shrink-0">
                       <ArrowUpRight className="w-6 h-6" />
                     </div>
                   </div>

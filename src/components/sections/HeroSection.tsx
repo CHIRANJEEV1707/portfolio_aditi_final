@@ -11,10 +11,6 @@ import {
   PlaceHolderImages,
   type ImagePlaceholder,
 } from '@/lib/placeholder-images';
-import StarIcon from '../common/StarIcon';
-import { ComicText } from '../ui/comic-text';
-import SquiggleIcon from '../common/SquiggleIcon';
-import PlusIcon from '../common/PlusIcon';
 
 const FloatingImages = ({
   images,
@@ -24,10 +20,10 @@ const FloatingImages = ({
   constraintsRef: React.RefObject<HTMLElement>;
 }) => {
   const imageStyles = [
-    { top: '5%', left: '5%', width: 150, duration: 25, rotate: -5 },
-    { top: '60%', left: '90%', width: 120, duration: 30, rotate: 10 },
-    { top: '5%', left: '85%', width: 100, duration: 20, rotate: -8 },
-    { top: '70%', left: '5%', width: 180, duration: 35, rotate: 12 },
+    { top: '15%', left: '10%', width: 150, duration: 25, rotate: -5 },
+    { top: '70%', left: '80%', width: 120, duration: 30, rotate: 10 },
+    { top: '10%', left: '85%', width: 100, duration: 20, rotate: -8 },
+    { top: '75%', left: '5%', width: 180, duration: 35, rotate: 12 },
   ];
 
   return (
@@ -100,28 +96,23 @@ const FloatingImages = ({
 const easterEggs = [
   {
     char: '✨',
-    className: 'top-[5%] left-[2%]',
+    className: 'top-[10%] left-[5%]',
     message: 'You found me! 🌸',
   },
   {
     char: '🎨',
-    className: 'bottom-[5%] right-[2%]',
+    className: 'bottom-[10%] right-[5%]',
     message: 'Creative minds notice details 💙',
   },
   {
     char: '💡',
-    className: 'top-[5%] right-[2%]',
+    className: 'top-[10%] right-[5%]',
     message: 'Hidden spark unlocked ✨',
   },
   {
     char: '💭',
-    className: 'bottom-[5%] left-[2%]',
+    className: 'bottom-[10%] left-[5%]',
     message: 'Imagination builds worlds ✨',
-  },
-  {
-    char: '✦',
-    className: 'top-[50%] right-[1%]',
-    message: 'Every pixel has a purpose ✦',
   },
 ];
 
@@ -166,44 +157,6 @@ const HeroSection = () => {
       ref={constraintsRef}
       className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
     >
-      <div className="absolute inset-0 subtle-grid bg-accent/5 z-0 pointer-events-none"></div>
-
-      <StarIcon
-        className="absolute top-[10%] left-[20%] w-8 h-8 text-primary/50 star-spin -z-10"
-        style={{ animationDuration: '15s' }}
-      />
-      <StarIcon
-        className="absolute top-[80%] left-[5%] w-12 h-12 text-accent/50 star-spin -z-10"
-        style={{ animationDuration: '25s' }}
-      />
-      <StarIcon
-        className="absolute top-[15%] right-[5%] w-10 h-10 text-primary/50 star-spin -z-10"
-        style={{ animationDuration: '20s' }}
-      />
-      <StarIcon
-        className="absolute bottom-[10%] right-[30%] w-6 h-6 text-accent/50 star-spin -z-10"
-        style={{ animationDuration: '12s' }}
-      />
-
-      <SquiggleIcon
-        className="absolute top-[5%] left-[50%] w-24 h-24 text-primary/20 star-spin -z-10"
-        style={{ animationDuration: '40s', animationDirection: 'reverse' }}
-      />
-      <PlusIcon
-        className="absolute top-[85%] left-[85%] w-10 h-10 text-accent/50 star-spin -z-10"
-        style={{ animationDuration: '18s' }}
-      />
-      <SquiggleIcon
-        className="absolute bottom-[5%] right-[5%] w-16 h-16 text-accent/30 star-spin -z-10"
-        style={{ animationDuration: '30s' }}
-      />
-      <PlusIcon
-        className="absolute bottom-[30%] left-[10%] w-8 h-8 text-primary/40 star-spin -z-10"
-        style={{ animationDuration: '22s', animationDirection: 'reverse' }}
-      />
-      
-      <div className="relative z-10">
-
         {isMounted && (
           <FloatingImages
             images={floatingImages}
@@ -221,21 +174,12 @@ const HeroSection = () => {
               {egg.char}
             </EasterEgg>
           ))}
-
+      <div className="relative z-10">
         <div className="relative text-center flex flex-col items-center justify-center">
           <div className="flex justify-center">
-            <ComicText
-              fontSize={6}
-              style={
-                {
-                  '--dot-color': 'hsl(var(--primary))',
-                  '--background-color': 'hsl(var(--accent))',
-                  fontFamily: 'var(--font-headline)',
-                } as React.CSSProperties
-              }
-            >
+            <h1 className="font-headline text-6xl md:text-8xl font-black uppercase tracking-tighter">
               {title}
-            </ComicText>
+            </h1>
           </div>
           <div className="mt-4 text-lg md:text-xl lg:text-2xl text-muted-foreground font-body max-w-2xl mx-auto">
             {isMounted ? (

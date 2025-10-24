@@ -1,36 +1,29 @@
-"use client"
+'use client';
 
-import React, { useEffect, useState } from "react"
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { LucideIcon } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { usePathname } from "next/navigation"
+import Link from 'next/link';
+import { Home, User, Briefcase, Mail } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
+import { useEffect, useState } from 'react';
 
-export interface NavItem {
-  name: string
-  url: string
-  icon: LucideIcon
-}
+export type NavItem = {
+  name: string;
+  url: string;
+  icon: typeof Home;
+};
 
-interface NavBarProps {
-  items: NavItem[]
-  className?: string
-}
+const navItems: NavItem[] = [
+  { name: 'Home', url: '#home', icon: Home },
+  { name: 'About', url: '#about', icon: User },
+  { name: 'Work', url: '#work', icon: Briefcase },
+  { name: 'Contact', url: '#contact', icon: Mail },
+];
 
-export function NavBar({ items, className }: NavBarProps) {
+export function NavBar({ items }: { items: NavItem[] }) {
   const pathname = usePathname();
   const [activeTab, setActiveTab] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-
-    handleResize()
-    window.addEventListener("resize", handleResize)
-
     const handleScroll = () => {
       if (pathname !== '/') return;
       const sections = items.map(item => document.getElementById(item.url.substring(1)));
@@ -45,27 +38,18 @@ export function NavBar({ items, className }: NavBarProps) {
     };
 
     window.addEventListener('scroll', handleScroll);
-
-
     return () => {
-      window.removeEventListener("resize", handleResize)
       window.removeEventListener('scroll', handleScroll);
-    }
-  }, [items, pathname])
+    };
+  }, [items, pathname]);
 
   return (
-    <div
-      className={cn(
-        "fixed top-0 left-1/2 -translate-x-1/2 z-50 pt-6",
-        className,
-      )}
-    >
-      <div className="flex items-center gap-3 bg-background/5 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
+    <header className="fixed top-0 left-1/2 -translate-x-1/2 z-50 p-4">
+      <nav className="flex items-center gap-2 bg-background/80 border backdrop-blur-md p-2 rounded-full shadow-lg">
         {items.map((item) => {
-          const Icon = item.icon
-          const id = item.url.substring(1);
-          const isActive = activeTab === id;
-          const href = pathname === "/" ? item.url : `/${item.url}`
+           const id = item.url.substring(1);
+           const isActive = activeTab === id;
+           const href = pathname === "/" ? item.url : `/${item.url}`
 
           return (
             <Link
@@ -77,37 +61,17 @@ export function NavBar({ items, className }: NavBarProps) {
                 }
               }}
               className={cn(
-                "relative cursor-pointer text-sm font-semibold px-6 py-2 rounded-full transition-colors",
+                "relative cursor-pointer text-sm font-semibold px-4 py-2 rounded-full transition-colors",
                 "text-foreground/80 hover:text-primary",
-                isActive && "text-primary",
+                isActive ? "bg-primary/10 text-primary" : ""
               )}
             >
               <span className="hidden md:inline">{item.name}</span>
-              <span className="md:hidden">
-                <Icon size={18} strokeWidth={2.5} />
-              </span>
-              {isActive && (
-                <motion.div
-                  layoutId="lamp"
-                  className="absolute inset-0 w-full bg-primary/5 rounded-full -z-10"
-                  initial={false}
-                  transition={{
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 30,
-                  }}
-                >
-                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-primary rounded-t-full">
-                    <div className="absolute w-12 h-6 bg-primary/20 rounded-full blur-md -top-2 -left-2" />
-                    <div className="absolute w-8 h-6 bg-primary/20 rounded-full blur-md -top-1" />
-                    <div className="absolute w-4 h-4 bg-primary/20 rounded-full blur-sm top-0 left-2" />
-                  </div>
-                </motion.div>
-              )}
+              <item.icon className="md:hidden h-5 w-5" />
             </Link>
-          )
+          );
         })}
-      </div>
-    </div>
-  )
-}
+      </nav>
+    </header>
+  );
+};

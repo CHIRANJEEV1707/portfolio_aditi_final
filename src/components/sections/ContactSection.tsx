@@ -12,13 +12,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import AnimateOnScroll from '../common/AnimateOnScroll';
 import { Loader2 } from 'lucide-react';
 import React from 'react';
-import StarIcon from '../common/StarIcon';
-import { AnimatedInput } from '../ui/animated-input';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -87,11 +86,9 @@ const ContactSection = () => {
 
   return (
     <section id="contact" className="py-20 md:py-32 bg-background relative overflow-hidden">
-      <StarIcon className="absolute top-1/2 left-1/4 w-32 h-32 text-primary/10 star-spin" style={{ animationDuration: '50s' }} />
-      <StarIcon className="absolute top-20 right-10 w-16 h-16 text-accent/20 star-spin" style={{ animationDuration: '30s', animationDirection: 'reverse' }} />
       <div className="container mx-auto max-w-3xl text-center">
-        <AnimateOnScroll animation="slide-in-up">
-          <h2 className="font-headline text-5xl md:text-6xl font-bold mb-4">
+        <AnimateOnScroll animation="fade-in">
+          <h2 className="text-5xl md:text-6xl font-bold mb-4">
             Let’s Build Something Bold Together.
           </h2>
           <p className="text-lg text-muted-foreground mb-12">
@@ -100,15 +97,16 @@ const ContactSection = () => {
         </AnimateOnScroll>
         <AnimateOnScroll animation="fade-in" delay="delay-300">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12 text-left">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 text-left">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem>
+                      <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <AnimatedInput label="Your Name" {...field} />
+                        <Input placeholder="Your Name" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -119,8 +117,9 @@ const ContactSection = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
+                      <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <AnimatedInput label="your@email.com" {...field} />
+                        <Input placeholder="your@email.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -136,7 +135,7 @@ const ContactSection = () => {
                     <FormControl>
                       <Textarea
                         placeholder="Tell me about your project..."
-                        className="min-h-[150px] bg-background border"
+                        className="min-h-[150px]"
                         {...field}
                       />
                     </FormControl>
@@ -145,7 +144,7 @@ const ContactSection = () => {
                 )}
               />
               <div className="text-center">
-                <Button type="submit" size="lg" disabled={isSubmitting} className="bg-primary hover:bg-primary/90">
+                <Button type="submit" size="lg" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />

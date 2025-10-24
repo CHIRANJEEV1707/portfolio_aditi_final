@@ -1,22 +1,9 @@
 
 import type { Metadata } from 'next';
-import { Poppins, PT_Sans } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/common/Header';
-
-const fontHeadline = Poppins({
-  subsets: ['latin'],
-  weight: ['700', '900'],
-  variable: '--font-headline',
-});
-
-const fontBody = PT_Sans({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-body',
-});
 
 export const metadata: Metadata = {
   title: 'Aditi Agrawal | Digital Marketing Strategist & Creative Solutionist',
@@ -33,16 +20,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          'min-h-screen bg-background font-body antialiased flex flex-col',
-          fontHeadline.variable,
-          fontBody.variable
+          'min-h-screen bg-background antialiased flex flex-col',
         )}
       >
-        
           <Header />
           <main className="flex-grow">{children}</main>
           <Toaster />
-        
       </body>
     </html>
   );

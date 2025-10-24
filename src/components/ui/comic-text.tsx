@@ -1,7 +1,7 @@
-"use client";
-import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
-import { CSSProperties } from "react";
+'use client';
+import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
+import { CSSProperties } from 'react';
 
 type ComicTextProps = {
   children: string;
@@ -16,43 +16,18 @@ export function ComicText({
   style,
   fontSize = 5,
 }: ComicTextProps) {
-  if (typeof children !== "string") {
-    throw new Error("children must be a string");
+  if (typeof children !== 'string') {
+    throw new Error('children must be a string');
   }
 
-  const dotColor = "var(--dot-color, #EF4444)";
-  const backgroundColor = "var(--background-color, #FACC15)";
-
   return (
-    <motion.div
-      className={cn("select-none text-center font-headline", className)}
-      style={{
-        fontSize: `${fontSize}rem`,
-        fontWeight: "900",
-        WebkitTextStroke: `${fontSize * 0.35}px #000000`, // Thick black outline
-        transform: "skewX(-10deg)",
-        textTransform: "uppercase",
-        filter: `
-          drop-shadow(5px 5px 0px #000000) 
-          drop-shadow(3px 3px 0px ${dotColor})
-        `,
-        backgroundColor: backgroundColor,
-        backgroundImage: `radial-gradient(circle at 1px 1px, ${dotColor} 1px, transparent 0)`,
-        backgroundSize: "8px 8px",
-        backgroundClip: "text",
-        WebkitBackgroundClip: "text",
-        WebkitTextFillColor: "transparent",
-        ...style,
-      }}
-      initial={{ opacity: 0, scale: 0.8, rotate: -2 }}
-      animate={{ opacity: 1, scale: 1, rotate: 0 }}
-      transition={{
-        duration: 0.6,
-        ease: [0.175, 0.885, 0.32, 1.275],
-        type: "spring",
-      }}
+    <h1
+      className={cn(
+        'font-headline text-6xl md:text-8xl font-black uppercase tracking-tighter',
+        className
+      )}
     >
       {children}
-    </motion.div>
+    </h1>
   );
 }
