@@ -34,7 +34,7 @@ const FloatingImages = ({
         return (
           <motion.div
             key={image.id}
-            className="absolute rounded-lg shadow-lg cursor-grab active:cursor-grabbing"
+            className="absolute rounded-lg shadow-lg cursor-grab active:cursor-grabbing z-10"
             style={{
               top: style.top,
               left: style.left,
@@ -150,7 +150,7 @@ const HeroSection = () => {
     audio?.play().catch((err) => console.error('Audio play failed:', err));
   };
 
-  const title = 'Aditi';
+  const title = 'Aditi Agrawal';
 
   return (
     <section

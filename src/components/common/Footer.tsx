@@ -27,7 +27,7 @@ const Footer = () => {
           ))}
         </div>
         <p className="text-sm">
-          &copy; {new Date().getFullYear()} Aditi. All Rights Reserved.
+          &copy; {new Date().getFullYear()} Aditi Agrawal. All Rights Reserved.
         </p>
       </div>
     </footer>
