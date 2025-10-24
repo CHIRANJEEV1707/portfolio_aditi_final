@@ -21,7 +21,7 @@ export default function AboutPage() {
           <AnimateOnScroll animation="fade-in" className="container mx-auto">
             <header className="text-center my-16">
               <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4">
-                Aditi Agrawal
+                Aditi
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground">
                 Digital Marketing Strategist & Creative Solutionist

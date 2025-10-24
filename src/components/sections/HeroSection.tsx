@@ -150,7 +150,7 @@ const HeroSection = () => {
     audio?.play().catch((err) => console.error('Audio play failed:', err));
   };
 
-  const title = 'Aditi Agrawal';
+  const title = 'Aditi';
 
   return (
     <section
@@ -159,17 +159,12 @@ const HeroSection = () => {
       className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
     >
       <GridBackground />
-      <div className="absolute inset-0 -z-10 pointer-events-none bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.1),transparent_60%)]" />
-
-      {isMounted && (
-        <div className="absolute inset-0 z-10">
+      <div className="absolute inset-0 z-10">
           <FloatingImages
             images={floatingImages}
             constraintsRef={constraintsRef}
           />
         </div>
-      )}
-
       {isMounted &&
         easterEggs.map((egg, index) => (
           <EasterEgg
@@ -181,6 +176,7 @@ const HeroSection = () => {
           </EasterEgg>
         ))}
       <div className="relative z-20">
+        <div className="absolute inset-0 -z-10 pointer-events-none bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.1),transparent_60%)]" />
         <div className="relative text-center flex flex-col items-center justify-center">
           <div className="flex justify-center">
             <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter">

@@ -7,7 +7,7 @@ import Header from '@/components/common/Header';
 import { CursorProvider } from '@/components/ui/CursorProvider';
 
 export const metadata: Metadata = {
-  title: 'Aditi Agrawal | Digital Marketing Strategist & Creative Solutionist',
+  title: 'Aditi | Digital Marketing Strategist & Creative Solutionist',
   description:
     'Personal portfolio of Aditi Agrawal, a digital marketing strategist and creative solutionist, showcasing creative confidence, elegance, and originality.',
 };
