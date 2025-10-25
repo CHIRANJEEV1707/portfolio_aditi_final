@@ -210,7 +210,7 @@ const HeroSection = () => {
         <div className="relative text-center flex flex-col items-center justify-center">
         <div className="flex flex-col justify-center font-black uppercase tracking-tighter text-6xl md:text-8xl">
             <motion.div
-              className="flex"
+              className="flex justify-center"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
@@ -226,7 +226,7 @@ const HeroSection = () => {
               ))}
             </motion.div>
             <motion.div
-              className="flex"
+              className="flex justify-center"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
