@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useEffect, useRef } from 'react';
@@ -15,7 +16,7 @@ const EmojiMatrix = () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    const emojis = ['✨', '🎨', '💡', '💭', '🚀', '📈', '🔍'];
+    const emojis = ['✨', '🎨', '💡', '💭', '🚀', '📈', '🔍', '👾', '🌕', '💻'];
     const particleCount = 50;
     const particles: any[] = [];
 
@@ -23,9 +24,9 @@ const EmojiMatrix = () => {
       this.x = Math.random() * width;
       this.y = Math.random() * height + height;
       this.emoji = emojis[Math.floor(Math.random() * emojis.length)];
-      this.size = Math.random() * 20 + 20; // Increased size
+      this.size = Math.random() * 25 + 25; // Increased size
       this.speed = Math.random() * 1 + 0.5;
-      this.opacity = Math.random() * 0.5 + 0.5; // Increased opacity
+      this.opacity = Math.random() * 0.6 + 0.6; // Increased opacity
     }
 
     Particle.prototype.draw = function() {
@@ -80,7 +81,7 @@ const EmojiMatrix = () => {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full z-[-2] pointer-events-none opacity-20">
+    <div className="fixed top-0 left-0 w-full h-full z-[-2] pointer-events-none opacity-25">
       <canvas ref={canvasRef} />
     </div>
   );
