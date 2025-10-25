@@ -19,7 +19,7 @@ const FloatingEmojis = () => {
           id: i,
           emoji: EMOJIS[i % EMOJIS.length],
           x: Math.random() * width,
-          y: Math.random() * height,
+          y: Math.random() * height, // Keep this for initial random distribution
           size: Math.random() * 30 + 25,
           duration: Math.random() * 15 + 10,
           delay: Math.random() * 5,
@@ -36,12 +36,11 @@ const FloatingEmojis = () => {
           className="absolute"
           style={{
             left: emoji.x,
-            top: -50,
             fontSize: emoji.size,
             opacity: Math.random() * 0.5 + 0.1,
           }}
           initial={{
-            y: emoji.y,
+            y: -50, // Start above the screen
           }}
           animate={{
             y: height ? height + 50 : 1000,
