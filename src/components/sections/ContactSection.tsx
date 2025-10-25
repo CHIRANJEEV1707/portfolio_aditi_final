@@ -143,7 +143,7 @@ const ContactSection = () => {
                   </FormItem>
                 )}
               />
-              <div className="text-center">
+              <div className="flex justify-center">
                 <SendButton isSubmitting={isSubmitting} />
               </div>
             </form>

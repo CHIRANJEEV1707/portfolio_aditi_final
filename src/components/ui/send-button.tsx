@@ -1,3 +1,4 @@
+
 'use client';
 
 import { motion } from 'framer-motion';
@@ -12,7 +13,7 @@ const SendButton = ({ isSubmitting }: SendButtonProps) => {
   return (
     <motion.button
       className={cn(
-        'group flex items-center justify-center rounded-2xl bg-primary text-primary-foreground text-lg font-medium px-5 py-2 pl-[0.9em] overflow-hidden cursor-pointer',
+        'group flex items-center justify-center rounded-xl bg-primary text-primary-foreground text-base font-medium px-4 py-2 pl-[0.8em] overflow-hidden cursor-pointer',
         isSubmitting ? 'cursor-not-allowed opacity-50' : 'hover:bg-primary/90 active:scale-95'
       )}
       disabled={isSubmitting}
@@ -20,7 +21,7 @@ const SendButton = ({ isSubmitting }: SendButtonProps) => {
     >
       {isSubmitting ? (
         <>
-          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
           <span>Sending...</span>
         </>
       ) : (
@@ -43,8 +44,8 @@ const SendButton = ({ isSubmitting }: SendButtonProps) => {
               <motion.svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                width={24}
-                height={24}
+                width={20}
+                height={20}
                 className="transition-transform duration-300 origin-center"
                 variants={{
                   hover: {
@@ -67,7 +68,7 @@ const SendButton = ({ isSubmitting }: SendButtonProps) => {
             className="ml-1 inline-block"
             variants={{
               hover: {
-                x: '5em',
+                x: '4em',
               },
             }}
             transition={{ duration: 0.3 }}
