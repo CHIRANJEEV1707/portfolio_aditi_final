@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useForm } from 'react-hook-form';
@@ -17,6 +16,7 @@ import AnimateOnScroll from '../common/AnimateOnScroll';
 import React from 'react';
 import SendButton from '../ui/send-button';
 import { AnimatedInput } from '../ui/animated-input';
+import { GridBackground } from '../ui/grid-background';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -85,6 +85,8 @@ const ContactSection = () => {
 
   return (
     <section id="contact" className="py-20 md:py-32 relative overflow-hidden">
+      <GridBackground />
+      <div className="absolute inset-0 -z-10 pointer-events-none bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.05),transparent_70%)]" />
       <div className="container mx-auto max-w-3xl text-center relative z-10">
         <AnimateOnScroll animation="fade-in">
           <h2 className="text-5xl md:text-6xl font-bold mb-4">
