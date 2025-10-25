@@ -131,7 +131,7 @@ const ContactSection = () => {
                     <FormControl>
                       <Textarea
                         placeholder="Tell me about your project..."
-                        className="min-h-[150px] bg-transparent border-0 border-b-2 rounded-none focus-visible:ring-0 focus-visible:ring-offset-0 px-0"
+                        className="min-h-[150px]"
                         {...field}
                       />
                     </FormControl>

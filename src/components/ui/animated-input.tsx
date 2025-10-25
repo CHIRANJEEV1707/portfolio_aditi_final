@@ -63,7 +63,6 @@ export const AnimatedInput = ({
       </motion.div>
 
       <input
-        value={value}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         {...props}
