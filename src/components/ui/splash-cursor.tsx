@@ -1109,9 +1109,7 @@ function SplashCursor({
     SPLAT_RADIUS,
     SPLAT_FORCE,
     SHADING,
-    COLORFUL,
     COLOR_UPDATE_SPEED,
-    PAUSED,
     BACK_COLOR,
     TRANSPARENT,
   ]);
