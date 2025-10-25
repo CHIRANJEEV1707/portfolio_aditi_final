@@ -1,4 +1,3 @@
-
 'use client';
 import React, { useEffect, useRef } from 'react';
 
@@ -78,18 +77,18 @@ export default function SplashCursor({
     let pointers: Pointer[] = [pointerPrototype()];
 
     let config = {
-      SIM_RESOLUTION: SIM_RESOLUTION!,
-      DYE_RESOLUTION: DYE_RESOLUTION!,
-      CAPTURE_RESOLUTION: CAPTURE_RESOLUTION!,
-      DENSITY_DISSIPATION: DENSITY_DISSIPATION!,
-      VELOCITY_DISSIPATION: VELOCITY_DISSIPATION!,
-      PRESSURE: PRESSURE!,
-      PRESSURE_ITERATIONS: PRESSURE_ITERATIONS!,
-      CURL: CURL!,
-      SPLAT_RADIUS: SPLAT_RADIUS!,
-      SPLAT_FORCE: SPLAT_FORCE!,
+      SIM_RESOLUTION: SIM_RESOLUTION,
+      DYE_RESOLUTION: DYE_RESOLUTION,
+      CAPTURE_RESOLUTION: CAPTURE_RESOLUTION,
+      DENSITY_DISSIPATION: DENSITY_DISSIPATION,
+      VELOCITY_DISSIPATION: VELOCITY_DISSIPATION,
+      PRESSURE: PRESSURE,
+      PRESSURE_ITERATIONS: PRESSURE_ITERATIONS,
+      CURL: CURL,
+      SPLAT_RADIUS: SPLAT_RADIUS,
+      SPLAT_FORCE: SPLAT_FORCE,
       SHADING,
-      COLOR_UPDATE_SPEED: COLOR_UPDATE_SPEED!,
+      COLOR_UPDATE_SPEED: COLOR_UPDATE_SPEED,
       PAUSED: false,
       BACK_COLOR,
       TRANSPARENT
@@ -102,6 +101,61 @@ export default function SplashCursor({
       config.DYE_RESOLUTION = 256;
       config.SHADING = false;
     }
+    
+    class Program {
+      program: WebGLProgram | null;
+      uniforms: Record<string, WebGLUniformLocation | null>;
+
+      constructor(vertexShader: WebGLShader | null, fragmentShader: WebGLShader | null) {
+        this.program = createProgram(vertexShader, fragmentShader);
+        this.uniforms = this.program ? getUniforms(this.program) : {};
+      }
+
+      bind() {
+        if (this.program) gl.useProgram(this.program);
+      }
+    }
+
+    class Material {
+      vertexShader: WebGLShader | null;
+      fragmentShaderSource: string;
+      programs: Record<number, WebGLProgram | null>;
+      activeProgram: WebGLProgram | null;
+      uniforms: Record<string, WebGLUniformLocation | null>;
+
+      constructor(vertexShader: WebGLShader | null, fragmentShaderSource: string) {
+        this.vertexShader = vertexShader;
+        this.fragmentShaderSource = fragmentShaderSource;
+        this.programs = {};
+        this.activeProgram = null;
+        this.uniforms = {};
+      }
+
+      setKeywords(keywords: string[]) {
+        let hash = 0;
+        for (const kw of keywords) {
+          hash += hashCode(kw);
+        }
+        let program = this.programs[hash];
+        if (program == null) {
+          const fragmentShader = compileShader(gl.FRAGMENT_SHADER, this.fragmentShaderSource, keywords);
+          program = createProgram(this.vertexShader, fragmentShader);
+          this.programs[hash] = program;
+        }
+        if (program === this.activeProgram) return;
+        if (program) {
+          this.uniforms = getUniforms(program);
+        }
+        this.activeProgram = program;
+      }
+
+      bind() {
+        if (this.activeProgram) {
+          gl.useProgram(this.activeProgram);
+        }
+      }
+    }
+
 
     function getWebGLContext(canvas: HTMLCanvasElement) {
       const params = {
@@ -113,21 +167,19 @@ export default function SplashCursor({
       };
 
       let gl = canvas.getContext('webgl2', params) as WebGL2RenderingContext | null;
-
-      if (!gl) {
+      const isWebGL2 = !!gl;
+      if (!isWebGL2) {
         gl = (canvas.getContext('webgl', params) ||
-          canvas.getContext('experimental-webgl', params)) as WebGL2RenderingContext | null;
+          canvas.getContext('experimental-webgl', params)) as WebGLRenderingContext | null;
       }
+
 
       if (!gl) {
         throw new Error('Unable to initialize WebGL.');
       }
 
-      const isWebGL2 = 'drawBuffers' in gl;
-
-      let supportLinearFiltering = false;
-      let halfFloat = null;
-
+      let halfFloat;
+      let supportLinearFiltering;
       if (isWebGL2) {
         (gl as WebGL2RenderingContext).getExtension('EXT_color_buffer_float');
         supportLinearFiltering = !!(gl as WebGL2RenderingContext).getExtension('OES_texture_float_linear');
@@ -142,9 +194,9 @@ export default function SplashCursor({
         ? (gl as WebGL2RenderingContext).HALF_FLOAT
         : (halfFloat && (halfFloat as any).HALF_FLOAT_OES) || 0;
 
-      let formatRGBA: any;
-      let formatRG: any;
-      let formatR: any;
+      let formatRGBA;
+      let formatRG;
+      let formatR;
 
       if (isWebGL2) {
         formatRGBA = getSupportedFormat(gl, (gl as WebGL2RenderingContext).RGBA16F, gl.RGBA, halfFloatTexType);
@@ -164,6 +216,10 @@ export default function SplashCursor({
         formatRGBA = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
         formatRG = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
         formatR = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
+      }
+      
+      if(!formatRGBA || !formatRG || !formatR) {
+        return { gl: null, ext: null };
       }
 
       return {
@@ -253,6 +309,7 @@ export default function SplashCursor({
       gl.compileShader(shader);
       if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
         console.trace(gl.getShaderInfoLog(shader));
+        return null;
       }
       return shader;
     }
@@ -282,59 +339,6 @@ export default function SplashCursor({
       return uniforms;
     }
 
-    class Program {
-      program: WebGLProgram | null;
-      uniforms: Record<string, WebGLUniformLocation | null>;
-
-      constructor(vertexShader: WebGLShader | null, fragmentShader: WebGLShader | null) {
-        this.program = createProgram(vertexShader, fragmentShader);
-        this.uniforms = this.program ? getUniforms(this.program) : {};
-      }
-
-      bind() {
-        if (this.program) gl.useProgram(this.program);
-      }
-    }
-
-    class Material {
-      vertexShader: WebGLShader | null;
-      fragmentShaderSource: string;
-      programs: Record<number, WebGLProgram | null>;
-      activeProgram: WebGLProgram | null;
-      uniforms: Record<string, WebGLUniformLocation | null>;
-
-      constructor(vertexShader: WebGLShader | null, fragmentShaderSource: string) {
-        this.vertexShader = vertexShader;
-        this.fragmentShaderSource = fragmentShaderSource;
-        this.programs = {};
-        this.activeProgram = null;
-        this.uniforms = {};
-      }
-
-      setKeywords(keywords: string[]) {
-        let hash = 0;
-        for (const kw of keywords) {
-          hash += hashCode(kw);
-        }
-        let program = this.programs[hash];
-        if (program == null) {
-          const fragmentShader = compileShader(gl.FRAGMENT_SHADER, this.fragmentShaderSource, keywords);
-          program = createProgram(this.vertexShader, fragmentShader);
-          this.programs[hash] = program;
-        }
-        if (program === this.activeProgram) return;
-        if (program) {
-          this.uniforms = getUniforms(program);
-        }
-        this.activeProgram = program;
-      }
-
-      bind() {
-        if (this.activeProgram) {
-          gl.useProgram(this.activeProgram);
-        }
-      }
-    }
 
     const baseVertexShader = compileShader(
       gl.VERTEX_SHADER,
@@ -766,6 +770,8 @@ export default function SplashCursor({
       copyProgram.bind();
       if (copyProgram.uniforms.uTexture) gl.uniform1i(copyProgram.uniforms.uTexture, target.attach(0));
       blit(newFBO, false);
+      gl.deleteTexture(target.texture);
+      gl.deleteFramebuffer(target.fbo);
       return newFBO;
     }
 
@@ -789,8 +795,8 @@ export default function SplashCursor({
     }
 
     function initFramebuffers() {
-      const simRes = getResolution(config.SIM_RESOLUTION!);
-      const dyeRes = getResolution(config.DYE_RESOLUTION!);
+      const simRes = getResolution(config.SIM_RESOLUTION);
+      const dyeRes = getResolution(config.DYE_RESOLUTION);
 
       const texType = ext.halfFloatTexType;
       const rgba = ext.formatRGBA;
@@ -860,7 +866,7 @@ export default function SplashCursor({
       if (resizeCanvas()) initFramebuffers();
       updateColors(dt);
       applyInputs();
-      step(dt);
+      if (!config.PAUSED) step(dt);
       render(null);
       animationFrameId = requestAnimationFrame(updateFrame);
     }
@@ -1078,7 +1084,7 @@ export default function SplashCursor({
         gl.uniform3f(splatProgram.uniforms.color, dx, dy, 0);
       }
       if (splatProgram.uniforms.radius) {
-        gl.uniform1f(splatProgram.uniforms.radius, correctRadius(config.SPLAT_RADIUS / 100)!);
+        gl.uniform1f(splatProgram.uniforms.radius, correctRadius(config.SPLAT_RADIUS / 100));
       }
       blit(velocity.write);
       velocity.swap();
@@ -1112,15 +1118,14 @@ export default function SplashCursor({
       pointer.color = generateColor();
     }
 
-    function updatePointerMoveData(pointer: Pointer, posX: number, posY: number, color: ColorRGB) {
+    function updatePointerMoveData(pointer: Pointer, posX: number, posY: number) {
       pointer.prevTexcoordX = pointer.texcoordX;
       pointer.prevTexcoordY = pointer.texcoordY;
       pointer.texcoordX = posX / canvas!.width;
       pointer.texcoordY = 1 - posY / canvas!.height;
-      pointer.deltaX = correctDeltaX(pointer.texcoordX - pointer.prevTexcoordX)!;
-      pointer.deltaY = correctDeltaY(pointer.texcoordY - pointer.prevTexcoordY)!;
+      pointer.deltaX = correctDeltaX(pointer.texcoordX - pointer.prevTexcoordX);
+      pointer.deltaY = correctDeltaY(pointer.texcoordY - pointer.prevTexcoordY);
       pointer.moved = Math.abs(pointer.deltaX) > 0 || Math.abs(pointer.deltaY) > 0;
-      pointer.color = color;
     }
 
     function updatePointerUpData(pointer: Pointer) {
@@ -1140,7 +1145,7 @@ export default function SplashCursor({
     }
 
     function generateColor(): ColorRGB {
-      // hue values for blue are around 0.5 to 0.7
+      // hue values for blue are around 0.55 to 0.7
       const hue = 0.55 + Math.random() * 0.15;
       const c = HSVtoRGB(hue, 1.0, 1.0);
       c.r *= 0.15;
@@ -1217,8 +1222,7 @@ export default function SplashCursor({
       const pointer = pointers[0];
       const posX = scaleByPixelRatio(e.clientX);
       const posY = scaleByPixelRatio(e.clientY);
-      const color = pointer.color || generateColor();
-      updatePointerMoveData(pointer, posX, posY, color);
+      updatePointerMoveData(pointer, posX, posY);
       window.removeEventListener('mousemove', handleFirstMove);
     }
     window.addEventListener('mousemove', handleFirstMove);
@@ -1228,8 +1232,7 @@ export default function SplashCursor({
       const pointer = pointers[0];
       const posX = scaleByPixelRatio(e.clientX);
       const posY = scaleByPixelRatio(e.clientY);
-      const color = pointer.color;
-      updatePointerMoveData(pointer, posX, posY, color);
+      updatePointerMoveData(pointer, posX, posY);
     });
 
     function handleFirstTouch(e: TouchEvent){
@@ -1271,7 +1274,7 @@ export default function SplashCursor({
         for (let i = 0; i < touches.length; i++) {
           const posX = scaleByPixelRatio(touches[i].clientX);
           const posY = scaleByPixelRatio(touches[i].clientY);
-          updatePointerMoveData(pointer, posX, posY, pointer.color);
+          updatePointerMoveData(pointer, posX, posY);
         }
       },
       false
@@ -1288,7 +1291,11 @@ export default function SplashCursor({
     });
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+      }
+      // You might want to add more cleanup for event listeners here
+      // but React's useEffect cleanup handles the component unmounting scenario.
     };
 
   }, [
