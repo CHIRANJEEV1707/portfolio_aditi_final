@@ -14,35 +14,8 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
     const routesToDisable = ['/projects/'];
     const isRouteDisabled = routesToDisable.some(route => pathname.startsWith(route));
 
-    if (isRouteDisabled) {
-      setShowCursor(false);
-      return;
-    }
-
-    const handleScroll = () => {
-      const workSection = document.getElementById('work');
-      if (workSection) {
-        const rect = workSection.getBoundingClientRect();
-        const isOverWorkSection = rect.top < window.innerHeight && rect.bottom > 0;
-        setShowCursor(!isOverWorkSection);
-      } else {
-        setShowCursor(true);
-      }
-    };
-
-    // Only add scroll listener on the homepage
-    if (pathname === '/') {
-      window.addEventListener('scroll', handleScroll);
-      handleScroll(); // Initial check
-    } else {
-      setShowCursor(!isRouteDisabled);
-    }
+    setShowCursor(!isRouteDisabled);
     
-    return () => {
-      if (pathname === '/') {
-        window.removeEventListener('scroll', handleScroll);
-      }
-    };
   }, [pathname]);
 
   return (
