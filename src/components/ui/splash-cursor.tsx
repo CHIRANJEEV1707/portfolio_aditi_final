@@ -23,19 +23,26 @@ export default function SplashCursor() {
     `;
 
     const fragmentShaderSource = `
-      precision highp float;
-      uniform vec2 u_resolution;
+      precision mediump float;
       uniform vec2 u_mouse;
-      
+      uniform vec2 u_resolution;
+      uniform float u_time;
+
       void main() {
-        vec2 st = gl_FragCoord.xy / u_resolution.xy;
-        float dist = distance(st, u_mouse);
-        
-        // Glowing blue color, brighter closer to the cursor
-        vec3 color = vec3(0.1, 0.7, 1.0) / (dist * 5.0 + 0.05);
-        
-        // Fade out alpha based on distance
-        gl_FragColor = vec4(color, 0.8 - dist * 0.5);
+        vec2 st = gl_FragCoord.xy / u_resolution;
+        float dist = distance(st, u_mouse / u_resolution);
+
+        // Soft gradient falloff instead of a hard orb
+        float intensity = smoothstep(0.25, 0.0, dist * 2.0);
+
+        // Dynamic blue gradient splash
+        vec3 color = mix(
+          vec3(0.0, 0.2, 0.5),
+          vec3(0.1, 0.7, 1.0),
+          intensity
+        );
+
+        gl_FragColor = vec4(color, intensity * 0.6);
       }
     `;
 
@@ -77,6 +84,7 @@ export default function SplashCursor() {
     const positionAttributeLocation = gl.getAttribLocation(program, 'a_position');
     const resolutionUniformLocation = gl.getUniformLocation(program, 'u_resolution');
     const mouseUniformLocation = gl.getUniformLocation(program, 'u_mouse');
+    const timeUniformLocation = gl.getUniformLocation(program, 'u_time');
 
     const positionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
@@ -84,70 +92,73 @@ export default function SplashCursor() {
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
     // --- State and Animation ---
-    let mouseX = -1;
-    let mouseY = -1;
+    let targetX = -1000;
+    let targetY = -1000;
+    let mouseX = -1000;
+    let mouseY = -1000;
     let animationFrameId: number;
 
     function resizeCanvas() {
-      if (!canvas || !gl) return;
-      const dpr = window.devicePixelRatio || 1;
-      const displayWidth = Math.floor(canvas.clientWidth * dpr);
-      const displayHeight = Math.floor(canvas.clientHeight * dpr);
+        if (!canvas || !gl) return;
+        const dpr = window.devicePixelRatio || 1;
+        const displayWidth = Math.floor(canvas.clientWidth * dpr);
+        const displayHeight = Math.floor(canvas.clientHeight * dpr);
 
-      if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
-        canvas.width = displayWidth;
-        canvas.height = displayHeight;
-        gl.viewport(0, 0, canvas.width, canvas.height);
-      }
+        if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
+            canvas.width = displayWidth;
+            canvas.height = displayHeight;
+            gl.viewport(0, 0, canvas.width, canvas.height);
+        }
     }
+    
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas(); // initial sizing
 
     function handleMouseMove(e: MouseEvent) {
-       // Correctly update mouse coordinates for the shader
-       mouseX = e.clientX / window.innerWidth;
-       mouseY = 1.0 - (e.clientY / window.innerHeight);
+       targetX = e.clientX;
+       targetY = e.clientY;
     }
     
     window.addEventListener('mousemove', handleMouseMove);
 
-    function render() {
+    function render(time: number) {
       if (!gl || !program) return;
-
       resizeCanvas();
 
-      // --- Drawing Logic ---
-      gl.useProgram(program);
+      // Interpolate for smoother movement
+      mouseX += (targetX - mouseX) * 0.15;
+      mouseY += (targetY - mouseY) * 0.15;
 
-      // This is the key for the fade-out trail effect.
-      // It clears the canvas but with a very low alpha, leaving previous frames visible.
-      gl.clearColor(0.0, 0.0, 0.0, 0.05);
+      // --- Drawing Logic ---
+      gl.clearColor(0.0, 0.0, 0.0, 0.1); // Soft fade for trails
       gl.clear(gl.COLOR_BUFFER_BIT);
 
       // Enable blending for transparency
       gl.enable(gl.BLEND);
       gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
+      gl.useProgram(program);
       gl.enableVertexAttribArray(positionAttributeLocation);
       gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
       gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
 
       // Pass uniforms to the shader
       gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
-      if (mouseX > 0) { // Only draw if mouse has moved into the viewport
-          gl.uniform2f(mouseUniformLocation, mouseX, mouseY);
-      } else {
-          gl.uniform2f(mouseUniformLocation, -1.0, -1.0); // Don't draw off-screen
-      }
+      // Pass interpolated mouse position, adjusted for WebGL coordinates
+      gl.uniform2f(mouseUniformLocation, mouseX * (window.devicePixelRatio || 1), (gl.canvas.height - mouseY * (window.devicePixelRatio || 1)));
+      gl.uniform1f(timeUniformLocation, time * 0.001);
 
       gl.drawArrays(gl.TRIANGLES, 0, 6);
 
       animationFrameId = requestAnimationFrame(render);
     }
 
-    render(); // Start the continuous animation loop
+    render(0); // Start the continuous animation loop
 
     // --- Cleanup ---
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationFrameId);
       if (gl) {
         gl.deleteProgram(program);
