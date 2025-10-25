@@ -1256,4 +1256,4 @@ function SplashCursor({
 
 export default SplashCursor;
 
-      
+    

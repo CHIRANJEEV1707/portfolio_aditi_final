@@ -189,7 +189,7 @@ const HeroSection = () => {
       className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
     >
       <GridBackground />
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-[-1]">
           <FloatingImages
             images={floatingImages}
             constraintsRef={constraintsRef}
@@ -286,3 +286,5 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
+    
