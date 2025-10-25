@@ -16,7 +16,7 @@ const EmojiMatrix = () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    const emojis = ['✨', '🎨', '💡', '💭', '🚀', '📈', '🔍', '👾', '🌕', '💻'];
+    const emojis = ['✨', '🎨', '💡', '💭', '🚀', '📈', '🔍', '👾', '🌕', '💻', '❤️', '🍾', '🌸', '🌼'];
     const particleCount = 50;
     const particles: any[] = [];
 
