@@ -6,6 +6,8 @@ import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/common/Header';
 import { CursorProvider } from '@/components/ui/CursorProvider';
 import FloatingEmojis from '@/components/common/FloatingEmojis';
+import { PopupProvider } from '@/contexts/PopupContext';
+import EasterEggPopup from '@/components/common/EasterEggPopup';
 
 export const metadata: Metadata = {
   title: 'Aditi Agrawal | Digital Marketing Strategist & Creative Solutionist',
@@ -25,12 +27,15 @@ export default function RootLayout({
           'min-h-screen bg-background antialiased flex flex-col',
         )}
       >
+        <PopupProvider>
           <CursorProvider>
             <FloatingEmojis />
             <Header />
             <main className="flex-grow">{children}</main>
             <Toaster />
+            <EasterEggPopup />
           </CursorProvider>
+        </PopupProvider>
       </body>
     </html>
   );

@@ -12,6 +12,7 @@ import {
   type ImagePlaceholder,
 } from '@/lib/placeholder-images';
 import { GridBackground } from '../ui/grid-background';
+import { usePopup } from '@/contexts/PopupContext';
 
 const FloatingImages = ({
   images,
@@ -28,7 +29,7 @@ const FloatingImages = ({
   ];
 
   return (
-    <div className='absolute inset-0'>
+    <div className='absolute inset-0 z-[-10]'>
       {images.map((image, index) => {
         const style = imageStyles[index % imageStyles.length];
         return (
@@ -148,10 +149,9 @@ const childVariants = {
 
 const HeroSection = () => {
   const [isMounted, setIsMounted] = useState(false);
-  const [activeEgg, setActiveEgg] = useState<string | null>(null);
-  const [popupMessage, setPopupMessage] = useState<string>('');
-  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const constraintsRef = useRef<HTMLDivElement>(null);
+  const { showPopup } = usePopup();
+
 
   const imageIds = ['hero-1', 'hero-2', 'hero-3', 'hero-4'];
   const floatingImages = PlaceHolderImages.filter((img) =>
@@ -160,23 +160,10 @@ const HeroSection = () => {
 
   useEffect(() => {
     setIsMounted(true);
-    setAudio(new Audio('/sounds/chime.mp3'));
   }, []);
 
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (activeEgg) {
-      timer = setTimeout(() => {
-        setActiveEgg(null);
-      }, 4000);
-    }
-    return () => clearTimeout(timer);
-  }, [activeEgg]);
-
   const handleEggClick = (message: string) => {
-    setPopupMessage(message);
-    setActiveEgg(message);
-    audio?.play().catch((err) => console.error('Audio play failed:', err));
+    showPopup(message);
   };
   
   const name = "Aditi";
@@ -264,25 +251,8 @@ const HeroSection = () => {
         <ChevronDown className="w-8 h-8 text-primary animate-bounce" />
       </div>
 
-      <AnimatePresence>
-        {activeEgg && (
-          <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-              className="bg-background/80 backdrop-blur-lg border border-primary/20 shadow-2xl rounded-2xl p-6 text-center"
-            >
-              <p className="text-primary text-lg font-medium">{popupMessage}</p>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </section>
   );
 };
 
 export default HeroSection;
-
-    

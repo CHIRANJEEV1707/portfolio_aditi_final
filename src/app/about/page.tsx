@@ -1,4 +1,5 @@
 
+'use client';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -8,19 +9,15 @@ import AnimateOnScroll from '@/components/common/AnimateOnScroll';
 import PageTransition from '@/components/common/PageTransition';
 import Footer from '@/components/common/Footer';
 import EasterEgg from '@/components/common/EasterEgg';
-import { useToast } from '@/hooks/use-toast';
+import { usePopup } from '@/contexts/PopupContext';
 
 export default function AboutPage() {
   const profileImage = PlaceHolderImages.find(
     (img) => img.id === 'aditi-profile'
   );
-  // Dummy handlers for new easter eggs
-  const { toast } = useToast();
+  const { showPopup } = usePopup();
   const handleEggClick = (message: string) => {
-    toast({
-      title: 'You found a secret!',
-      description: message,
-    })
+    showPopup(message);
   };
 
 

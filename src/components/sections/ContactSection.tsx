@@ -18,6 +18,7 @@ import React from 'react';
 import SendButton from '../ui/send-button';
 import { AnimatedInput } from '../ui/animated-input';
 import EasterEgg from '../common/EasterEgg';
+import { usePopup } from '@/contexts/PopupContext';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -54,6 +55,7 @@ async function submitAction(data: FormData) {
 const ContactSection = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const { showPopup } = usePopup();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -65,10 +67,7 @@ const ContactSection = () => {
   });
 
   const handleEggClick = (message: string) => {
-    toast({
-      title: 'Aha!',
-      description: message,
-    })
+    showPopup(message);
   };
 
   async function onSubmit(data: FormData) {
