@@ -17,8 +17,6 @@ import AnimateOnScroll from '../common/AnimateOnScroll';
 import React from 'react';
 import SendButton from '../ui/send-button';
 import { AnimatedInput } from '../ui/animated-input';
-import EasterEgg from '../common/EasterEgg';
-import { usePopup } from '@/contexts/PopupContext';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -55,7 +53,6 @@ async function submitAction(data: FormData) {
 const ContactSection = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const { showPopup } = usePopup();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -65,10 +62,6 @@ const ContactSection = () => {
       message: '',
     },
   });
-
-  const handleEggClick = (message: string) => {
-    showPopup(message);
-  };
 
   async function onSubmit(data: FormData) {
     setIsSubmitting(true);
@@ -92,24 +85,6 @@ const ContactSection = () => {
 
   return (
     <section id="contact" className="py-20 md:py-32 relative overflow-hidden">
-       <EasterEgg
-          className="top-[10%] left-[10%] z-30"
-          onClick={() => handleEggClick("Message on its way!")}
-        >
-          ✈️
-        </EasterEgg>
-        <EasterEgg
-          className="top-[20%] right-[10%] z-30"
-          onClick={() => handleEggClick("A little sparkle for your thoughts!")}
-        >
-          ✨
-        </EasterEgg>
-        <EasterEgg
-          className="bottom-[10%] left-[15%] z-30"
-          onClick={() => handleEggClick("What's on your mind? 💭")}
-        >
-          💭
-        </EasterEgg>
       <div className="container mx-auto max-w-3xl text-center relative z-10">
         <AnimateOnScroll animation="fade-in">
           <h2 className="text-5xl md:text-6xl font-bold mb-4">

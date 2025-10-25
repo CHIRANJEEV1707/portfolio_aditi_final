@@ -11,7 +11,7 @@ import AnimateOnScroll from '@/components/common/AnimateOnScroll';
 import PageTransition from '@/components/common/PageTransition';
 import { cn } from '@/lib/utils';
 import EasterEgg from '@/components/common/EasterEgg';
-import { usePopup } from '@/contexts/PopupContext';
+import { useToast } from '@/hooks/use-toast';
 
 type ProjectPageProps = {
   params: {
@@ -27,13 +27,16 @@ export async function generateStaticParams() {
 
 export default function ProjectPage({ params }: ProjectPageProps) {
   const project = projects.find((p) => p.slug === params.slug);
-  const { showPopup } = usePopup();
+  const { toast } = useToast();
 
   if (!project) {
     notFound();
   }
   const handleEggClick = (message: string) => {
-    showPopup(message);
+    toast({
+      title: 'Easter Egg Found!',
+      description: message,
+    });
   };
 
   const heroImage = PlaceHolderImages.find((img) => img.id === project.imageId);

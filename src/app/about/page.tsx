@@ -9,15 +9,18 @@ import AnimateOnScroll from '@/components/common/AnimateOnScroll';
 import PageTransition from '@/components/common/PageTransition';
 import Footer from '@/components/common/Footer';
 import EasterEgg from '@/components/common/EasterEgg';
-import { usePopup } from '@/contexts/PopupContext';
+import { useToast } from '@/hooks/use-toast';
 
 export default function AboutPage() {
   const profileImage = PlaceHolderImages.find(
     (img) => img.id === 'aditi-profile'
   );
-  const { showPopup } = usePopup();
+  const { toast } = useToast();
   const handleEggClick = (message: string) => {
-    showPopup(message);
+    toast({
+      title: 'Easter Egg Found!',
+      description: message,
+    });
   };
 
 
@@ -36,12 +39,6 @@ export default function AboutPage() {
               onClick={() => handleEggClick("Strategy mode: activated! 💡")}
             >
               📈
-            </EasterEgg>
-            <EasterEgg
-              className="bottom-[50%] left-[2%] z-30"
-              onClick={() => handleEggClick("The DNA of a great idea! 🧬")}
-            >
-              🧬
             </EasterEgg>
           
           <AnimateOnScroll animation="fade-in" className="container mx-auto">

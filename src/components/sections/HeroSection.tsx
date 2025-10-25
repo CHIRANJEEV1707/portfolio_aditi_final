@@ -12,7 +12,7 @@ import {
   type ImagePlaceholder,
 } from '@/lib/placeholder-images';
 import { GridBackground } from '../ui/grid-background';
-import { usePopup } from '@/contexts/PopupContext';
+import { useToast } from '@/hooks/use-toast';
 
 const FloatingImages = ({
   images,
@@ -29,7 +29,7 @@ const FloatingImages = ({
   ];
 
   return (
-    <div className='absolute inset-0 z-0'>
+    <div className='absolute inset-0'>
       {images.map((image, index) => {
         const style = imageStyles[index % imageStyles.length];
         return (
@@ -150,7 +150,7 @@ const childVariants = {
 const HeroSection = () => {
   const [isMounted, setIsMounted] = useState(false);
   const constraintsRef = useRef<HTMLDivElement>(null);
-  const { showPopup } = usePopup();
+  const { toast } = useToast();
 
 
   const imageIds = ['hero-1', 'hero-2', 'hero-3', 'hero-4'];
@@ -163,7 +163,10 @@ const HeroSection = () => {
   }, []);
 
   const handleEggClick = (message: string) => {
-    showPopup(message);
+    toast({
+      title: 'Easter Egg Found!',
+      description: message,
+    });
   };
   
   const name = "Aditi";
