@@ -1,8 +1,8 @@
+
 'use client';
 
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import SplashCursor from './splash-cursor';
 
 export function CursorProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -21,10 +21,7 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {showCursor && <SplashCursor />}
       {children}
     </>
   );
 }
-
-    
