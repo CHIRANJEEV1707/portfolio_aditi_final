@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useRef } from 'react';
@@ -23,10 +22,13 @@ function SplashCursor({
 }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationFrameId = useRef<number | null>(null);
+  const isInitialized = useRef(false);
 
   useEffect(() => {
+    if (isInitialized.current || !canvasRef.current) return;
+    isInitialized.current = true;
+
     const canvas = canvasRef.current;
-    if (!canvas) return;
 
     let config = {
       SIM_RESOLUTION,
@@ -96,7 +98,7 @@ function SplashCursor({
         );
       }
       
-      gl.clearColor(0.0, 0.0, 0.0, 0.0);
+      gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
       const halfFloatTexType = isWebGL2
         ? (gl as WebGL2RenderingContext).HALF_FLOAT
@@ -884,7 +886,7 @@ function SplashCursor({
         gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
         gl.enable(gl.BLEND);
       } else {
-        gl.disable(gl.BLEND);
+        gl.blendFunc(gl.ONE, gl.ONE);
       }
       
       let width = target == null ? gl.drawingBufferWidth : target.width;
@@ -938,19 +940,6 @@ function SplashCursor({
       return radius;
     }
 
-    function updatePointerDownData(pointer: any, id: number, posX: number, posY: number) {
-      pointer.id = id;
-      pointer.down = true;
-      pointer.moved = false;
-      pointer.texcoordX = posX / canvas.width;
-      pointer.texcoordY = 1.0 - posY / canvas.height;
-      pointer.prevTexcoordX = pointer.texcoordX;
-      pointer.prevTexcoordY = pointer.texcoordY;
-      pointer.deltaX = 0;
-      pointer.deltaY = 0;
-      pointer.color = generateColor();
-    }
-
     function updatePointerMoveData(pointer: any, posX: number, posY: number) {
       pointer.prevTexcoordX = pointer.texcoordX;
       pointer.prevTexcoordY = pointer.texcoordY;
@@ -960,10 +949,6 @@ function SplashCursor({
       pointer.deltaY = correctDeltaY(pointer.texcoordY - pointer.prevTexcoordY);
       pointer.moved =
         Math.abs(pointer.deltaX) > 0 || Math.abs(pointer.deltaY) > 0;
-    }
-
-    function updatePointerUpData(pointer: any) {
-      pointer.down = false;
     }
 
     function correctDeltaX(delta: number) {
@@ -979,8 +964,7 @@ function SplashCursor({
     }
 
     function generateColor() {
-      // Use shades of blue
-      const hue = 0.55 + (Math.random() * 0.1); // Range from blue to cyan
+      const hue = 0.55 + (Math.random() * 0.1); 
       let c = HSVtoRGB(hue, 1.0, 1.0);
       c.r *= 0.15;
       c.g *= 0.15;
@@ -1067,21 +1051,18 @@ function SplashCursor({
 
     window.addEventListener('mousemove', handleMouseMove);
 
-    function stopAnimation() {
-      if (animationFrameId.current) {
+    updateFrame();
+
+    return () => {
+      if(animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
-        animationFrameId.current = null;
       }
       window.removeEventListener('mousemove', handleMouseMove);
-    }
-    
-    return stopAnimation;
+    };
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 -z-[1] pointer-events-none">
-      <canvas ref={canvasRef} id="fluid" className="w-screen h-screen" />
-    </div>
+      <canvas ref={canvasRef} className="fixed top-0 left-0 w-screen h-screen -z-[1] pointer-events-none" />
   );
 }
 
