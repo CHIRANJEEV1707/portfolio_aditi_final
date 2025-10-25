@@ -792,7 +792,8 @@ function SplashCursor({
     initFramebuffers();
     let lastUpdateTime = Date.now();
     let colorUpdateTimer = 0.0;
-    let animationFrameId;
+    
+    let animationFrameId = null;
 
     function updateFrame() {
       const dt = calcDeltaTime();
@@ -1042,11 +1043,8 @@ function SplashCursor({
       return radius;
     }
 
-    let isRunning = false;
-
     function handleMouseMove(e) {
-      if (!isRunning) {
-        isRunning = true;
+      if (animationFrameId === null) {
         updateFrame();
       }
       let pointer = pointers[0];
@@ -1080,8 +1078,7 @@ function SplashCursor({
     }
 
     function generateColor() {
-      // Use a cool blue hue range
-      let h = 0.55 + Math.random() * 0.1; // Range from ~200 to 235 degrees
+      let h = 0.55 + Math.random() * 0.1;
       let c = HSVtoRGB(h, 1.0, 1.0);
       c.r *= 0.2;
       c.g *= 0.5;
@@ -1163,11 +1160,21 @@ function SplashCursor({
       }
       return hash;
     }
+    
+    let isRunning = false;
+    
+    function startAnimation(e) {
+      if(isRunning) return;
+      isRunning = true;
+      updateFrame();
+      handleMouseMove(e);
+      window.removeEventListener('mousemove', startAnimation);
+    }
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", startAnimation);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mousemove", startAnimation);
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }
@@ -1190,7 +1197,7 @@ function SplashCursor({
   ]);
 
   return (
-    <div className="fixed top-0 left-0 z-[-1] pointer-events-none">
+    <div className="fixed top-0 left-0 z-[9999] pointer-events-none">
       <canvas ref={canvasRef} id="fluid" className="w-screen h-screen" />
     </div>
   );
