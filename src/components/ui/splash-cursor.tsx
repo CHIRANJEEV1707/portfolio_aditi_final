@@ -69,6 +69,7 @@ export default function SplashCursor({
   TRANSPARENT = true
 }: SplashCursorProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationFrameId = useRef<number>();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -111,7 +112,7 @@ export default function SplashCursor({
     class Material {
       vertexShader: WebGLShader;
       fragmentShaderSource: string;
-      programs: Record<number, WebGLProgram>;
+      programs: Record<number, WebGLProgram | null>;
       activeProgram: WebGLProgram | null;
       uniforms: Record<string, WebGLUniformLocation | null>;
 
@@ -131,8 +132,12 @@ export default function SplashCursor({
         let program = this.programs[hash];
         if (program == null) {
           const fragmentShader = compileShader(gl.FRAGMENT_SHADER, this.fragmentShaderSource, keywords);
-          program = createProgram(this.vertexShader, fragmentShader)!;
-          this.programs[hash] = program;
+          if (fragmentShader) {
+            program = createProgram(this.vertexShader, fragmentShader);
+            this.programs[hash] = program;
+          } else {
+            this.programs[hash] = null;
+          }
         }
         if (program === this.activeProgram) return;
         if (program) {
@@ -176,7 +181,8 @@ export default function SplashCursor({
 
 
       if (!gl) {
-        throw new Error('Unable to initialize WebGL.');
+        console.error('Unable to initialize WebGL.');
+        return { gl: null, ext: null };
       }
 
       let halfFloat;
@@ -220,6 +226,7 @@ export default function SplashCursor({
       }
       
       if(!formatRGBA || !formatRG || !formatR) {
+        console.error('WebGL unsupported format or extension.');
         return { gl: null, ext: null };
       }
 
@@ -293,33 +300,37 @@ export default function SplashCursor({
       return hash;
     }
 
-    function addKeywords(source: string, keywords: string[]) {
+    function addKeywords(source: string, keywords: string[] | null) {
       if (keywords == null) return source;
       let keywordsString = '';
       keywords.forEach(keyword => {
-          keywordsString += '#define ' + keyword + '\n';
+          keywordsString += '#define ' + keyword + '\\n';
       });
       return keywordsString + source;
     }
 
-    function compileShader(type: number, source: string, keywords: string[] | null = null): WebGLShader {
+    function compileShader(type: number, source: string, keywords: string[] | null = null): WebGLShader | null {
       const shaderSource = addKeywords(source, keywords || []);
-      const shader = gl.createShader(type)!;
+      const shader = gl.createShader(type);
+      if (!shader) return null;
       gl.shaderSource(shader, shaderSource);
       gl.compileShader(shader);
       if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
         console.trace(gl.getShaderInfoLog(shader));
+        return null;
       }
       return shader;
     }
 
-    function createProgram(vertexShader: WebGLShader, fragmentShader: WebGLShader): WebGLProgram {
-      const program = gl.createProgram()!;
+    function createProgram(vertexShader: WebGLShader, fragmentShader: WebGLShader): WebGLProgram | null {
+      const program = gl.createProgram();
+      if (!program) return null;
       gl.attachShader(program, vertexShader);
       gl.attachShader(program, fragmentShader);
       gl.linkProgram(program);
       if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
         console.trace(gl.getProgramInfoLog(program));
+        return null;
       }
       return program;
     }
@@ -632,6 +643,11 @@ export default function SplashCursor({
     `
     );
 
+    if (!baseVertexShader || !copyShader || !clearShader || !splatShader || !advectionShader || !divergenceShader || !curlShader || !vorticityShader || !pressureShader || !gradientSubtractShader) {
+      console.error("Failed to compile one or more shaders. Aborting initialization.");
+      return;
+    }
+
     const blit = (() => {
       const buffer = gl.createBuffer()!;
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -852,12 +868,25 @@ export default function SplashCursor({
       return Math.floor(input * pixelRatio);
     }
 
+    function resizeCanvas() {
+        if (!canvas) return false;
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        if (canvas.width !== width || canvas.height !== height) {
+            canvas.width = width;
+            canvas.height = height;
+            gl.viewport(0, 0, canvas.width, canvas.height);
+            return true;
+        }
+        return false;
+    }
+
     updateKeywords();
     initFramebuffers();
 
     let lastUpdateTime = Date.now();
     let colorUpdateTimer = 0.0;
-    let animationFrameId: number;
+    
 
     function updateFrame() {
       const dt = calcDeltaTime();
@@ -866,7 +895,7 @@ export default function SplashCursor({
       applyInputs();
       if (!config.PAUSED) step(dt);
       render(null);
-      animationFrameId = requestAnimationFrame(updateFrame);
+      animationFrameId.current = requestAnimationFrame(updateFrame);
     }
 
     function calcDeltaTime() {
@@ -877,21 +906,11 @@ export default function SplashCursor({
       return dt;
     }
 
-    function resizeCanvas() {
-      if (!canvas) return false;
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      if (canvas.width !== width || canvas.height !== height) {
-        canvas.width = width;
-        canvas.height = height;
-        gl.viewport(0, 0, canvas.width, canvas.height);
-        return true;
-      }
-      return false;
-    }
-
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas(); // initial sizing
+    window.addEventListener('resize', () => {
+        resizeCanvas();
+        initFramebuffers();
+    });
+    resizeCanvas();
 
 
     function updateColors(dt: number) {
@@ -1064,23 +1083,13 @@ export default function SplashCursor({
       splat(pointer.texcoordX, pointer.texcoordY, dx, dy, pointer.color);
     }
 
-    function clickSplat(pointer: Pointer) {
-      const color = generateColor();
-      color.r *= 10;
-      color.g *= 10;
-      color.b *= 10;
-      const dx = 10 * (Math.random() - 0.5);
-      const dy = 30 * (Math.random() - 0.5);
-      splat(pointer.texcoordX, pointer.texcoordY, dx, dy, color);
-    }
-
     function splat(x: number, y: number, dx: number, dy: number, color: ColorRGB) {
       splatProgram.bind();
       if (splatProgram.uniforms.uTarget) {
         gl.uniform1i(splatProgram.uniforms.uTarget, velocity.read.attach(0));
       }
       if (splatProgram.uniforms.aspectRatio) {
-        gl.uniform1f(splatProgram.uniforms.aspectRatio, canvas!.width / canvas!.height);
+        gl.uniform1f(splatProgram.uniforms.aspectRatio, canvas.width / canvas.height);
       }
       if (splatProgram.uniforms.point) {
         gl.uniform2f(splatProgram.uniforms.point, x, y);
@@ -1105,7 +1114,7 @@ export default function SplashCursor({
     }
 
     function correctRadius(radius: number) {
-      const aspectRatio = canvas!.width / canvas!.height;
+      const aspectRatio = canvas.width / canvas.height;
       if (aspectRatio > 1) radius *= aspectRatio;
       return radius;
     }
@@ -1114,8 +1123,8 @@ export default function SplashCursor({
       pointer.id = id;
       pointer.down = true;
       pointer.moved = false;
-      pointer.texcoordX = posX / canvas!.width;
-      pointer.texcoordY = 1 - posY / canvas!.height;
+      pointer.texcoordX = posX / canvas.width;
+      pointer.texcoordY = 1 - posY / canvas.height;
       pointer.prevTexcoordX = pointer.texcoordX;
       pointer.prevTexcoordY = pointer.texcoordY;
       pointer.deltaX = 0;
@@ -1126,8 +1135,8 @@ export default function SplashCursor({
     function updatePointerMoveData(pointer: Pointer, posX: number, posY: number) {
       pointer.prevTexcoordX = pointer.texcoordX;
       pointer.prevTexcoordY = pointer.texcoordY;
-      pointer.texcoordX = posX / canvas!.width;
-      pointer.texcoordY = 1 - posY / canvas!.height;
+      pointer.texcoordX = posX / canvas.width;
+      pointer.texcoordY = 1 - posY / canvas.height;
       pointer.deltaX = correctDeltaX(pointer.texcoordX - pointer.prevTexcoordX);
       pointer.deltaY = correctDeltaY(pointer.texcoordY - pointer.prevTexcoordY);
       pointer.moved = Math.abs(pointer.deltaX) > 0 || Math.abs(pointer.deltaY) > 0;
@@ -1138,19 +1147,19 @@ export default function SplashCursor({
     }
 
     function correctDeltaX(delta: number) {
-      const aspectRatio = canvas!.width / canvas!.height;
+      const aspectRatio = canvas.width / canvas.height;
       if (aspectRatio < 1) delta *= aspectRatio;
       return delta;
     }
 
     function correctDeltaY(delta: number) {
-      const aspectRatio = canvas!.width / canvas!.height;
+      const aspectRatio = canvas.width / canvas.height;
       if (aspectRatio > 1) delta /= aspectRatio;
       return delta;
     }
 
     function generateColor(): ColorRGB {
-      const hue = 0.55 + Math.random() * 0.15;
+      const hue = 0.55 + Math.random() * 0.1; // Range from 0.55 to 0.65 (shades of blue)
       const c = HSVtoRGB(hue, 1.0, 1.0);
       c.r *= 0.15;
       c.g *= 0.15;
@@ -1169,36 +1178,12 @@ export default function SplashCursor({
       const t = v * (1 - (1 - f) * s);
 
       switch (i % 6) {
-        case 0:
-          r = v;
-          g = t;
-          b = p;
-          break;
-        case 1:
-          r = q;
-          g = v;
-          b = p;
-          break;
-        case 2:
-          r = p;
-          g = v;
-          b = t;
-          break;
-        case 3:
-          r = p;
-          g = q;
-          b = v;
-          break;
-        case 4:
-          r = t;
-          g = p;
-          b = v;
-          break;
-        case 5:
-          r = v;
-          g = p;
-          b = q;
-          break;
+        case 0: r = v; g = t; b = p; break;
+        case 1: r = q; g = v; b = p; break;
+        case 2: r = p; g = v; b = t; break;
+        case 3: r = p; g = q; b = v; break;
+        case 4: r = t; g = p; b = v; break;
+        case 5: r = v; g = p; b = q; break;
       }
       return { r, g, b };
     }
@@ -1217,65 +1202,35 @@ export default function SplashCursor({
       updateFrame();
     }
 
-    window.addEventListener('mousedown', e => {
-      const pointer = pointers[0];
-      const posX = scaleByPixelRatio(e.clientX);
-      const posY = scaleByPixelRatio(e.clientY);
-      updatePointerDownData(pointer, -1, posX, posY);
-      clickSplat(pointer);
-    });
+    const onMouseMove = (e: MouseEvent) => {
+        startAnimation();
+        const pointer = pointers[0];
+        const posX = e.clientX;
+        const posY = e.clientY;
+        updatePointerMoveData(pointer, posX, posY);
+    };
 
-    window.addEventListener('mousemove', e => {
-      startAnimation();
-      const pointer = pointers[0];
-      const posX = scaleByPixelRatio(e.clientX);
-      const posY = scaleByPixelRatio(e.clientY);
-      updatePointerMoveData(pointer, posX, posY);
-    });
-
-    window.addEventListener(
-      'touchstart',
-      e => {
+    const onTouchMove = (e: TouchEvent) => {
         startAnimation();
         const touches = e.targetTouches;
         const pointer = pointers[0];
-        for (let i = 0; i < touches.length; i++) {
-          const posX = scaleByPixelRatio(touches[i].clientX);
-          const posY = scaleByPixelRatio(touches[i].clientY);
-          updatePointerDownData(pointer, touches[i].identifier, posX, posY);
+        if (touches.length > 0) {
+            const posX = touches[0].clientX;
+            const posY = touches[0].clientY;
+            updatePointerMoveData(pointer, posX, posY);
         }
-      },
-      false
-    );
+    };
+    
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
 
-    window.addEventListener(
-      'touchmove',
-      e => {
-        const touches = e.targetTouches;
-        const pointer = pointers[0];
-        for (let i = 0; i < touches.length; i++) {
-          const posX = scaleByPixelRatio(touches[i].clientX);
-          const posY = scaleByPixelRatio(touches[i].clientY);
-          updatePointerMoveData(pointer, posX, posY);
-        }
-      },
-      false
-    );
-
-    window.addEventListener('touchend', e => {
-      const touches = e.changedTouches;
-      const pointer = pointers[0];
-      for (let i = 0; i < touches.length; i++) {
-        if (touches[i].identifier === pointer.id) {
-          updatePointerUpData(pointer);
-        }
-      }
-    });
 
     return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('touchmove', onTouchMove);
       window.removeEventListener('resize', resizeCanvas);
-      if (animationFrameId) {
-          cancelAnimationFrame(animationFrameId);
+      if (animationFrameId.current) {
+          cancelAnimationFrame(animationFrameId.current);
       }
     };
 
@@ -1306,7 +1261,7 @@ export default function SplashCursor({
         left: 0,
         width: '100vw',
         height: '100vh',
-        zIndex: 9999,
+        zIndex: 1,
         pointerEvents: 'none',
         background: 'transparent',
         display: 'block'
