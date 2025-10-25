@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import { ImageTrail } from '@/components/ui/image-trail';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Image from 'next/image';
+import StarIcon from '../common/StarIcon';
 
 const WorkSection = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -26,7 +27,7 @@ const WorkSection = () => {
     <div
       id="work"
       ref={ref}
-      className="flex w-full h-[50vh] justify-center items-center relative overflow-hidden"
+      className="flex w-full h-[50vh] justify-center items-center relative overflow-hidden disable-cursor-trail"
     >
       <div className="absolute top-0 left-0 z-0 h-full w-full">
         <ImageTrail containerRef={ref}>
