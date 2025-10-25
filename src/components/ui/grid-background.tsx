@@ -8,7 +8,7 @@ export function GridBackground() {
       className="absolute inset-0 -z-10 h-full w-full pointer-events-none"
     >
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 -z-10"
         style={{
           backgroundImage: `
             linear-gradient(to right, hsl(var(--foreground) / 0.05) 1px, transparent 1px),
@@ -20,3 +20,5 @@ export function GridBackground() {
     </div>
   )
 }
+
+    

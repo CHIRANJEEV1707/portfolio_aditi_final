@@ -799,7 +799,7 @@ function SplashCursor({
       if (resizeCanvas()) initFramebuffers();
       updateColors(dt);
       applyInputs();
-      step(dt);
+      if (!config.PAUSED) step(dt);
       render(null);
       animationFrameId.current = requestAnimationFrame(updateFrame);
     }
@@ -970,8 +970,12 @@ function SplashCursor({
     }
 
     function render(target) {
-      gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-      gl.enable(gl.BLEND);
+      if (config.TRANSPARENT) {
+          gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+          gl.enable(gl.BLEND);
+      } else {
+          gl.disable(gl.BLEND);
+      }
       drawDisplay(target);
     }
 
@@ -995,16 +999,20 @@ function SplashCursor({
       splat(pointer.texcoordX, pointer.texcoordY, dx, dy, pointer.color);
     }
 
-    function clickSplat(pointer) {
-      const color = generateColor();
-      color.r *= 10.0;
-      color.g *= 10.0;
-      color.b *= 10.0;
-      let dx = 10 * (Math.random() - 0.5);
-      let dy = 30 * (Math.random() - 0.5);
-      splat(pointer.texcoordX, pointer.texcoordY, dx, dy, color);
+    function multipleSplats(amount) {
+        for (let i = 0; i < amount; i++) {
+            const color = generateColor();
+            color.r *= 10.0;
+            color.g *= 10.0;
+            color.b *= 10.0;
+            const x = Math.random();
+            const y = Math.random();
+            const dx = 1000 * (Math.random() - 0.5);
+            const dy = 1000 * (Math.random() - 0.5);
+            splat(x, y, dx, dy, color);
+        }
     }
-
+    
     function splat(x, y, dx, dy, color) {
       splatProgram.bind();
       gl.uniform1i(splatProgram.uniforms.uTarget, velocity.read.attach(0));
@@ -1164,14 +1172,16 @@ function SplashCursor({
       let posX = scaleByPixelRatio(e.clientX);
       let posY = scaleByPixelRatio(e.clientY);
       updatePointerDownData(pointer, -1, posX, posY);
-      clickSplat(pointer);
+      multipleSplats(1)
     });
 
     let firstMove = true;
     function handleMouseMove(e) {
       if(firstMove) {
         firstMove = false;
-        updateFrame();
+        if (animationFrameId.current === null) {
+          updateFrame();
+        }
       }
       let pointer = pointers[0];
       let posX = scaleByPixelRatio(e.clientX);
@@ -1186,7 +1196,9 @@ function SplashCursor({
     function handleTouchStart(e) {
        if(firstTouch) {
         firstTouch = false;
-        updateFrame();
+        if (animationFrameId.current === null) {
+          updateFrame();
+        }
       }
       const touches = e.targetTouches;
       let pointer = pointers[0];
@@ -1224,11 +1236,16 @@ function SplashCursor({
     function stopAnimation() {
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
+        animationFrameId.current = null;
       }
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("touchstart", handleTouchStart);
     }
-
+    
+    if (animationFrameId.current === null) {
+        updateFrame();
+    }
+    
     return stopAnimation;
   }, [
     SIM_RESOLUTION,
@@ -1255,3 +1272,5 @@ function SplashCursor({
 }
 
 export default SplashCursor;
+
+    

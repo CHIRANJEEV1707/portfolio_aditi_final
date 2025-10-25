@@ -28,7 +28,7 @@ const FloatingImages = ({
   ];
 
   return (
-    <>
+    <div className='absolute inset-0 -z-10'>
       {images.map((image, index) => {
         const style = imageStyles[index % imageStyles.length];
         return (
@@ -90,7 +90,7 @@ const FloatingImages = ({
           </motion.div>
         );
       })}
-    </>
+    </div>
   );
 };
 
@@ -189,12 +189,10 @@ const HeroSection = () => {
       className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
     >
       <GridBackground />
-      <div className="absolute inset-0 -z-[1]">
-          <FloatingImages
-            images={floatingImages}
-            constraintsRef={constraintsRef}
-          />
-        </div>
+      <FloatingImages
+        images={floatingImages}
+        constraintsRef={constraintsRef}
+      />
       {isMounted &&
         easterEggs.map((egg, index) => (
           <EasterEgg
@@ -286,3 +284,5 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
+    
