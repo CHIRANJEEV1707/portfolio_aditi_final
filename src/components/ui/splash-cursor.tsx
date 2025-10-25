@@ -96,11 +96,7 @@ function SplashCursor({
         );
       }
       
-      if (config.TRANSPARENT) {
-        gl.clearColor(0.0, 0.0, 0.0, 0.0);
-      } else {
-        gl.clearColor(config.BACK_COLOR.r, config.BACK_COLOR.g, config.BACK_COLOR.b, 1.0);
-      }
+      gl.clearColor(0.0, 0.0, 0.0, 0.0);
 
       const halfFloatTexType = isWebGL2
         ? (gl as WebGL2RenderingContext).HALF_FLOAT
@@ -709,7 +705,7 @@ function SplashCursor({
       return target;
     }
 
-    const updateKeywords = () => {
+    function updateKeywords() {
       let displayKeywords = [];
       if (config.SHADING) displayKeywords.push('SHADING');
       displayMaterial.setKeywords(displayKeywords);
@@ -895,26 +891,13 @@ function SplashCursor({
       let height = target == null ? gl.drawingBufferHeight : target.height;
       gl.viewport(0, 0, width, height);
 
-      if (!config.TRANSPARENT) {
-        clearProgram.bind();
-        gl.uniform1f(clearProgram.uniforms.value, 1.0);
-        gl.uniform1i(clearProgram.uniforms.uTexture, dye.read.attach(0));
-        gl.uniform3f(clearProgram.uniforms.color, config.BACK_COLOR.r, config.BACK_COLOR.g, config.BACK_COLOR.b);
-        blit(target);
-      }
-
-
+      displayMaterial.bind();
       if (config.SHADING) {
-        displayMaterial.setKeywords(['SHADING']);
-        displayMaterial.bind();
         gl.uniform2f(
           displayMaterial.uniforms.texelSize,
           1.0 / width,
           1.0 / height
         );
-      } else {
-        displayMaterial.setKeywords([]);
-        displayMaterial.bind();
       }
       gl.uniform1i(displayMaterial.uniforms.uTexture, dye.read.attach(0));
       blit(target);
@@ -1072,13 +1055,9 @@ function SplashCursor({
       return hash;
     }
 
-    let firstMove = true;
     function handleMouseMove(e: MouseEvent) {
-      if (firstMove) {
-        firstMove = false;
-        if (animationFrameId.current === null) {
-          updateFrame();
-        }
+      if (animationFrameId.current === null) {
+        updateFrame();
       }
       let pointer = pointers[0];
       let posX = scaleByPixelRatio(e.clientX);
@@ -1097,22 +1076,7 @@ function SplashCursor({
     }
     
     return stopAnimation;
-  }, [
-    SIM_RESOLUTION,
-    DYE_RESOLUTION,
-    CAPTURE_RESOLUTION,
-    DENSITY_DISSIPATION,
-    VELOCITY_DISSIPATION,
-    PRESSURE,
-    PRESSURE_ITERATIONS,
-    CURL,
-    SPLAT_RADIUS,
-    SPLAT_FORCE,
-    SHADING,
-    COLOR_UPDATE_SPEED,
-    BACK_COLOR,
-    TRANSPARENT,
-  ]);
+  }, []);
 
   return (
     <div className="fixed top-0 left-0 -z-[1] pointer-events-none">
@@ -1122,5 +1086,3 @@ function SplashCursor({
 }
 
 export default SplashCursor;
-
-    

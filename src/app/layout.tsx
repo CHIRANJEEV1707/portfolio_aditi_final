@@ -27,12 +27,12 @@ export default function RootLayout({
       >
         <SplashCursor />
         <FloatingEmojis />
-        <Header />
-        <main className="flex-grow">{children}</main>
+        <div className="relative z-10 flex flex-col flex-grow">
+          <Header />
+          <main className="flex-grow">{children}</main>
+        </div>
         <Toaster />
       </body>
     </html>
   );
 }
-
-    
