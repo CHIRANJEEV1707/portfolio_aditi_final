@@ -95,27 +95,27 @@ export default function SplashCursor({
     };
 
     class Program {
-      program: WebGLProgram | null;
+      program: WebGLProgram;
       uniforms: Record<string, WebGLUniformLocation | null>;
 
-      constructor(vertexShader: WebGLShader | null, fragmentShader: WebGLShader | null) {
-        this.program = createProgram(vertexShader, fragmentShader);
+      constructor(vertexShader: WebGLShader, fragmentShader: WebGLShader) {
+        this.program = createProgram(vertexShader, fragmentShader)!;
         this.uniforms = this.program ? getUniforms(this.program) : {};
       }
 
       bind() {
-        if (this.program) gl.useProgram(this.program);
+        gl.useProgram(this.program);
       }
     }
 
     class Material {
-      vertexShader: WebGLShader | null;
+      vertexShader: WebGLShader;
       fragmentShaderSource: string;
-      programs: Record<number, WebGLProgram | null>;
+      programs: Record<number, WebGLProgram>;
       activeProgram: WebGLProgram | null;
       uniforms: Record<string, WebGLUniformLocation | null>;
 
-      constructor(vertexShader: WebGLShader | null, fragmentShaderSource: string) {
+      constructor(vertexShader: WebGLShader, fragmentShaderSource: string) {
         this.vertexShader = vertexShader;
         this.fragmentShaderSource = fragmentShaderSource;
         this.programs = {};
@@ -131,7 +131,7 @@ export default function SplashCursor({
         let program = this.programs[hash];
         if (program == null) {
           const fragmentShader = compileShader(gl.FRAGMENT_SHADER, this.fragmentShaderSource, keywords);
-          program = createProgram(this.vertexShader, fragmentShader);
+          program = createProgram(this.vertexShader, fragmentShader)!;
           this.programs[hash] = program;
         }
         if (program === this.activeProgram) return;
@@ -293,8 +293,8 @@ export default function SplashCursor({
       return hash;
     }
 
-    function addKeywords(source: string, keywords: string[] | null) {
-      if (!keywords) return source;
+    function addKeywords(source: string, keywords: string[]) {
+      if (keywords == null) return source;
       let keywordsString = '';
       keywords.forEach(keyword => {
           keywordsString += '#define ' + keyword + '\n';
@@ -302,23 +302,19 @@ export default function SplashCursor({
       return keywordsString + source;
     }
 
-    function compileShader(type: number, source: string, keywords: string[] | null = null): WebGLShader | null {
-      const shaderSource = addKeywords(source, keywords);
-      const shader = gl.createShader(type);
-      if (!shader) return null;
+    function compileShader(type: number, source: string, keywords: string[] | null = null): WebGLShader {
+      const shaderSource = addKeywords(source, keywords || []);
+      const shader = gl.createShader(type)!;
       gl.shaderSource(shader, shaderSource);
       gl.compileShader(shader);
       if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
         console.trace(gl.getShaderInfoLog(shader));
-        return null;
       }
       return shader;
     }
 
-    function createProgram(vertexShader: WebGLShader | null, fragmentShader: WebGLShader | null): WebGLProgram | null {
-      if (!vertexShader || !fragmentShader) return null;
-      const program = gl.createProgram();
-      if (!program) return null;
+    function createProgram(vertexShader: WebGLShader, fragmentShader: WebGLShader): WebGLProgram {
+      const program = gl.createProgram()!;
       gl.attachShader(program, vertexShader);
       gl.attachShader(program, fragmentShader);
       gl.linkProgram(program);
@@ -1205,6 +1201,14 @@ export default function SplashCursor({
       if (range === 0) return min;
       return ((value - min) % range) + min;
     }
+    
+    let animationStarted = false;
+    
+    function startAnimation() {
+      if (animationStarted) return;
+      animationStarted = true;
+      updateFrame();
+    }
 
     window.addEventListener('mousedown', e => {
       const pointer = pointers[0];
@@ -1214,48 +1218,18 @@ export default function SplashCursor({
       clickSplat(pointer);
     });
 
-    let animationStarted = false;
-    function handleFirstMove(e: MouseEvent) {
-      if (!animationStarted) {
-        animationStarted = true;
-        updateFrame();
-      }
-      const pointer = pointers[0];
-      const posX = scaleByPixelRatio(e.clientX);
-      const posY = scaleByPixelRatio(e.clientY);
-      updatePointerMoveData(pointer, posX, posY);
-      window.removeEventListener('mousemove', handleFirstMove);
-    }
-    window.addEventListener('mousemove', handleFirstMove);
-
     window.addEventListener('mousemove', e => {
-      if (!animationStarted) return;
+      startAnimation();
       const pointer = pointers[0];
       const posX = scaleByPixelRatio(e.clientX);
       const posY = scaleByPixelRatio(e.clientY);
       updatePointerMoveData(pointer, posX, posY);
     });
 
-    function handleFirstTouch(e: TouchEvent){
-      if (!animationStarted) {
-        animationStarted = true;
-        updateFrame();
-      }
-      const touches = e.targetTouches;
-      const pointer = pointers[0];
-      for (let i = 0; i < touches.length; i++) {
-        const posX = scaleByPixelRatio(touches[i].clientX);
-        const posY = scaleByPixelRatio(touches[i].clientY);
-        updatePointerDownData(pointer, touches[i].identifier, posX, posY);
-      }
-      window.removeEventListener('touchstart', handleFirstTouch);
-    }
-    window.addEventListener('touchstart', handleFirstTouch);
-
     window.addEventListener(
       'touchstart',
       e => {
-        if (!animationStarted) return;
+        startAnimation();
         const touches = e.targetTouches;
         const pointer = pointers[0];
         for (let i = 0; i < touches.length; i++) {
@@ -1295,8 +1269,6 @@ export default function SplashCursor({
       if (animationFrameId) {
           cancelAnimationFrame(animationFrameId);
       }
-      // You might want to add more cleanup for event listeners here
-      // but React's useEffect cleanup handles the component unmounting scenario.
     };
 
   }, [
