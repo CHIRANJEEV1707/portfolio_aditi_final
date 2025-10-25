@@ -28,33 +28,6 @@ function SplashCursor({
     const canvas = canvasRef.current;
     if (!canvas) return;
     
-    const pointer = {
-      id: -1,
-      texcoordX: 0,
-      texcoordY: 0,
-      prevTexcoordX: 0,
-      prevTexcoordY: 0,
-      deltaX: 0,
-      deltaY: 0,
-      down: false,
-      moved: false,
-      color: [0.2, 0.6, 1.0],
-    };
-    
-    let lastUpdateTime = Date.now();
-
-    const { gl, ext } = getWebGLContext(canvas);
-
-    if (!gl) {
-      console.error("WebGL not supported");
-      return;
-    }
-
-    if (!ext.supportLinearFiltering) {
-      DYE_RESOLUTION = 256;
-      SHADING = false;
-    }
-
     class Program {
       constructor(vertexShader, fragmentShader) {
         this.uniforms = {};
@@ -102,6 +75,33 @@ function SplashCursor({
       bind() {
         gl.useProgram(this.activeProgram);
       }
+    }
+
+    const pointer = {
+      id: -1,
+      texcoordX: 0,
+      texcoordY: 0,
+      prevTexcoordX: 0,
+      prevTexcoordY: 0,
+      deltaX: 0,
+      deltaY: 0,
+      down: false,
+      moved: false,
+      color: [0.2, 0.6, 1.0],
+    };
+    
+    let lastUpdateTime = Date.now();
+
+    const { gl, ext } = getWebGLContext(canvas);
+
+    if (!gl) {
+      console.error("WebGL not supported");
+      return;
+    }
+
+    if (!ext.supportLinearFiltering) {
+      DYE_RESOLUTION = 256;
+      SHADING = false;
     }
 
     function getWebGLContext(canvas) {
@@ -248,9 +248,6 @@ function SplashCursor({
     
     function addKeywords(source, keywords) {
         if (!keywords) return source;
-        if (!Array.isArray(keywords)) {
-            keywords = [keywords];
-        }
         let keywordsString = "";
         keywords.forEach(keyword => {
             keywordsString += "#define " + keyword + "\\n";
