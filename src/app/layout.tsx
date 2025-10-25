@@ -4,7 +4,6 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/common/Header';
-import FloatingEmojis from '@/components/common/FloatingEmojis';
 import SplashCursor from '@/components/ui/splash-cursor';
 
 export const metadata: Metadata = {
@@ -25,10 +24,7 @@ export default function RootLayout({
           'min-h-screen bg-background antialiased flex flex-col',
         )}
       >
-        <div className="fixed inset-0 z-0">
-          <FloatingEmojis />
-          <SplashCursor />
-        </div>
+        <SplashCursor />
         <div className="relative z-10 flex flex-col flex-grow">
           <Header />
           <main className="flex-grow">{children}</main>
