@@ -26,5 +26,3 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
     </>
   );
 }
-
-    
