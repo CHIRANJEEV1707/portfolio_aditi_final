@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/common/Header';
 import FloatingEmojis from '@/components/common/FloatingEmojis';
-import SplashCursor from '@/components/ui/splash-cursor';
 
 export const metadata: Metadata = {
   title: 'Aditi Agrawal | Digital Marketing Strategist & Creative Solutionist',
@@ -25,7 +24,6 @@ export default function RootLayout({
           'min-h-screen bg-background antialiased flex flex-col',
         )}
       >
-        <SplashCursor />
         <FloatingEmojis />
         <div className="relative z-10 flex flex-col flex-grow">
           <Header />
