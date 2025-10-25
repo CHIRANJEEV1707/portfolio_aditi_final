@@ -179,24 +179,6 @@ const HeroSection = () => {
       className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
     >
       <GridBackground />
-       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] -z-10">
-        <div className="absolute w-full h-full bg-cyan-300 rounded-full blur-3xl opacity-50 -translate-x-1/2 -translate-y-1/2" 
-             style={{
-                top: '50%',
-                left: '70%',
-                transform: 'translate(-50%, -50%) rotate(30deg)',
-                borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%',
-             }}
-        />
-        <div className="absolute w-full h-full border-2 border-blue-500 rounded-full blur-sm opacity-50 -translate-x-1/2 -translate-y-1/2" 
-             style={{
-                top: '50%',
-                left: '70%',
-                transform: 'translate(-50%, -50%) rotate(30deg)',
-                borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%',
-             }}
-        />
-      </div>
       <FloatingImages
         images={floatingImages}
         constraintsRef={constraintsRef}
