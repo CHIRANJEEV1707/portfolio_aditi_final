@@ -16,6 +16,7 @@ type ToasterToast = ToastProps & {
   title?: React.ReactNode
   description?: React.ReactNode
   action?: ToastActionElement
+  duration?: number;
 }
 
 const actionTypes = {
@@ -144,6 +145,7 @@ type Toast = Omit<ToasterToast, "id">
 
 function toast({ ...props }: Toast) {
   const id = genId()
+  const duration = props.duration ?? 3000;
 
   const update = (props: ToasterToast) =>
     dispatch({
@@ -163,6 +165,10 @@ function toast({ ...props }: Toast) {
       },
     },
   })
+  
+  setTimeout(() => {
+    dismiss();
+  }, duration)
 
   return {
     id: id,
