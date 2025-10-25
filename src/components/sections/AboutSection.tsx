@@ -7,6 +7,8 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { useState, useRef } from 'react';
+import EasterEgg from '../common/EasterEgg';
+import { useToast } from '@/hooks/use-toast';
 
 const AboutSection = () => {
   const profileImage = PlaceHolderImages.find(
@@ -15,6 +17,7 @@ const AboutSection = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLAnchorElement>(null);
+  const { toast } = useToast();
 
   const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (containerRef.current) {
@@ -25,6 +28,12 @@ const AboutSection = () => {
 
   const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => setIsHovering(false);
+  const handleEggClick = (message: string) => {
+    toast({
+      title: 'Aha!',
+      description: message,
+    })
+  };
 
   const imageTransform = isHovering
     ? {
@@ -37,7 +46,13 @@ const AboutSection = () => {
     : { transform: 'perspective(800px) rotateX(0) rotateY(0) scale3d(1, 1, 1)' };
 
   return (
-    <section id="about" className="py-20 md:py-32 container mx-auto">
+    <section id="about" className="py-20 md:py-32 container mx-auto relative">
+       <EasterEgg
+          className="top-[10%] right-[5%] z-30"
+          onClick={() => handleEggClick("Deep in thought!")}
+        >
+          🤔
+        </EasterEgg>
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
         <AnimateOnScroll
           animation="fade-in"

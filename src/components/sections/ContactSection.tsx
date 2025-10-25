@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useForm } from 'react-hook-form';
@@ -16,6 +17,7 @@ import AnimateOnScroll from '../common/AnimateOnScroll';
 import React from 'react';
 import SendButton from '../ui/send-button';
 import { AnimatedInput } from '../ui/animated-input';
+import EasterEgg from '../common/EasterEgg';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -62,6 +64,13 @@ const ContactSection = () => {
     },
   });
 
+  const handleEggClick = (message: string) => {
+    toast({
+      title: 'Aha!',
+      description: message,
+    })
+  };
+
   async function onSubmit(data: FormData) {
     setIsSubmitting(true);
     const result = await submitAction(data);
@@ -84,6 +93,18 @@ const ContactSection = () => {
 
   return (
     <section id="contact" className="py-20 md:py-32 relative overflow-hidden">
+       <EasterEgg
+          className="top-[10%] left-[10%] z-30"
+          onClick={() => handleEggClick("Message on its way!")}
+        >
+          ✈️
+        </EasterEgg>
+        <EasterEgg
+          className="top-[20%] right-[10%] z-30"
+          onClick={() => handleEggClick("A little sparkle for your thoughts!")}
+        >
+          ✨
+        </EasterEgg>
       <div className="container mx-auto max-w-3xl text-center relative z-10">
         <AnimateOnScroll animation="fade-in">
           <h2 className="text-5xl md:text-6xl font-bold mb-4">
