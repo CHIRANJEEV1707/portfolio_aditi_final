@@ -18,6 +18,10 @@ export default {
       },
     },
     extend: {
+      backgroundImage: {
+        'text-gradient-1': "url('https://plus.unsplash.com/premium_photo-1661882403999-46081e67c401?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y29kZXxlbnwwfHwwfHx8MA%3D%3D')",
+        'text-gradient-2': "url('https://plus.unsplash.com/premium_photo-1661963874418-df1110ee39c1?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y29kZXxlbnwwfHwwfHx8MA%3D%3D')",
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -82,10 +86,22 @@ export default {
             height: '0',
           },
         },
+        'text': {
+          '0%': { backgroundPosition: '0 0' },
+          '50%': { backgroundPosition: '200px' },
+          '100%': { backgroundPosition: '0 0' },
+        },
+        'textReverse': {
+          '0%': { backgroundPosition: '0 0' },
+          '50%': { backgroundPosition: '-200px' },
+          '100%': { backgroundPosition: '0 0' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'text-gradient': 'text 5s ease-in-out infinite',
+        'text-gradient-reverse': 'textReverse 5s ease-in-out infinite',
       },
     },
   },

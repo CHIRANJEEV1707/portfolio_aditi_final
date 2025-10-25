@@ -178,10 +178,9 @@ const HeroSection = () => {
       <div className="relative z-20">
         <div className="absolute inset-0 -z-10 pointer-events-none bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.1),transparent_60%)]" />
         <div className="relative text-center flex flex-col items-center justify-center">
-          <div className="flex justify-center">
-            <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter">
-              {title}
-            </h1>
+          <div className="flex flex-col justify-center font-black uppercase tracking-tighter text-6xl md:text-8xl">
+            <p className="m-0 text-transparent bg-text-gradient-1 bg-contain bg-clip-text opacity-80 animate-text-gradient">Aditi</p>
+            <p className="m-0 text-transparent bg-text-gradient-2 bg-contain bg-clip-text opacity-80 animate-text-gradient-reverse">Agrawal</p>
           </div>
           <div className="mt-4 text-lg md:text-xl lg:text-2xl text-muted-foreground font-body max-w-2xl mx-auto">
             {isMounted ? (
