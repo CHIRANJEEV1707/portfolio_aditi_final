@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { SplashCursor } from './splash-cursor';
+import SplashCursor from './splash-cursor';
 
 export function CursorProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
