@@ -692,6 +692,12 @@ function SplashCursor({
       return target;
     }
 
+    function updateKeywords() {
+      let displayKeywords = [];
+      if (config.SHADING) displayKeywords.push('SHADING');
+      displayMaterial.setKeywords(displayKeywords);
+    }
+    
     updateKeywords();
     initFramebuffers();
     multipleSplats(parseInt(Math.random() * 20) + 5);
