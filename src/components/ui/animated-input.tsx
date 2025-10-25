@@ -65,6 +65,7 @@ export const AnimatedInput = ({
       <input
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
+        value={value}
         {...props}
         className="outline-none border-b-2 border-foreground bg-transparent py-2 w-full text-base font-medium text-foreground placeholder-transparent"
       />
