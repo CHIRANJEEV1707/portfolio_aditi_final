@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/common/Header';
 import { CursorProvider } from '@/components/ui/CursorProvider';
+import FloatingEmojis from '@/components/common/FloatingEmojis';
 
 export const metadata: Metadata = {
   title: 'Aditi Agrawal | Digital Marketing Strategist & Creative Solutionist',
@@ -25,6 +26,7 @@ export default function RootLayout({
         )}
       >
           <CursorProvider>
+            <FloatingEmojis />
             <Header />
             <main className="flex-grow">{children}</main>
             <Toaster />

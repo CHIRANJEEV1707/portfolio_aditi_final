@@ -1,4 +1,5 @@
 
+'use client'
 import { notFound } from 'next/navigation';
 import { projects } from '@/lib/data';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -9,6 +10,8 @@ import { ArrowLeft, ExternalLink } from 'lucide-react';
 import AnimateOnScroll from '@/components/common/AnimateOnScroll';
 import PageTransition from '@/components/common/PageTransition';
 import { cn } from '@/lib/utils';
+import EasterEgg from '@/components/common/EasterEgg';
+import { useToast } from '@/hooks/use-toast';
 
 type ProjectPageProps = {
   params: {
@@ -24,16 +27,29 @@ export async function generateStaticParams() {
 
 export default function ProjectPage({ params }: ProjectPageProps) {
   const project = projects.find((p) => p.slug === params.slug);
+  const { toast } = useToast();
 
   if (!project) {
     notFound();
   }
+  const handleEggClick = (message: string) => {
+    toast({
+      title: 'Aha!',
+      description: message,
+    })
+  };
 
   const heroImage = PlaceHolderImages.find((img) => img.id === project.imageId);
 
   return (
     <PageTransition>
       <div className="pt-24 pb-12 relative overflow-hidden">
+        <EasterEgg
+          className="top-1/4 left-[5%] z-30"
+          onClick={() => handleEggClick("You've discovered a project secret!")}
+        >
+          🔍
+        </EasterEgg>
         <AnimateOnScroll animation="fade-in">
           <header className="container mx-auto mb-12">
             <Button asChild variant="ghost" className="mb-8">

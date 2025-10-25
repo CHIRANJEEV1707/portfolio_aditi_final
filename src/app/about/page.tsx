@@ -7,16 +7,39 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import AnimateOnScroll from '@/components/common/AnimateOnScroll';
 import PageTransition from '@/components/common/PageTransition';
 import Footer from '@/components/common/Footer';
+import EasterEgg from '@/components/common/EasterEgg';
+import { useToast } from '@/hooks/use-toast';
 
 export default function AboutPage() {
   const profileImage = PlaceHolderImages.find(
     (img) => img.id === 'aditi-profile'
   );
+  // Dummy handlers for new easter eggs
+  const { toast } = useToast();
+  const handleEggClick = (message: string) => {
+    toast({
+      title: 'You found a secret!',
+      description: message,
+    })
+  };
+
 
   return (
     <>
       <PageTransition>
         <div className="pt-24 pb-12 relative overflow-hidden bg-background">
+          <EasterEgg
+              className="top-[10%] left-[5%] z-30"
+              onClick={() => handleEggClick("Creativity in bloom! 🌸")}
+            >
+              🚀
+            </EasterEgg>
+            <EasterEgg
+              className="bottom-[20%] right-[10%] z-30"
+              onClick={() => handleEggClick("Strategy mode: activated! 💡")}
+            >
+              📈
+            </EasterEgg>
           
           <AnimateOnScroll animation="fade-in" className="container mx-auto">
             <header className="text-center my-16">
