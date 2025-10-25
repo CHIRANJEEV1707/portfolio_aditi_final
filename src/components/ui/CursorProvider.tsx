@@ -23,12 +23,13 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
     const handleMouseMove = (e: MouseEvent) => {
       let target = e.target as HTMLElement;
       let shouldDisable = false;
-      while (target) {
-        if (target.classList?.contains('disable-cursor-trail')) {
+      // Traverse up the DOM tree to see if any parent has the disable class
+      while (target && target.parentElement) {
+        if (target.classList.contains('disable-cursor-trail')) {
           shouldDisable = true;
           break;
         }
-        target = target.parentElement as HTMLElement;
+        target = target.parentElement;
       }
       setIsElementHovered(shouldDisable);
     };
