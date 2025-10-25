@@ -4,7 +4,6 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -17,8 +16,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import AnimateOnScroll from '../common/AnimateOnScroll';
-import { Loader2 } from 'lucide-react';
 import React from 'react';
+import SendButton from '../ui/send-button';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -145,16 +144,7 @@ const ContactSection = () => {
                 )}
               />
               <div className="text-center">
-                <Button type="submit" size="lg" disabled={isSubmitting}>
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Sending...
-                    </>
-                  ) : (
-                    'Send Message'
-                  )}
-                </Button>
+                <SendButton isSubmitting={isSubmitting} />
               </div>
             </form>
           </Form>
