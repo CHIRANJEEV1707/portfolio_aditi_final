@@ -21,7 +21,7 @@ const socialLinks: Social[] = [
 
 const Footer = () => {
   return (
-    <footer className="bg-background py-8">
+    <footer className="py-8">
       <div className="container mx-auto text-center text-muted-foreground">
         <div className="flex justify-center mb-4">
           <AnimatedSocialLinks socials={socialLinks} />
