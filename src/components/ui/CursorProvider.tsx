@@ -1,9 +1,15 @@
-
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, createContext, useContext } from 'react';
 import { SplashCursor } from './splash-cursor';
+
+const CursorContext = createContext({
+  isElementHovered: false,
+  setIsElementHovered: (isHovered: boolean) => {},
+});
+
+export const useCursorContext = () => useContext(CursorContext);
 
 export function CursorProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -19,34 +25,12 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
     setIsRouteDisabled(isDisabled);
   }, [pathname]);
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      let target = e.target as HTMLElement;
-      let shouldDisable = false;
-      // Traverse up the DOM tree to see if any parent has the disable class
-      while (target && target.parentElement) {
-        if (target.classList.contains('disable-cursor-trail')) {
-          shouldDisable = true;
-          break;
-        }
-        target = target.parentElement;
-      }
-      setIsElementHovered(shouldDisable);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove, true);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove, true);
-    };
-  }, []);
-
   const showCursor = !isRouteDisabled && !isElementHovered;
 
   return (
-    <>
+    <CursorContext.Provider value={{ isElementHovered, setIsElementHovered }}>
       {showCursor && <SplashCursor />}
       {children}
-    </>
+    </CursorContext.Provider>
   );
 }

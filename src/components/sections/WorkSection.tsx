@@ -5,10 +5,11 @@ import { useRef } from 'react';
 import { ImageTrail } from '@/components/ui/image-trail';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Image from 'next/image';
-import StarIcon from '../common/StarIcon';
+import { useCursorContext } from '@/components/ui/CursorProvider';
 
 const WorkSection = () => {
   const ref = useRef<HTMLDivElement>(null);
+  const { setIsElementHovered } = useCursorContext();
 
   const imageIds = [
     'work-trail-1',
@@ -27,7 +28,9 @@ const WorkSection = () => {
     <div
       id="work"
       ref={ref}
-      className="flex w-full h-[50vh] justify-center items-center relative overflow-hidden disable-cursor-trail"
+      className="flex w-full h-[50vh] justify-center items-center relative overflow-hidden"
+      onMouseEnter={() => setIsElementHovered(true)}
+      onMouseLeave={() => setIsElementHovered(false)}
     >
       <div className="absolute top-0 left-0 z-0 h-full w-full">
         <ImageTrail containerRef={ref}>
