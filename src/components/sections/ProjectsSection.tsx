@@ -75,7 +75,7 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
       {isClient && (
         <div
           className={cn(
-            'pointer-events-none fixed top-0 left-0 z-0 transition-opacity duration-300 hidden md:block',
+            'pointer-events-none fixed top-0 left-0 z-20 transition-opacity duration-300 hidden md:block',
             hoveredProjectImage ? 'opacity-100' : 'opacity-0'
           )}
           style={{
