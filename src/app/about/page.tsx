@@ -37,6 +37,12 @@ export default function AboutPage() {
             >
               📈
             </EasterEgg>
+            <EasterEgg
+              className="bottom-[50%] left-[2%] z-30"
+              onClick={() => handleEggClick("The DNA of a great idea! 🧬")}
+            >
+              🧬
+            </EasterEgg>
           
           <AnimateOnScroll animation="fade-in" className="container mx-auto">
             <header className="text-center my-16">

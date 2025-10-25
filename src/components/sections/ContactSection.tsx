@@ -104,6 +104,12 @@ const ContactSection = () => {
         >
           ✨
         </EasterEgg>
+        <EasterEgg
+          className="bottom-[10%] left-[15%] z-30"
+          onClick={() => handleEggClick("What's on your mind? 💭")}
+        >
+          💭
+        </EasterEgg>
       <div className="container mx-auto max-w-3xl text-center relative z-10">
         <AnimateOnScroll animation="fade-in">
           <h2 className="text-5xl md:text-6xl font-bold mb-4">
