@@ -1,10 +1,11 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWindowSize } from '@/hooks/useWindowSize';
 
-const EMOJIS = ['✨', '🎨', '💡', '💭', '🚀', '📈', '🌸', '💙', '🔍'];
+const EMOJIS = ['✨', '🎨', '💡', '💭', '🚀', '📈', '🌸', '💙', '🔍', '👾', '💻', '🍾', '🌕'];
 const EMOJI_COUNT = 12;
 
 const FloatingEmojis = () => {
