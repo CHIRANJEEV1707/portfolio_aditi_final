@@ -27,7 +27,7 @@ function SplashCursor({
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
+    
     const pointer = {
       id: -1,
       texcoordX: 0,
@@ -53,6 +53,55 @@ function SplashCursor({
     if (!ext.supportLinearFiltering) {
       DYE_RESOLUTION = 256;
       SHADING = false;
+    }
+
+    class Program {
+      constructor(vertexShader, fragmentShader) {
+        this.uniforms = {};
+        this.program = createProgram(vertexShader, fragmentShader);
+        this.uniforms = getUniforms(this.program);
+      }
+      bind() {
+        gl.useProgram(this.program);
+      }
+    }
+    
+    class Material {
+      constructor(vertexShader, fragmentShaderSource) {
+        this.vertexShader = vertexShader;
+        this.fragmentShaderSource = fragmentShaderSource;
+        this.programs = [];
+        this.activeProgram = null;
+        this.uniforms = [];
+      }
+      setKeywords(keywords) {
+        let hash = 0;
+        for (let i = 0; i < keywords.length; i++) {
+            // Simple hash function
+            for (let j = 0; j < keywords[i].length; j++) {
+                hash += keywords[i].charCodeAt(j);
+            }
+        }
+    
+        let program = this.programs[hash];
+        if (program == null) {
+          const fragmentShader = compileShader(
+            gl.FRAGMENT_SHADER,
+            this.fragmentShaderSource,
+            keywords
+          );
+          program = createProgram(this.vertexShader, fragmentShader);
+          this.programs[hash] = program;
+        }
+    
+        if (program === this.activeProgram) return;
+    
+        this.uniforms = getUniforms(program);
+        this.activeProgram = program;
+      }
+      bind() {
+        gl.useProgram(this.activeProgram);
+      }
     }
 
     function getWebGLContext(canvas) {
@@ -164,6 +213,51 @@ function SplashCursor({
       let status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
       return status === gl.FRAMEBUFFER_COMPLETE;
     }
+
+    function createProgram(vertexShader, fragmentShader) {
+      const program = gl.createProgram();
+      gl.attachShader(program, vertexShader);
+      gl.attachShader(program, fragmentShader);
+      gl.linkProgram(program);
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS))
+        console.trace(gl.getProgramInfoLog(program));
+      return program;
+    }
+
+    function getUniforms(program) {
+      let uniforms = {};
+      const uniformCount = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
+      for (let i = 0; i < uniformCount; i++) {
+        const uniformName = gl.getActiveUniform(program, i).name;
+        uniforms[uniformName] = gl.getUniformLocation(program, uniformName);
+      }
+      return uniforms;
+    }
+
+    function compileShader(gl, type, source, keywords) {
+      source = addKeywords(source, keywords);
+      const shader = gl.createShader(type);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        console.trace(gl.getShaderInfoLog(shader));
+        return null;
+      }
+      return shader;
+    }
+    
+    function addKeywords(source, keywords) {
+        if (!keywords) return source;
+        if (!Array.isArray(keywords)) {
+            keywords = [keywords];
+        }
+        let keywordsString = "";
+        keywords.forEach(keyword => {
+            keywordsString += "#define " + keyword + "\\n";
+        });
+        return keywordsString + source;
+    }
+    
 
     const baseVertexShader = compileShader(
       gl,
@@ -869,47 +963,6 @@ function SplashCursor({
         };
     }
 
-    function addKeywords(source, keywords) {
-        if (!keywords) return source;
-        let keywordsString = "";
-        if (Array.isArray(keywords)) {
-            keywords.forEach(keyword => {
-                keywordsString += "#define " + keyword + "\n";
-            });
-        }
-        return keywordsString + source;
-    }
-    
-    function compileShader(gl, type, source, keywords) {
-      source = addKeywords(source, keywords);
-      const shader = gl.createShader(type);
-      gl.shaderSource(shader, source);
-      gl.compileShader(shader);
-      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        console.trace(gl.getShaderInfoLog(shader));
-        return null;
-      }
-      return shader;
-    }
-    function getUniforms(program) {
-      let uniforms = {};
-      const uniformCount = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
-      for (let i = 0; i < uniformCount; i++) {
-        const uniformName = gl.getActiveUniform(program, i).name;
-        uniforms[uniformName] = gl.getUniformLocation(program, uniformName);
-      }
-      return uniforms;
-    }
-    function createProgram(vertexShader, fragmentShader) {
-      const program = gl.createProgram();
-      gl.attachShader(program, vertexShader);
-      gl.attachShader(program, fragmentShader);
-      gl.linkProgram(program);
-      if (!gl.getProgramParameter(program, gl.LINK_STATUS))
-        console.trace(gl.getProgramInfoLog(program));
-      return program;
-    }
-    
     function scaleByPixelRatio(input) {
         const pixelRatio = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1;
         return Math.floor(input * pixelRatio);
@@ -937,7 +990,7 @@ function SplashCursor({
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("touchmove", handleTouchMove);
     };
-  }, []);
+  }, [CURL, DENSITY_DISSIPATION, DYE_RESOLUTION, PRESSURE, PRESSURE_ITERATIONS, SHADING, SIM_RESOLUTION, SPLAT_FORCE, SPLAT_RADIUS, VELOCITY_DISSIPATION]);
 
   return <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full -z-[1] pointer-events-none" />;
 }
