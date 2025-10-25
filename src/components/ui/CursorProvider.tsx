@@ -3,18 +3,12 @@
 import { usePathname } from 'next/navigation';
 import { useEffect, useState, createContext, useContext } from 'react';
 import { SplashCursor } from './splash-cursor';
-
-const CursorContext = createContext({
-  isElementHovered: false,
-  setIsElementHovered: (isHovered: boolean) => {},
-});
-
-export const useCursorContext = () => useContext(CursorContext);
+import { CursorContext } from '@/contexts/CursorContext';
 
 export function CursorProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [isRouteDisabled, setIsRouteDisabled] = useState(false);
-  const [isElementHovered, setIsElementHovered] = useState(false);
+  const [isTrailDisabled, setIsTrailDisabled] = useState(false);
 
   useEffect(() => {
     // Routes to fully disable the cursor on
@@ -25,11 +19,11 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
     setIsRouteDisabled(isDisabled);
   }, [pathname]);
 
-  const showCursor = !isRouteDisabled && !isElementHovered;
+  const showCursor = !isRouteDisabled;
 
   return (
-    <CursorContext.Provider value={{ isElementHovered, setIsElementHovered }}>
-      {showCursor && <SplashCursor />}
+    <CursorContext.Provider value={{ isTrailDisabled, setIsTrailDisabled }}>
+      {showCursor && <SplashCursor disabled={isTrailDisabled} />}
       {children}
     </CursorContext.Provider>
   );

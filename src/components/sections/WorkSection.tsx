@@ -1,15 +1,15 @@
 
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useContext } from 'react';
 import { ImageTrail } from '@/components/ui/image-trail';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Image from 'next/image';
-import { useCursorContext } from '@/components/ui/CursorProvider';
+import { CursorContext } from '@/contexts/CursorContext';
 
 const WorkSection = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const { setIsElementHovered } = useCursorContext();
+  const { setIsTrailDisabled } = useContext(CursorContext);
 
   const imageIds = [
     'work-trail-1',
@@ -29,8 +29,8 @@ const WorkSection = () => {
       id="work"
       ref={ref}
       className="flex w-full h-[50vh] justify-center items-center relative overflow-hidden"
-      onMouseEnter={() => setIsElementHovered(true)}
-      onMouseLeave={() => setIsElementHovered(false)}
+      onMouseEnter={() => setIsTrailDisabled(true)}
+      onMouseLeave={() => setIsTrailDisabled(false)}
     >
       <div className="absolute top-0 left-0 z-0 h-full w-full">
         <ImageTrail containerRef={ref}>
