@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -6,7 +5,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useWindowSize } from '@/hooks/useWindowSize';
 
 const EMOJIS = ['✨', '🎨', '💡', '💭', '🚀', '📈', '🌸', '💙', '🔍'];
-const EMOJI_COUNT = 10;
+const EMOJI_COUNT = 12;
 
 const FloatingEmojis = () => {
   const { width, height } = useWindowSize();
@@ -20,7 +19,7 @@ const FloatingEmojis = () => {
           emoji: EMOJIS[i % EMOJIS.length],
           x: Math.random() * width,
           y: Math.random() * height,
-          size: Math.random() * 30 + 20,
+          size: Math.random() * 30 + 25,
           duration: Math.random() * 15 + 10,
           delay: Math.random() * 5,
         }))
