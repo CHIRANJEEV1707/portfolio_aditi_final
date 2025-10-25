@@ -32,17 +32,17 @@ export default function SplashCursor() {
         vec2 st = gl_FragCoord.xy / u_resolution;
         float dist = distance(st, u_mouse / u_resolution);
 
-        // Soft gradient falloff instead of a hard orb
-        float intensity = smoothstep(0.25, 0.0, dist * 2.0);
+        // softer falloff for longer gradient
+        float intensity = smoothstep(0.3, 0.0, dist * 1.5);
 
-        // Dynamic blue gradient splash
+        // gradient blue with dynamic hue shift
         vec3 color = mix(
-          vec3(0.0, 0.2, 0.5),
-          vec3(0.1, 0.7, 1.0),
-          intensity
+          vec3(0.0, 0.3, 0.8),
+          vec3(0.2, 0.8, 1.0),
+          intensity + 0.1 * sin(u_time * 0.5)
         );
 
-        gl_FragColor = vec4(color, intensity * 0.6);
+        gl_FragColor = vec4(color, intensity * 0.4);
       }
     `;
 
@@ -92,10 +92,8 @@ export default function SplashCursor() {
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
     // --- State and Animation ---
-    let targetX = -1000;
-    let targetY = -1000;
-    let mouseX = -1000;
-    let mouseY = -1000;
+    let target = { x: -1000, y: -1000 };
+    let mouse = { x: -1000, y: -1000 };
     let animationFrameId: number;
 
     function resizeCanvas() {
@@ -115,27 +113,34 @@ export default function SplashCursor() {
     resizeCanvas(); // initial sizing
 
     function handleMouseMove(e: MouseEvent) {
-       targetX = e.clientX;
-       targetY = e.clientY;
+       target.x = e.clientX;
+       target.y = e.clientY;
     }
     
     window.addEventListener('mousemove', handleMouseMove);
 
     function render(time: number) {
+      animationFrameId = requestAnimationFrame(render);
       if (!gl || !program) return;
+      
       resizeCanvas();
-
+      
       // Interpolate for smoother movement
-      mouseX += (targetX - mouseX) * 0.15;
-      mouseY += (targetY - mouseY) * 0.15;
+      mouse.x += (target.x - mouse.x) * 0.15;
+      mouse.y += (target.y - mouse.y) * 0.15;
 
       // --- Drawing Logic ---
-      gl.clearColor(0.0, 0.0, 0.0, 0.1); // Soft fade for trails
-      gl.clear(gl.COLOR_BUFFER_BIT);
-
-      // Enable blending for transparency
+      
+      // Instead of clearing, draw a semi-transparent black rectangle
+      // to slowly fade old frames (creates a smooth trail)
       gl.enable(gl.BLEND);
       gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+      
+      // WebGL doesn't have fillRect, so we use clearColor with a low alpha
+      // to achieve a similar fading trail effect.
+      gl.clearColor(0.0, 0.0, 0.0, 0.08);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+
 
       gl.useProgram(program);
       gl.enableVertexAttribArray(positionAttributeLocation);
@@ -143,14 +148,13 @@ export default function SplashCursor() {
       gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
 
       // Pass uniforms to the shader
+      const dpr = window.devicePixelRatio || 1;
       gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
-      // Pass interpolated mouse position, adjusted for WebGL coordinates
-      gl.uniform2f(mouseUniformLocation, mouseX * (window.devicePixelRatio || 1), (gl.canvas.height - mouseY * (window.devicePixelRatio || 1)));
+      gl.uniform2f(mouseUniformLocation, mouse.x * dpr, (gl.canvas.height - mouse.y * dpr));
       gl.uniform1f(timeUniformLocation, time * 0.001);
 
       gl.drawArrays(gl.TRIANGLES, 0, 6);
 
-      animationFrameId = requestAnimationFrame(render);
     }
 
     render(0); // Start the continuous animation loop
