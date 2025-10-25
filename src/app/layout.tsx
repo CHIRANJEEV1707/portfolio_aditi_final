@@ -24,7 +24,7 @@ export default function RootLayout({
         )}
       >
         <SplashCursor />
-        <div className="relative z-10 flex flex-col flex-grow">
+        <div className="flex flex-col flex-grow">
           <Header />
           <main className="flex-grow">{children}</main>
           <Toaster />

@@ -94,14 +94,6 @@ export default function SplashCursor({
       TRANSPARENT
     };
 
-    const { gl, ext } = getWebGLContext(canvas);
-    if (!gl || !ext) return;
-
-    if (!ext.supportLinearFiltering) {
-      config.DYE_RESOLUTION = 256;
-      config.SHADING = false;
-    }
-    
     class Program {
       program: WebGLProgram | null;
       uniforms: Record<string, WebGLUniformLocation | null>;
@@ -156,6 +148,15 @@ export default function SplashCursor({
       }
     }
 
+
+    const { gl, ext } = getWebGLContext(canvas);
+    if (!gl || !ext) return;
+
+    if (!ext.supportLinearFiltering) {
+      config.DYE_RESOLUTION = 256;
+      config.SHADING = false;
+    }
+    
 
     function getWebGLContext(canvas: HTMLCanvasElement) {
       const params = {
@@ -295,9 +296,9 @@ export default function SplashCursor({
     function addKeywords(source: string, keywords: string[] | null) {
       if (!keywords) return source;
       let keywordsString = '';
-      for (const keyword of keywords) {
-        keywordsString += `#define ${keyword}\n`;
-      }
+      keywords.forEach(keyword => {
+          keywordsString += '#define ' + keyword + '\n';
+      });
       return keywordsString + source;
     }
 
@@ -1316,7 +1317,7 @@ export default function SplashCursor({
   ]);
 
   return (
-    <div className="fixed top-0 left-0 -z-[1] pointer-events-none w-full h-full">
+    <div className="fixed top-0 left-0 z-[9999] pointer-events-none w-full h-full">
       <canvas ref={canvasRef} id="fluid" className="w-full h-full block"></canvas>
     </div>
   );
