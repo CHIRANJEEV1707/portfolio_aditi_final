@@ -27,7 +27,7 @@ export default function AboutPage() {
   return (
     <>
       <PageTransition>
-        <div className="pt-24 pb-12 relative overflow-hidden bg-background">
+        <div className="pt-24 pb-12 relative overflow-hidden">
           <EasterEgg
               className="top-[10%] left-[5%] z-30"
               onClick={() => handleEggClick("Creativity in bloom! 🌸")}
