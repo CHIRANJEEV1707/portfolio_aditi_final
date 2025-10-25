@@ -117,6 +117,35 @@ const easterEggs = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: (i = 1) => ({
+    opacity: 1,
+    transition: { staggerChildren: 0.08, delayChildren: i * 0.04 },
+  }),
+};
+
+const childVariants = {
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: 'spring',
+      damping: 12,
+      stiffness: 100,
+    },
+  },
+  hidden: {
+    opacity: 0,
+    y: 20,
+    transition: {
+      type: 'spring',
+      damping: 12,
+      stiffness: 100,
+    },
+  },
+};
+
 const HeroSection = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [activeEgg, setActiveEgg] = useState<string | null>(null);
@@ -149,8 +178,9 @@ const HeroSection = () => {
     setActiveEgg(message);
     audio?.play().catch((err) => console.error('Audio play failed:', err));
   };
-
-  const title = 'Aditi Agrawal';
+  
+  const name = "Aditi";
+  const surname = "Agrawal";
 
   return (
     <section
@@ -159,7 +189,7 @@ const HeroSection = () => {
       className="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden"
     >
       <GridBackground />
-      <div className="absolute inset-0 z-10">
+      <div className="absolute inset-0 z-0">
           <FloatingImages
             images={floatingImages}
             constraintsRef={constraintsRef}
@@ -179,8 +209,38 @@ const HeroSection = () => {
         <div className="absolute inset-0 -z-10 pointer-events-none bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.1),transparent_60%)]" />
         <div className="relative text-center flex flex-col items-center justify-center">
         <div className="flex flex-col justify-center font-black uppercase tracking-tighter text-6xl md:text-8xl">
-            <p className="m-0 text-transparent bg-gradient-to-b from-foreground to-muted-foreground bg-clip-text">Aditi</p>
-            <p className="m-0 text-transparent bg-gradient-to-t from-foreground to-muted-foreground bg-clip-text">Agrawal</p>
+            <motion.div
+              className="flex"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {name.split('').map((letter, index) => (
+                <motion.p
+                  key={index}
+                  variants={childVariants}
+                  className="m-0 text-transparent bg-gradient-to-b from-foreground to-muted-foreground bg-clip-text"
+                >
+                  {letter}
+                </motion.p>
+              ))}
+            </motion.div>
+            <motion.div
+              className="flex"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {surname.split('').map((letter, index) => (
+                <motion.p
+                  key={index}
+                  variants={childVariants}
+                  className="m-0 text-transparent bg-gradient-to-t from-foreground to-muted-foreground bg-clip-text"
+                >
+                  {letter}
+                </motion.p>
+              ))}
+            </motion.div>
           </div>
           <div className="mt-4 text-lg md:text-xl lg:text-2xl text-muted-foreground font-body max-w-2xl mx-auto">
             {isMounted ? (
