@@ -16,50 +16,62 @@ const EmojiMatrix = () => {
     let height = (canvas.height = window.innerHeight);
 
     const emojis = ['✨', '🎨', '💡', '💭', '🚀', '📈', '🔍'];
-    const fontSize = 20;
-    const columns = Math.floor(width / fontSize);
-    const drops: number[] = [];
+    const particleCount = 50;
+    const particles: any[] = [];
 
-    for (let i = 0; i < columns; i++) {
-      drops[i] = 1;
+    function Particle(this: any) {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height + height;
+      this.emoji = emojis[Math.floor(Math.random() * emojis.length)];
+      this.size = Math.random() * 20 + 10;
+      this.speed = Math.random() * 1 + 0.5;
+      this.opacity = Math.random() * 0.5 + 0.25;
+    }
+
+    Particle.prototype.draw = function() {
+      if (!ctx) return;
+      ctx.globalAlpha = this.opacity;
+      ctx.font = `${this.size}px sans-serif`;
+      ctx.fillText(this.emoji, this.x, this.y);
+    };
+
+    Particle.prototype.update = function() {
+      this.y -= this.speed;
+      if (this.y < -this.size) {
+        this.y = height + this.size;
+        this.x = Math.random() * width;
+      }
+    };
+
+    function init() {
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new (Particle as any)());
+      }
     }
 
     let animationFrameId: number;
 
-    const draw = () => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
-      ctx.fillRect(0, 0, width, height);
-
-      ctx.fillStyle = '#FFF'; // Emoji color
-      ctx.font = `${fontSize}px sans-serif`;
-
-      for (let i = 0; i < drops.length; i++) {
-        const text = emojis[Math.floor(Math.random() * emojis.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-
-        drops[i]++;
-      }
-    };
-
     const animate = () => {
-      draw();
+      if (!ctx) return;
+      ctx.clearRect(0, 0, width, height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+      }
       animationFrameId = requestAnimationFrame(animate);
     };
-
+    
     const handleResize = () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
-      for (let i = 0; i < columns; i++) {
-        drops[i] = 1;
-      }
+      particles.length = 0;
+      init();
     };
 
-    window.addEventListener('resize', handleResize);
+    init();
     animate();
+
+    window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
