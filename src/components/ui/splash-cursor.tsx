@@ -408,21 +408,21 @@ export default function SplashCursor({
 
       void main () {
           vec3 c = texture2D(uTexture, vUv).rgb;
-#ifdef SHADING
-          vec3 lc = texture2D(uTexture, vL).rgb;
-          vec3 rc = texture2D(uTexture, vR).rgb;
-          vec3 tc = texture2D(uTexture, vT).rgb;
-          vec3 bc = texture2D(uTexture, vB).rgb;
+          #ifdef SHADING
+              vec3 lc = texture2D(uTexture, vL).rgb;
+              vec3 rc = texture2D(uTexture, vR).rgb;
+              vec3 tc = texture2D(uTexture, vT).rgb;
+              vec3 bc = texture2D(uTexture, vB).rgb;
 
-          float dx = length(rc) - length(lc);
-          float dy = length(tc) - length(bc);
+              float dx = length(rc) - length(lc);
+              float dy = length(tc) - length(bc);
 
-          vec3 n = normalize(vec3(dx, dy, length(texelSize)));
-          vec3 l = vec3(0.0, 0.0, 1.0);
+              vec3 n = normalize(vec3(dx, dy, length(texelSize)));
+              vec3 l = vec3(0.0, 0.0, 1.0);
 
-          float diffuse = clamp(dot(n, l) + 0.7, 0.7, 1.0);
-          c *= diffuse;
-#endif
+              float diffuse = clamp(dot(n, l) + 0.7, 0.7, 1.0);
+              c *= diffuse;
+          #endif
 
           float a = max(c.r, max(c.g, c.b));
           gl_FragColor = vec4(c, a);
@@ -478,13 +478,13 @@ export default function SplashCursor({
       }
 
       void main () {
-#ifdef MANUAL_FILTERING
-          vec2 coord = vUv - dt * bilerp(uVelocity, vUv, texelSize).xy * texelSize;
-          vec4 result = bilerp(uSource, coord, dyeTexelSize);
-#else
-          vec2 coord = vUv - dt * texture2D(uVelocity, vUv).xy * texelSize;
-          vec4 result = texture2D(uSource, coord);
-#endif
+          #ifdef MANUAL_FILTERING
+              vec2 coord = vUv - dt * bilerp(uVelocity, vUv, texelSize).xy * texelSize;
+              vec4 result = bilerp(uSource, coord, dyeTexelSize);
+          #else
+              vec2 coord = vUv - dt * texture2D(uVelocity, vUv).xy * texelSize;
+              vec4 result = texture2D(uSource, coord);
+          #endif
           float decay = 1.0 + dissipation * dt;
           gl_FragColor = result / decay;
       }

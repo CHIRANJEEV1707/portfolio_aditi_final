@@ -25,13 +25,15 @@ export default function RootLayout({
           'min-h-screen bg-background antialiased flex flex-col',
         )}
       >
-        <SplashCursor />
-        <FloatingEmojis />
+        <div className="fixed inset-0 z-0">
+          <FloatingEmojis />
+          <SplashCursor />
+        </div>
         <div className="relative z-10 flex flex-col flex-grow">
           <Header />
           <main className="flex-grow">{children}</main>
+          <Toaster />
         </div>
-        <Toaster />
       </body>
     </html>
   );
