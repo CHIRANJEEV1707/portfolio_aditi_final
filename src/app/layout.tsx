@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/common/Header';
 import SplashCursor from '@/components/ui/splash-cursor';
+import EmojiMatrix from '@/components/common/EmojiMatrix';
 
 export const metadata: Metadata = {
   title: 'Aditi Agrawal | Digital Marketing Strategist & Creative Solutionist',
@@ -23,9 +24,12 @@ export default function RootLayout({
           'min-h-screen bg-background antialiased flex flex-col',
         )}
       >
+        <EmojiMatrix />
         <SplashCursor />
-        <Header />
-        <main className="flex-grow">{children}</main>
+        <div className="relative z-[2]">
+          <Header />
+          <main className="flex-grow">{children}</main>
+        </div>
         <Toaster />
       </body>
     </html>
