@@ -40,8 +40,11 @@ const FloatingEmojis = () => {
             fontSize: emoji.size,
             opacity: Math.random() * 0.5 + 0.1,
           }}
+          initial={{
+            y: emoji.y,
+          }}
           animate={{
-            y: height + 50,
+            y: height ? height + 50 : 1000,
           }}
           transition={{
             duration: emoji.duration,
