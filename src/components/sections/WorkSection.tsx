@@ -1,9 +1,11 @@
+
 'use client';
 
 import { useRef } from 'react';
 import { ImageTrail } from '@/components/ui/image-trail';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Image from 'next/image';
+import StarIcon from '../common/StarIcon';
 
 const WorkSection = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -27,6 +29,8 @@ const WorkSection = () => {
       ref={ref}
       className="flex w-full h-[50vh] justify-center items-center relative overflow-hidden"
     >
+      <StarIcon className="absolute top-1/4 left-1/4 w-8 h-8 text-primary/50" />
+      <StarIcon className="absolute bottom-1/4 right-1/4 w-12 h-12 text-primary/50" />
       <div className="absolute top-0 left-0 z-0 h-full w-full">
         <ImageTrail containerRef={ref}>
           {trailImages.map((image) => (

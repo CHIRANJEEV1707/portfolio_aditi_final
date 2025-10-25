@@ -7,6 +7,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { useState, useRef } from 'react';
+import StarIcon from '../common/StarIcon';
 
 const AboutSection = () => {
   const profileImage = PlaceHolderImages.find(
@@ -76,7 +77,8 @@ const AboutSection = () => {
             </div>
           </Link>
         </AnimateOnScroll>
-        <AnimateOnScroll animation="fade-in" className="lg:col-span-3">
+        <AnimateOnScroll animation="fade-in" className="lg:col-span-3 relative">
+          <StarIcon className="absolute -top-8 -left-8 w-12 h-12 text-primary/50" />
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             A warm mix of creativity, curiosity, and calm energy.
           </h2>

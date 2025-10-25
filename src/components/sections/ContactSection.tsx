@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useForm } from 'react-hook-form';
@@ -18,6 +19,7 @@ import { useToast } from '@/hooks/use-toast';
 import AnimateOnScroll from '../common/AnimateOnScroll';
 import { Loader2 } from 'lucide-react';
 import React from 'react';
+import StarIcon from '../common/StarIcon';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -86,6 +88,8 @@ const ContactSection = () => {
 
   return (
     <section id="contact" className="py-20 md:py-32 relative overflow-hidden">
+      <StarIcon className="absolute top-10 left-1/4 w-8 h-8 text-primary/30" />
+      <StarIcon className="absolute bottom-1/2 right-1/4 w-12 h-12 text-primary/30 rotate-45" />
       <div className="container mx-auto max-w-3xl text-center relative z-10">
         <AnimateOnScroll animation="fade-in">
           <h2 className="text-5xl md:text-6xl font-bold mb-4">
