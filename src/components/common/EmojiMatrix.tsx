@@ -23,9 +23,9 @@ const EmojiMatrix = () => {
       this.x = Math.random() * width;
       this.y = Math.random() * height + height;
       this.emoji = emojis[Math.floor(Math.random() * emojis.length)];
-      this.size = Math.random() * 20 + 10;
+      this.size = Math.random() * 20 + 20; // Increased size
       this.speed = Math.random() * 1 + 0.5;
-      this.opacity = Math.random() * 0.5 + 0.25;
+      this.opacity = Math.random() * 0.5 + 0.5; // Increased opacity
     }
 
     Particle.prototype.draw = function() {
