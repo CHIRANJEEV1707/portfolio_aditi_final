@@ -1,13 +1,37 @@
 "use client";
 
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Input } from "./input";
-import { Label } from "./label";
 
 interface AnimatedInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }
 
+const containerVariants = {
+  initial: {},
+  animate: {
+    transition: {
+      staggerChildren: 0.05,
+    },
+  },
+};
+
+const letterVariants = {
+  initial: {
+    y: 0,
+    color: "hsl(var(--foreground))",
+  },
+  animate: {
+    y: "-120%",
+    color: "hsl(var(--muted-foreground))",
+    transition: {
+      type: "spring",
+      stiffness: 300,
+      damping: 20,
+    },
+  },
+};
 
 export const AnimatedInput = ({
   label,
@@ -15,11 +39,36 @@ export const AnimatedInput = ({
   value,
   ...props
 }: AnimatedInputProps) => {
+  const [isFocused, setIsFocused] = useState(false);
+  const showLabel = isFocused || (value && String(value).length > 0);
 
   return (
-    <div className={cn("grid w-full max-w-sm items-center gap-1.5", className)}>
-      <Label htmlFor={props.name}>{label}</Label>
-      <Input value={value} {...props} />
+    <div className={cn("relative pt-4", className)}>
+      <motion.div
+        className="absolute top-1/2 -translate-y-1/2 pointer-events-none"
+        variants={containerVariants}
+        initial="initial"
+        animate={showLabel ? "animate" : "initial"}
+      >
+        {label.split("").map((char, index) => (
+          <motion.span
+            key={index}
+            className="inline-block text-base md:text-sm"
+            variants={letterVariants}
+            style={{ willChange: "transform" }}
+          >
+            {char === " " ? "\u00A0" : char}
+          </motion.span>
+        ))}
+      </motion.div>
+
+      <input
+        value={value}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        {...props}
+        className="outline-none border-b-2 border-foreground bg-transparent py-2 w-full text-base font-medium text-foreground placeholder-transparent"
+      />
     </div>
   );
 };

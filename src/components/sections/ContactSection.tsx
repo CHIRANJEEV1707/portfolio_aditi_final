@@ -9,15 +9,14 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import AnimateOnScroll from '../common/AnimateOnScroll';
 import React from 'react';
 import SendButton from '../ui/send-button';
+import { AnimatedInput } from '../ui/animated-input';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -104,9 +103,8 @@ const ContactSection = () => {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your Name" {...field} />
+                        <AnimatedInput label="Name" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -117,9 +115,8 @@ const ContactSection = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="your@email.com" {...field} />
+                        <AnimatedInput label="Email" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -131,11 +128,10 @@ const ContactSection = () => {
                 name="message"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Message</FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Tell me about your project..."
-                        className="min-h-[150px]"
+                        className="min-h-[150px] bg-transparent border-0 border-b-2 rounded-none focus-visible:ring-0 focus-visible:ring-offset-0 px-0"
                         {...field}
                       />
                     </FormControl>
