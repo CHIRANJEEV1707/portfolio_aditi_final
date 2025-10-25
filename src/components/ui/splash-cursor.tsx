@@ -1,7 +1,6 @@
 
 "use client";
 import { useEffect, useRef } from "react";
-import { cn } from "@/lib/utils";
 
 function SplashCursor({
   // Add whatever props you like for customization
@@ -19,7 +18,6 @@ function SplashCursor({
   COLOR_UPDATE_SPEED = 10,
   BACK_COLOR = { r: 0, g: 0, b: 0 },
   TRANSPARENT = true,
-  disabled = false,
 }) {
   const canvasRef = useRef(null);
   const animationFrameId = useRef(null);
@@ -1258,10 +1256,7 @@ function SplashCursor({
   ]);
 
   return (
-    <div className={cn(
-      "fixed top-0 left-0 z-0 pointer-events-none",
-      disabled && "hidden"
-    )}>
+    <div className="fixed top-0 left-0 z-0 pointer-events-none">
       <canvas ref={canvasRef} id="fluid" className="w-screen h-screen" />
     </div>
   );
