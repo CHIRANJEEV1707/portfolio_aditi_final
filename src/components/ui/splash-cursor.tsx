@@ -1142,7 +1142,6 @@ export default function SplashCursor({
     }
 
     function generateColor(): ColorRGB {
-      // hue values for blue are around 0.55 to 0.7
       const hue = 0.55 + Math.random() * 0.15;
       const c = HSVtoRGB(hue, 1.0, 1.0);
       c.r *= 0.15;
@@ -1289,7 +1288,7 @@ export default function SplashCursor({
   ]);
 
   return (
-    <div className="fixed top-0 left-0 z-[1] pointer-events-none w-full h-full">
+    <div className="fixed top-0 left-0 z-[1] pointer-events-none">
       <canvas ref={canvasRef} id="fluid" className="w-full h-full block"></canvas>
     </div>
   );
