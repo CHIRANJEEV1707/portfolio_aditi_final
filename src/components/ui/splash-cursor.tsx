@@ -1,4 +1,5 @@
 'use client';
+
 import { useEffect, useRef } from 'react';
 
 function SplashCursor({
@@ -708,7 +709,6 @@ function SplashCursor({
     
     updateKeywords();
     initFramebuffers();
-    multipleSplats(parseInt(String(Math.random() * 20)) + 5);
 
     let lastUpdateTime = Date.now();
     let colorUpdateTimer = 0.0;
@@ -754,7 +754,6 @@ function SplashCursor({
     }
 
     function applyInputs() {
-      if (splatStack.length > 0) multipleSplats(splatStack.pop()!);
       pointers.forEach((p: any) => {
         if (p.moved) {
           p.moved = false;
@@ -908,20 +907,6 @@ function SplashCursor({
       splat(pointer.texcoordX, pointer.texcoordY, dx, dy, pointer.color);
     }
 
-    function multipleSplats(amount: number) {
-      for (let i = 0; i < amount; i++) {
-        const color = generateColor();
-        color.r *= 10.0;
-        color.g *= 10.0;
-        color.b *= 10.0;
-        const x = Math.random();
-        const y = Math.random();
-        const dx = 1000 * (Math.random() - 0.5);
-        const dy = 1000 * (Math.random() - 0.5);
-        splat(x, y, dx, dy, [color.r, color.g, color.b]);
-      }
-    }
-
     function splat(x: number, y: number, dx: number, dy: number, color: number[]) {
       gl.viewport(0, 0, velocity.width, velocity.height);
       splatProgram.bind();
@@ -1067,16 +1052,6 @@ function SplashCursor({
       }
       return hash;
     }
-
-    window.addEventListener('mousedown', (e) => {
-      let pointer = pointers.find((p: any) => p.id === -1);
-      if (pointer == null) {
-        pointer = new (pointerPrototype as any)();
-      }
-      let posX = scaleByPixelRatio(e.clientX);
-      let posY = scaleByPixelRatio(e.clientY);
-      updatePointerDownData(pointer, -1, posX, posY);
-    });
 
     let firstMove = true;
     function handleMouseMove(e: MouseEvent) {
