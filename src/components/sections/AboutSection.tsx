@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { useState, useRef } from 'react';
 import EasterEgg from '../common/EasterEgg';
-import { useToast } from '@/hooks/use-toast';
+import { usePopup } from '@/contexts/PopupContext';
 
 const AboutSection = () => {
   const profileImage = PlaceHolderImages.find(
@@ -17,7 +17,7 @@ const AboutSection = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLAnchorElement>(null);
-  const { toast } = useToast();
+  const { showPopup } = usePopup();
 
   const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (containerRef.current) {
@@ -29,10 +29,7 @@ const AboutSection = () => {
   const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => setIsHovering(false);
   const handleEggClick = (message: string) => {
-    toast({
-      title: 'Aha!',
-      description: message,
-    })
+    showPopup(message);
   };
 
   const imageTransform = isHovering
