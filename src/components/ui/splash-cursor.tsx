@@ -834,17 +834,18 @@ export default function SplashCursor({
     }
 
     function getResolution(resolution: number) {
-      const w = gl.drawingBufferWidth;
-      const h = gl.drawingBufferHeight;
-      const aspectRatio = w / h;
-      let aspect = aspectRatio < 1 ? 1 / aspectRatio : aspectRatio;
-      const min = Math.round(resolution);
-      const max = Math.round(resolution * aspect);
-      if (w > h) {
-        return { width: max, height: min };
-      }
-      return { width: min, height: max };
+      let aspectRatio = gl.drawingBufferWidth / gl.drawingBufferHeight;
+      if (aspectRatio < 1) aspectRatio = 1.0 / aspectRatio;
+
+      let min = Math.round(resolution);
+      let max = Math.round(resolution * aspectRatio);
+
+      if (gl.drawingBufferWidth > gl.drawingBufferHeight)
+          return { width: max, height: min };
+      else
+          return { width: min, height: max };
     }
+
 
     function scaleByPixelRatio(input: number) {
       const pixelRatio = window.devicePixelRatio || 1;
@@ -877,17 +878,24 @@ export default function SplashCursor({
     }
 
     function resizeCanvas() {
-      const width = scaleByPixelRatio(canvas!.clientWidth);
-      const height = scaleByPixelRatio(canvas!.clientHeight);
-      if (canvas!.width !== width || canvas!.height !== height) {
-        canvas!.width = width;
-        canvas!.height = height;
+      if (!canvas) return false;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      if (canvas.width !== width || canvas.height !== height) {
+        canvas.width = width;
+        canvas.height = height;
+        gl.viewport(0, 0, canvas.width, canvas.height);
         return true;
       }
       return false;
     }
 
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas(); // initial sizing
+
+
     function updateColors(dt: number) {
+      if (!config.COLOR_UPDATE_SPEED) return;
       colorUpdateTimer += dt * config.COLOR_UPDATE_SPEED;
       if (colorUpdateTimer >= 1) {
         colorUpdateTimer = wrap(colorUpdateTimer, 0, 1);
@@ -1265,6 +1273,7 @@ export default function SplashCursor({
     });
 
     return () => {
+      window.removeEventListener('resize', resizeCanvas);
       if (animationFrameId) {
           cancelAnimationFrame(animationFrameId);
       }
@@ -1288,8 +1297,20 @@ export default function SplashCursor({
   ]);
 
   return (
-    <div className="fixed top-0 left-0 z-[1] pointer-events-none">
-      <canvas ref={canvasRef} id="fluid" className="w-full h-full block"></canvas>
-    </div>
+    <canvas
+      ref={canvasRef}
+      id="splash-cursor"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        zIndex: 9999,
+        pointerEvents: 'none',
+        background: 'transparent',
+        display: 'block'
+      }}
+    />
   );
 }
