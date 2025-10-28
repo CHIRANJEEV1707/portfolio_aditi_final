@@ -60,7 +60,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             🔍
           </EasterEgg>
           <AnimateOnScroll animation="fade-in">
-            <header className="container mx-auto mb-12">
+             <header className="container mx-auto text-center my-16">
               <Button asChild variant="ghost" className="mb-8">
                 <Link href="/#projects">
                   <ArrowLeft className="mr-2 h-4 w-4" />
@@ -71,7 +71,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               <h1 className="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter">
                 {project.name}
               </h1>
-              <p className="mt-4 text-xl md:text-2xl text-muted-foreground max-w-3xl">
+              <p className="mt-4 text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
                 {project.description}
               </p>
             </header>
@@ -90,21 +90,18 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             </AnimateOnScroll>
           )}
 
-          <AnimateOnScroll
-            animation="fade-in"
-            className="container mx-auto mb-32"
-          >
-            <div>
-              <div>
-                <h2 className="font-headline text-3xl font-bold mb-4">
-                  The Story
-                </h2>
-                <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line max-w-4xl">
-                  {project.story}
-                </p>
+          <div className="container mx-auto flex flex-col items-center gap-12 mb-32">
+            <AnimateOnScroll animation="fade-in">
+              <div className="prose prose-lg dark:prose-invert text-muted-foreground max-w-3xl leading-relaxed space-y-6 text-center">
+                  <h2 className="font-headline text-3xl font-bold mb-4">
+                    The Story
+                  </h2>
+                  <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
+                    {project.story}
+                  </p>
               </div>
-            </div>
-          </AnimateOnScroll>
+            </AnimateOnScroll>
+          </div>
           
           {/* Draggable Images */}
           <div className="absolute inset-0 w-full h-full pointer-events-none">
