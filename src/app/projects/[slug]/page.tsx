@@ -86,7 +86,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </AnimateOnScroll>
 
-        <div className="container mx-auto mt-16">
+        <div className="container mx-auto mt-16 mb-32">
           <h2 className="font-headline text-3xl font-bold mb-8">Visuals</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {project.visuals.map((visualId, index) => {

@@ -68,7 +68,7 @@ export default function AboutPage() {
           </header>
         </AnimateOnScroll>
 
-        <div className="container mx-auto flex flex-col items-center gap-12">
+        <div className="container mx-auto flex flex-col items-center gap-12 mb-32">
           <AnimateOnScroll animation="fade-in">
             <div className="prose prose-lg dark:prose-invert text-muted-foreground max-w-3xl leading-relaxed space-y-6 text-center">
               <p>
