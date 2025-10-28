@@ -31,11 +31,11 @@ export default function AboutPage() {
   };
 
   return (
-    <>
-      <PageTransition>
+    <PageTransition>
+      <div className="flex flex-col min-h-screen">
         <div
           ref={constraintsRef}
-          className="pt-24 pb-12 relative overflow-hidden min-h-screen"
+          className="pt-24 pb-12 relative overflow-hidden flex-grow"
         >
           <EasterEgg
             className="top-[10%] left-[5%] z-30"
@@ -148,8 +148,8 @@ export default function AboutPage() {
             )}
           </div>
         </div>
-      </PageTransition>
-      <Footer />
-    </>
+        <Footer />
+      </div>
+    </PageTransition>
   );
 }
