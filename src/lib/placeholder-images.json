@@ -143,6 +143,24 @@
       "description": "Image for work trail animation 7.",
       "imageUrl": "/images/worktrail3.jpg",
       "imageHint": "content creation"
+    },
+    {
+      "id": "about-1",
+      "description": "Image for about page 1",
+      "imageUrl": "/images/worktrail1.jpg",
+      "imageHint": "creative design"
+    },
+    {
+      "id": "about-2",
+      "description": "Image for about page 2",
+      "imageUrl": "/images/worktrail2.jpg",
+      "imageHint": "digital analytics"
+    },
+    {
+      "id": "about-3",
+      "description": "Image for about page 3",
+      "imageUrl": "/images/worktrail3.jpg",
+      "imageHint": "brand ideas"
     }
   ]
 }
