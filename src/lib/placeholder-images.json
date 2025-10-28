@@ -33,97 +33,97 @@
     {
       "id": "project-1-v1",
       "description": "Visual for Project 1.",
-      "imageUrl": "/images/marriot1.png",
+      "imageUrl": "/images/raipurinsight.jpg",
       "imageHint": "branding"
     },
     {
       "id": "project-1-v2",
       "description": "Visual for Project 1.",
-      "imageUrl": "/images/marriot2.png",
+      "imageUrl": "/images/marriot2.jpg",
       "imageHint": "design"
     },
     {
       "id": "project-1-v3",
       "description": "Visual for Project 1.",
-      "imageUrl": "/images/marriot3.png",
+      "imageUrl": "/images/nashikinsight.jpg",
       "imageHint": "design"
     },
     {
       "id": "project-1-v4",
       "description": "Visual for Project 1.",
-      "imageUrl": "/images/marriot4.png",
+      "imageUrl": "/images/marriot4.jpg",
       "imageHint": "design"
     },
     {
       "id": "project-2-v1",
       "description": "Visual for Project 2.",
-      "imageUrl": "/images/zora1.png",
+      "imageUrl": "/images/zorainsight.jpg",
       "imageHint": "travel social"
     },
     {
       "id": "project-2-v2",
       "description": "Visual for Project 2.",
-      "imageUrl": "/images/zora2.png",
+      "imageUrl": "/images/zora3.jpg",
       "imageHint": "mobile campaign"
     },
     {
       "id": "project-2-v3",
       "description": "Visual for Project 2.",
-      "imageUrl": "/images/zora3.png",
+      "imageUrl": "/images/zorainsight2.jpg",
       "imageHint": "mobile campaign"
     },
     {
       "id": "project-2-v4",
       "description": "Visual for Project 2.",
-      "imageUrl": "/images/zora4.png",
+      "imageUrl": "/images/zora4.jpg",
       "imageHint": "mobile campaign"
     },
     {
       "id": "project-3-v1",
       "description": "Visual for Project 3.",
-      "imageUrl": "/images/hukums1.png",
+      "imageUrl": "/images/hukuminsight.jpg",
       "imageHint": "organic food"
     },
     {
       "id": "project-3-v2",
       "description": "Visual for Project 3.",
-      "imageUrl": "/images/hukums2.png",
+      "imageUrl": "/images/hukums2.jpg",
       "imageHint": "community"
     },
     {
       "id": "project-3-v3",
       "description": "Visual for Project 3.",
-      "imageUrl": "/images/hukums3.png",
+      "imageUrl": "/images/hukums3.jpg",
       "imageHint": "community"
     },
     {
       "id": "project-3-v4",
       "description": "Visual for Project 3.",
-      "imageUrl": "/images/hukums4.png",
+      "imageUrl": "/images/hukums4.jpg",
       "imageHint": "community"
     },
     {
       "id": "project-4-v1",
       "description": "Visual for Project 4.",
-      "imageUrl": "/images/wasabi1.png",
+      "imageUrl": "/images/wasabi1.jpg",
       "imageHint": "tech product"
     },
     {
       "id": "project-4-v2",
       "description": "Visual for Project 4.",
-      "imageUrl": "/images/wasabi2.png",
+      "imageUrl": "/images/wasabi2.jpg",
       "imageHint": "website launch"
     },
     {
       "id": "project-4-v3",
       "description": "Visual for Project 4.",
-      "imageUrl": "/images/wasabi3.png",
+      "imageUrl": "/images/wasabi3.jpg",
       "imageHint": "website launch"
     },
     {
       "id": "project-4-v4",
       "description": "Visual for Project 4.",
-      "imageUrl": "/images/wasabi4.png",
+      "imageUrl": "/images/wasabi4.jpg",
       "imageHint": "website launch"
     },
     {

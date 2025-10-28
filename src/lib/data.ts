@@ -11,7 +11,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: 'courtyard-by-marriott',
-    client: 'Courtyard',
+    client: 'Turning stays into stories.',
     name: 'Courtyard By Marriott',
     imageId: 'project-1',
     description: 'Two cities, one vision, creating digital stories of warmth and hospitality.',
@@ -20,7 +20,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'zora-the-mall',
-    client: 'Zora',
+    client: 'The vibe that sells.',
     name: 'Zora - The Mall',
     imageId: 'project-2',
     description: 'From launch to legacy, building Raipur’s most talked-about mall online.',
@@ -29,7 +29,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'hukams-lalit-mahal',
-    client: 'Hukam’s Lalit',
+    client: 'Echoes of elegance.',
     name: 'Hukam’s Lalit Mahal',
     imageId: 'project-3',
     description: 'Where luxury meets legacy, bringing royal elegance to the digital space.',
@@ -38,7 +38,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'wasabi',
-    client: 'Wasab',
+    client: 'Flavors that travel. Stories that stay.',
     name: 'Wasabi',
     imageId: 'project-4',
     description: 'Digitally building Raipur’s OG Pan Asian destination!',
