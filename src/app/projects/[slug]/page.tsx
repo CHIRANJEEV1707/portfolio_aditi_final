@@ -1,3 +1,4 @@
+
 'use client';
 import { notFound } from 'next/navigation';
 import { projects } from '@/lib/data';
@@ -52,7 +53,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
         ref={constraintsRef}
         className="min-h-screen pt-24 pb-12 relative overflow-hidden flex flex-col"
       >
-        <div className="flex-grow">
+        <div className="flex-grow container mx-auto flex flex-col items-center">
           <EasterEgg
             className="top-1/4 left-[5%] z-30"
             onClick={() =>
@@ -61,34 +62,35 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           >
             🔍
           </EasterEgg>
-          <AnimateOnScroll animation="fade-in">
-            <header className="container mx-auto text-center my-16">
-              <p className="text-primary font-bold mb-2">{project.client}</p>
-              <h1 className="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter">
-                {project.name}
-              </h1>
-              <p className="mt-4 text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-                {project.description}
-              </p>
-            </header>
-          </AnimateOnScroll>
 
-          {heroImage && (
-            <AnimateOnScroll
-              animation="fade-in"
-              className="container mx-auto mb-16 h-[50vh] flex items-center justify-center"
-            >
-              <DraggableImage
-                image={heroImage}
-                constraintsRef={constraintsRef}
-                width={600}
-              />
-            </AnimateOnScroll>
-          )}
-
-          <div className="container mx-auto flex flex-col items-center gap-12 mb-32">
+          <div className="w-full max-w-3xl text-center">
             <AnimateOnScroll animation="fade-in">
-              <div className="prose prose-lg dark:prose-invert text-muted-foreground max-w-3xl leading-relaxed space-y-6 text-center">
+              <header className="my-16">
+                <p className="text-primary font-bold mb-2">{project.client}</p>
+                <h1 className="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter">
+                  {project.name}
+                </h1>
+                <p className="mt-4 text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
+                  {project.description}
+                </p>
+              </header>
+            </AnimateOnScroll>
+
+            {heroImage && (
+              <AnimateOnScroll
+                animation="fade-in"
+                className="mb-16 flex items-center justify-center"
+              >
+                <DraggableImage
+                  image={heroImage}
+                  constraintsRef={constraintsRef}
+                  width={600}
+                />
+              </AnimateOnScroll>
+            )}
+
+            <AnimateOnScroll animation="fade-in">
+              <div className="prose prose-lg dark:prose-invert text-muted-foreground max-w-3xl leading-relaxed space-y-6 text-center mx-auto">
                 <h2 className="font-headline text-3xl font-bold mb-4">
                   The Story
                 </h2>
@@ -139,6 +141,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             )}
           </div>
         </div>
+        <div className="mb-16"></div>
         <Footer />
       </div>
     </PageTransition>
