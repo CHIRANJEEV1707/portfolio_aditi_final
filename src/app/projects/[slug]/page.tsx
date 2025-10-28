@@ -44,8 +44,8 @@ export default function ProjectPage({ params }: ProjectPageProps) {
   const visual2 = PlaceHolderImages.find(
     (img) => img.id === project.visuals[1]
   );
-  const visual3 = PlaceHolderImages.find((img) => img.id === 'project-extra-1');
-  const visual4 = PlaceHolderImages.find((img) => img.id === 'project-extra-2');
+  const visual3 = PlaceHolderImages.find((img) => img.id === project.visuals[2]);
+  const visual4 = PlaceHolderImages.find((img) => img.id === project.visuals[3]);
 
   return (
     <PageTransition>
@@ -92,7 +92,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             <AnimateOnScroll animation="fade-in">
               <div className="prose prose-lg dark:prose-invert text-muted-foreground max-w-3xl leading-relaxed space-y-6 text-center mx-auto">
                 <h2 className="font-headline text-3xl font-bold mb-4">
-                  The Story
+                Process & Impact
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
                   {project.story}

@@ -9,73 +9,121 @@
     {
       "id": "project-1",
       "description": "Placeholder for Project 1.",
-      "imageUrl": "/images/court.jpeg",
+      "imageUrl": "/images/marriotbanner.png",
       "imageHint": "abstract design"
     },
     {
       "id": "project-2",
       "description": "Placeholder for Project 2.",
-      "imageUrl": "/images/zora.jpeg",
+      "imageUrl": "/images/zorabanner.png",
       "imageHint": "digital marketing"
     },
     {
       "id": "project-3",
       "description": "Placeholder for Project 3.",
-      "imageUrl": "/images/hukam.jpeg",
+      "imageUrl": "/images/hukumsbanner.png",
       "imageHint": "brand strategy"
     },
     {
       "id": "project-4",
       "description": "Placeholder for Project 4.",
-      "imageUrl": "/images/wasabi.png",
+      "imageUrl": "/images/wasabibanner.png",
       "imageHint": "creative campaign"
     },
     {
       "id": "project-1-v1",
       "description": "Visual for Project 1.",
-      "imageUrl": "https://images.unsplash.com/photo-1633533452148-a9657d2c9a5f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxicmFuZGluZ3xlbnwwfHx8fDE3NjEwNTE1OTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/images/marriot1.png",
       "imageHint": "branding"
     },
     {
       "id": "project-1-v2",
       "description": "Visual for Project 1.",
-      "imageUrl": "https://images.unsplash.com/photo-1509343256512-d77a5cb3791b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkZXNpZ258ZW58MHx8fHwxNzYxMDUxNTk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/images/marriot2.png",
+      "imageHint": "design"
+    },
+    {
+      "id": "project-1-v3",
+      "description": "Visual for Project 1.",
+      "imageUrl": "/images/marriot3.png",
+      "imageHint": "design"
+    },
+    {
+      "id": "project-1-v4",
+      "description": "Visual for Project 1.",
+      "imageUrl": "/images/marriot4.png",
       "imageHint": "design"
     },
     {
       "id": "project-2-v1",
       "description": "Visual for Project 2.",
-      "imageUrl": "https://images.unsplash.com/photo-1735398110390-d40fefca0878?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx0cmF2ZWwlMjBzb2NpYWx8ZW58MHx8fHwxNzYxMDUxNTkzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/images/zora1.png",
       "imageHint": "travel social"
     },
     {
       "id": "project-2-v2",
       "description": "Visual for Project 2.",
-      "imageUrl": "https://images.unsplash.com/photo-1640377870535-f4968f307b10?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtb2JpbGUlMjBjYW1wYWlnbnxlbnwwfHx8fDE3NjEwNTE1OTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/images/zora2.png",
+      "imageHint": "mobile campaign"
+    },
+    {
+      "id": "project-2-v3",
+      "description": "Visual for Project 2.",
+      "imageUrl": "/images/zora3.png",
+      "imageHint": "mobile campaign"
+    },
+    {
+      "id": "project-2-v4",
+      "description": "Visual for Project 2.",
+      "imageUrl": "/images/zora4.png",
       "imageHint": "mobile campaign"
     },
     {
       "id": "project-3-v1",
       "description": "Visual for Project 3.",
-      "imageUrl": "https://images.unsplash.com/photo-1531113463068-6f334622d795?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8b3JnYW5pYyUyMGZvb2R8ZW58MHx8fHwxNzYxMDUxMzc2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/images/hukums1.png",
       "imageHint": "organic food"
     },
     {
       "id": "project-3-v2",
       "description": "Visual for Project 3.",
-      "imageUrl": "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb21tdW5pdHl8ZW58MHx8fHwxNzYxMDUxNTkzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/images/hukums2.png",
+      "imageHint": "community"
+    },
+    {
+      "id": "project-3-v3",
+      "description": "Visual for Project 3.",
+      "imageUrl": "/images/hukums3.png",
+      "imageHint": "community"
+    },
+    {
+      "id": "project-3-v4",
+      "description": "Visual for Project 3.",
+      "imageUrl": "/images/hukums4.png",
       "imageHint": "community"
     },
     {
       "id": "project-4-v1",
       "description": "Visual for Project 4.",
-      "imageUrl": "https://images.unsplash.com/photo-1738494610263-4e27d9d4e201?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx0ZWNoJTIwcHJvZHVjdHxlbnwwfHx8fDE3NjEwMzE3MjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/images/wasabi1.png",
       "imageHint": "tech product"
     },
     {
       "id": "project-4-v2",
       "description": "Visual for Project 4.",
-      "imageUrl": "https://images.unsplash.com/photo-1649442746245-f51f4b76963f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx3ZWJzaXRlJTIwbGF1bmNofGVufDB8fHx8MTc2MTA1MTU5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/images/wasabi2.png",
+      "imageHint": "website launch"
+    },
+    {
+      "id": "project-4-v3",
+      "description": "Visual for Project 4.",
+      "imageUrl": "/images/wasabi3.png",
+      "imageHint": "website launch"
+    },
+    {
+      "id": "project-4-v4",
+      "description": "Visual for Project 4.",
+      "imageUrl": "/images/wasabi4.png",
       "imageHint": "website launch"
     },
     {
