@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: 'Aditi Agrawal | Digital Marketing Strategist & Creative Solutionist',
   description:
     'Personal portfolio of Aditi Agrawal, a digital marketing strategist and creative solutionist, showcasing creative confidence, elegance, and originality.',
+    icons: {
+      icon: '/home/user/studio/public/images/AA.jpg', // or path to your icon file, e.g., '/icon.png'
+    },
 };
 
 export default function RootLayout({
