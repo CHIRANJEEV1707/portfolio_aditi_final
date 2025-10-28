@@ -147,20 +147,32 @@
     {
       "id": "about-1",
       "description": "Image for about page 1",
-      "imageUrl": "/images/worktrail1.jpg",
+      "imageUrl": "/images/about1.jpg",
       "imageHint": "creative design"
     },
     {
       "id": "about-2",
       "description": "Image for about page 2",
-      "imageUrl": "/images/worktrail2.jpg",
+      "imageUrl": "/images/about2.jpg",
       "imageHint": "digital analytics"
     },
     {
       "id": "about-3",
       "description": "Image for about page 3",
-      "imageUrl": "/images/worktrail3.jpg",
+      "imageUrl": "/images/about3.jpg",
       "imageHint": "brand ideas"
+    },
+    {
+      "id": "project-extra-1",
+      "description": "Extra image for project page 1",
+      "imageUrl": "/images/meme1.jpg",
+      "imageHint": "brainstorming session"
+    },
+    {
+      "id": "project-extra-2",
+      "description": "Extra image for project page 2",
+      "imageUrl": "/images/meme2.jpg",
+      "imageHint": "teamwork"
     }
   ]
 }

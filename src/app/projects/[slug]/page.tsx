@@ -38,87 +38,112 @@ export default function ProjectPage({ params }: ProjectPageProps) {
   };
 
   const heroImage = PlaceHolderImages.find((img) => img.id === project.imageId);
+  const visual1 = PlaceHolderImages.find((img) => img.id === project.visuals[0]);
+  const visual2 = PlaceHolderImages.find((img) => img.id === project.visuals[1]);
+  const visual3 = PlaceHolderImages.find((img) => img.id === 'project-extra-1');
+  const visual4 = PlaceHolderImages.find((img) => img.id === 'project-extra-2');
+
 
   return (
     <PageTransition>
-      <div ref={constraintsRef} className="min-h-screen pt-24 pb-12 relative overflow-hidden">
-        <EasterEgg
-          className="top-1/4 left-[5%] z-30"
-          onClick={() => handleEggClick("Waah Shampy waaaah, aur easter eggs chaiye😑")}
-        >
-          🔍
-        </EasterEgg>
-        <AnimateOnScroll animation="fade-in">
-          <header className="container mx-auto mb-12">
-            <Button asChild variant="ghost" className="mb-8">
-              <Link href="/#projects">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to all projects
-              </Link>
-            </Button>
-            <p className="text-primary font-bold mb-2">{project.client}</p>
-            <h1 className="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter">
-              {project.name}
-            </h1>
-            <p className="mt-4 text-xl md:text-2xl text-muted-foreground max-w-3xl">
-              {project.description}
-            </p>
-          </header>
-        </AnimateOnScroll>
+      <div
+        ref={constraintsRef}
+        className="min-h-screen pt-24 pb-12 relative overflow-hidden flex flex-col"
+      >
+        <div className="flex-grow">
+          <EasterEgg
+            className="top-1/4 left-[5%] z-30"
+            onClick={() =>
+              handleEggClick('Waah Shampy waaaah, aur easter eggs chaiye😑')
+            }
+          >
+            🔍
+          </EasterEgg>
+          <AnimateOnScroll animation="fade-in">
+            <header className="container mx-auto mb-12">
+              <Button asChild variant="ghost" className="mb-8">
+                <Link href="/#projects">
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Back to all projects
+                </Link>
+              </Button>
+              <p className="text-primary font-bold mb-2">{project.client}</p>
+              <h1 className="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter">
+                {project.name}
+              </h1>
+              <p className="mt-4 text-xl md:text-2xl text-muted-foreground max-w-3xl">
+                {project.description}
+              </p>
+            </header>
+          </AnimateOnScroll>
 
-        {heroImage && (
+          {heroImage && (
+            <AnimateOnScroll
+              animation="fade-in"
+              className="container mx-auto mb-16 h-[50vh] flex items-center justify-center"
+            >
+              <DraggableImage
+                image={heroImage}
+                constraintsRef={constraintsRef}
+                width={600}
+              />
+            </AnimateOnScroll>
+          )}
+
           <AnimateOnScroll
             animation="fade-in"
-            className="container mx-auto mb-16 h-[50vh] flex items-center justify-center"
+            className="container mx-auto mb-32"
           >
-            <DraggableImage image={heroImage} constraintsRef={constraintsRef} width={600} />
-          </AnimateOnScroll>
-        )}
-
-        <AnimateOnScroll animation="fade-in" className="container mx-auto">
-          <div>
             <div>
-              <h2 className="font-headline text-3xl font-bold mb-4">The Story</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line max-w-4xl">
-                {project.story}
-              </p>
+              <div>
+                <h2 className="font-headline text-3xl font-bold mb-4">
+                  The Story
+                </h2>
+                <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line max-w-4xl">
+                  {project.story}
+                </p>
+              </div>
             </div>
-          </div>
-        </AnimateOnScroll>
-
-        <div className="container mx-auto mt-16 mb-32">
-          <h2 className="font-headline text-3xl font-bold mb-8">Visuals</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {project.visuals.map((visualId, index) => {
-              const visualImage = PlaceHolderImages.find(
-                (img) => img.id === visualId
-              );
-              if (!visualImage) return null;
-              return (
-                <AnimateOnScroll
-                  key={visualId}
-                  animation="fade-in"
-                >
-                  <div
-                    className={cn(
-                      'relative w-full overflow-hidden rounded-lg shadow-md',
-                      project.slug === 'hukams-lalit-mahal'
-                        ? 'aspect-[4/3]'
-                        : 'aspect-video'
-                    )}
-                  >
-                    <Image
-                      src={visualImage.imageUrl}
-                      alt={`Visual for ${project.name}`}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      data-ai-hint={visualImage.imageHint}
-                    />
-                  </div>
-                </AnimateOnScroll>
-              );
-            })}
+          </AnimateOnScroll>
+          
+          {/* Draggable Images */}
+          <div className="absolute inset-0 w-full h-full pointer-events-none">
+            {visual1 && (
+              <div className="absolute top-[30%] left-[75%] pointer-events-auto">
+                <DraggableImage
+                  image={visual1}
+                  constraintsRef={constraintsRef}
+                  width={250}
+                />
+              </div>
+            )}
+            {visual2 && (
+              <div className="absolute top-[60%] left-[10%] pointer-events-auto">
+                <DraggableImage
+                  image={visual2}
+                  constraintsRef={constraintsRef}
+                  width={200}
+                />
+              </div>
+            )}
+            {visual3 && (
+              <div className="absolute top-[75%] right-[10%] pointer-events-auto">
+                <DraggableImage
+                  image={visual3}
+                  constraintsRef={constraintsRef}
+                  width={220}
+                />
+              </div>
+            )}
+            {visual4 && (
+              <div className="absolute top-[10%] right-[15%] pointer-events-auto">
+                <DraggableImage
+                  image={visual4}
+                  constraintsRef={constraintsRef}
+                  width={180}
+                />
+              </div>
+            )}
           </div>
         </div>
         <Footer />

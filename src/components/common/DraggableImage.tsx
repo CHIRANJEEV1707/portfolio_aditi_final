@@ -17,10 +17,9 @@ export default function DraggableImage({
 }: DraggableImageProps) {
   return (
     <motion.div
-      className="relative z-10 rounded-lg shadow-lg cursor-grab active:cursor-grabbing aspect-square mx-auto"
+      className="relative z-10 rounded-lg shadow-lg cursor-grab active:cursor-grabbing mx-auto"
       style={{
         width: `${width}px`,
-        height: 'auto',
       }}
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{
@@ -48,8 +47,10 @@ export default function DraggableImage({
       <Image
         src={image.imageUrl}
         alt={image.description}
-        fill
-        className="object-cover rounded-lg pointer-events-none"
+        width={width}
+        height={0}
+        style={{ height: 'auto' }}
+        className="object-contain rounded-lg pointer-events-none"
         sizes={`(max-width: 768px) 100vw, ${width}px`}
         priority
       />
