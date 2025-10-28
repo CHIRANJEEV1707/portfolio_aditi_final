@@ -1,5 +1,4 @@
-
-'use client'
+'use client';
 import { notFound } from 'next/navigation';
 import { projects } from '@/lib/data';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -38,11 +37,14 @@ export default function ProjectPage({ params }: ProjectPageProps) {
   };
 
   const heroImage = PlaceHolderImages.find((img) => img.id === project.imageId);
-  const visual1 = PlaceHolderImages.find((img) => img.id === project.visuals[0]);
-  const visual2 = PlaceHolderImages.find((img) => img.id === project.visuals[1]);
+  const visual1 = PlaceHolderImages.find(
+    (img) => img.id === project.visuals[0]
+  );
+  const visual2 = PlaceHolderImages.find(
+    (img) => img.id === project.visuals[1]
+  );
   const visual3 = PlaceHolderImages.find((img) => img.id === 'project-extra-1');
   const visual4 = PlaceHolderImages.find((img) => img.id === 'project-extra-2');
-
 
   return (
     <PageTransition>
@@ -60,13 +62,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             🔍
           </EasterEgg>
           <AnimateOnScroll animation="fade-in">
-             <header className="container mx-auto text-center my-16">
-              <Button asChild variant="ghost" className="mb-8">
-                <Link href="/#projects">
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back to all projects
-                </Link>
-              </Button>
+            <header className="container mx-auto text-center my-16">
               <p className="text-primary font-bold mb-2">{project.client}</p>
               <h1 className="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter">
                 {project.name}
@@ -93,16 +89,16 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           <div className="container mx-auto flex flex-col items-center gap-12 mb-32">
             <AnimateOnScroll animation="fade-in">
               <div className="prose prose-lg dark:prose-invert text-muted-foreground max-w-3xl leading-relaxed space-y-6 text-center">
-                  <h2 className="font-headline text-3xl font-bold mb-4">
-                    The Story
-                  </h2>
-                  <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
-                    {project.story}
-                  </p>
+                <h2 className="font-headline text-3xl font-bold mb-4">
+                  The Story
+                </h2>
+                <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
+                  {project.story}
+                </p>
               </div>
             </AnimateOnScroll>
           </div>
-          
+
           {/* Draggable Images */}
           <div className="absolute inset-0 w-full h-full pointer-events-none">
             {visual1 && (
