@@ -12,6 +12,8 @@ import PageTransition from '@/components/common/PageTransition';
 import { cn } from '@/lib/utils';
 import EasterEgg from '@/components/common/EasterEgg';
 import { useToast } from '@/hooks/use-toast';
+import { useRef } from 'react';
+import DraggableImage from '@/components/common/DraggableImage';
 
 type ProjectPageProps = {
   params: {
@@ -20,6 +22,7 @@ type ProjectPageProps = {
 };
 
 export default function ProjectPage({ params }: ProjectPageProps) {
+  const constraintsRef = useRef<HTMLDivElement>(null);
   const project = projects.find((p) => p.slug === params.slug);
   const { toast } = useToast();
 
@@ -37,10 +40,10 @@ export default function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <PageTransition>
-      <div className="pt-24 pb-12 relative overflow-hidden">
+      <div ref={constraintsRef} className="pt-24 pb-12 relative overflow-hidden">
         <EasterEgg
           className="top-1/4 left-[5%] z-30"
-          onClick={() => handleEggClick("You've discovered a project secret!")}
+          onClick={() => handleEggClick("Waah Shampy waaaah, aur easter eggs chaiye😑")}
         >
           🔍
         </EasterEgg>
@@ -65,19 +68,9 @@ export default function ProjectPage({ params }: ProjectPageProps) {
         {heroImage && (
           <AnimateOnScroll
             animation="fade-in"
-            className="container mx-auto mb-16"
+            className="container mx-auto mb-16 h-[50vh] flex items-center justify-center"
           >
-            <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-lg">
-              <Image
-                src={heroImage.imageUrl}
-                alt={project.name}
-                fill
-                className="object-cover"
-                sizes="100vw"
-                priority
-                data-ai-hint={heroImage.imageHint}
-              />
-            </div>
+            <DraggableImage image={heroImage} constraintsRef={constraintsRef} width={600} />
           </AnimateOnScroll>
         )}
 

@@ -78,10 +78,10 @@ const AboutSection = () => {
         </AnimateOnScroll>
         <AnimateOnScroll animation="fade-in" className="lg:col-span-3 relative">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            A warm mix of creativity, curiosity, and calm energy.
+          A storyteller at heart and a strategist by craft.
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            I find joy in turning little ideas into something beautiful. My
+          I help brands find their visual and emotional voice. I find joy in turning little ideas into something beautiful. My
             passion lies at the intersection of strategic thinking and creative
             expression, where data-driven insights meet compelling
             storytelling. I believe in crafting marketing that not only converts

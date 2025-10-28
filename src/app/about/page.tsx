@@ -10,8 +10,11 @@ import PageTransition from '@/components/common/PageTransition';
 import Footer from '@/components/common/Footer';
 import EasterEgg from '@/components/common/EasterEgg';
 import { useToast } from '@/hooks/use-toast';
+import { useRef } from 'react';
+import DraggableImage from '@/components/common/DraggableImage';
 
 export default function AboutPage() {
+  const constraintsRef = useRef<HTMLDivElement>(null);
   const profileImage = PlaceHolderImages.find(
     (img) => img.id === 'aditi-profile'
   );
@@ -27,16 +30,16 @@ export default function AboutPage() {
   return (
     <>
       <PageTransition>
-        <div className="pt-24 pb-12 relative overflow-hidden">
+        <div ref={constraintsRef} className="pt-24 pb-12 relative overflow-hidden">
           <EasterEgg
               className="top-[10%] left-[5%] z-30"
-              onClick={() => handleEggClick("Creativity in bloom! 🌸")}
+              onClick={() => handleEggClick("Currently manifesting engagement rates higher than my anxiety levels🌸")}
             >
               🚀
             </EasterEgg>
             <EasterEgg
               className="bottom-[20%] right-[10%] z-30"
-              onClick={() => handleEggClick("Strategy mode: activated! 💡")}
+              onClick={() => handleEggClick("Your girl makes strategy so good even the algorithm takes notes😏")}
             >
               📈
             </EasterEgg>
@@ -53,17 +56,10 @@ export default function AboutPage() {
           </AnimateOnScroll>
           
           <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
-            <AnimateOnScroll animation="fade-in" className="md:col-span-1">
-              <div className="aspect-square relative rounded-lg overflow-hidden shadow-lg mx-auto md:mx-0 max-w-xs">
+            <AnimateOnScroll animation="fade-in" className="md:col-span-1 h-[350px] flex items-center justify-center">
+              <div className="mx-auto md:mx-0 max-w-xs">
                 {profileImage && (
-                  <Image
-                    src={profileImage.imageUrl}
-                    alt={profileImage.description}
-                    fill
-                    className="object-cover"
-                    data-ai-hint={profileImage.imageHint}
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
+                   <DraggableImage image={profileImage} constraintsRef={constraintsRef} width={300} />
                 )}
               </div>
             </AnimateOnScroll>
@@ -75,14 +71,15 @@ export default function AboutPage() {
                   My journey into the world of digital marketing began with a simple curiosity: how do brands capture our attention and, more importantly, our loyalty? This question has led me down a path of continuous learning, from mastering the art of SEO to crafting viral social media campaigns.
                 </p>
                 <p>
-                  I find joy in turning little ideas into something beautiful. My
-                  passion lies at the intersection of strategic thinking and creative
-                  expression, where data-driven insights meet compelling
-                  storytelling. I believe in crafting marketing that not only converts
-                  but also connects with people on a deeper level. For me, it's about creating experiences that feel authentic, memorable, and genuinely human.
+                With a degree in Psychology, my fascination with people and their stories gradually shaped into a passion for communication, design, and digital marketing.
+
+From content strategy and campaign planning to shoot direction and grid aesthetics, I blend structure with creativity to help brands grow with meaning. I’ve had the opportunity to work with hospitality, lifestyle, retail, and political clients, creating content that looks good, feels right, and connects deeply.
+
+I believe every brand has a heartbeat, and my goal is to make people feel it, through design, words, and little details that make a big difference.
+
                 </p>
                 <p>
-                  When I'm not brainstorming campaign ideas or analyzing analytics, you can find me exploring local art galleries, experimenting with new recipes in the kitchen, or getting lost in a good book. I believe that creativity is a muscle that needs to be exercised in all areas of life, and I bring that philosophy into every project I tackle.
+                When I’m not crafting brand stories, I’m probably exploring new cafes, scrolling through Pinterest, or finding inspiration in everyday moments.
                 </p>
                 <p>
                   I'm always excited to connect with like-minded individuals and brands who are passionate about making a positive impact. Let's create something bold together.

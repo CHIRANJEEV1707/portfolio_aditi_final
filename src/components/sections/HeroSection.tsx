@@ -97,24 +97,24 @@ const FloatingImages = ({
 
 const easterEggs = [
   {
-    char: '✨',
+    char: '🔎',
     className: 'top-[15%] left-[80%]',
-    message: 'You found me! 🌸',
+    message: 'Oh you found me? Thats organic reach😉',
   },
   {
     char: '🎨',
     className: 'bottom-[15%] right-[80%]',
-    message: 'Creative minds notice details 💙',
+    message: 'Everyday I wake up and choose... Brand consistency🌕',
   },
   {
     char: '💡',
     className: 'top-[15%] right-[80%]',
-    message: 'Hidden spark unlocked ✨',
+    message: 'Waah Shampy waaah portfolio toa dekho!😏',
   },
   {
-    char: '💭',
+    char: '🃏',
     className: 'bottom-[15%] left-[80%]',
-    message: 'Imagination builds worlds ✨',
+    message: 'Welcome to the, lets make it aesthetic zone🌸 ',
   },
 ];
 
