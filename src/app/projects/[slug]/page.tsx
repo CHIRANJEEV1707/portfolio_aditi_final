@@ -41,86 +41,84 @@ export default function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <PageTransition>
-      <div className="flex flex-col min-h-screen">
-        <div ref={constraintsRef} className="pt-24 pb-12 relative overflow-hidden flex-grow">
-          <EasterEgg
-            className="top-1/4 left-[5%] z-30"
-            onClick={() => handleEggClick("Waah Shampy waaaah, aur easter eggs chaiye😑")}
+      <div ref={constraintsRef} className="min-h-screen pt-24 pb-12 relative overflow-hidden">
+        <EasterEgg
+          className="top-1/4 left-[5%] z-30"
+          onClick={() => handleEggClick("Waah Shampy waaaah, aur easter eggs chaiye😑")}
+        >
+          🔍
+        </EasterEgg>
+        <AnimateOnScroll animation="fade-in">
+          <header className="container mx-auto mb-12">
+            <Button asChild variant="ghost" className="mb-8">
+              <Link href="/#projects">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to all projects
+              </Link>
+            </Button>
+            <p className="text-primary font-bold mb-2">{project.client}</p>
+            <h1 className="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter">
+              {project.name}
+            </h1>
+            <p className="mt-4 text-xl md:text-2xl text-muted-foreground max-w-3xl">
+              {project.description}
+            </p>
+          </header>
+        </AnimateOnScroll>
+
+        {heroImage && (
+          <AnimateOnScroll
+            animation="fade-in"
+            className="container mx-auto mb-16 h-[50vh] flex items-center justify-center"
           >
-            🔍
-          </EasterEgg>
-          <AnimateOnScroll animation="fade-in">
-            <header className="container mx-auto mb-12">
-              <Button asChild variant="ghost" className="mb-8">
-                <Link href="/#projects">
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back to all projects
-                </Link>
-              </Button>
-              <p className="text-primary font-bold mb-2">{project.client}</p>
-              <h1 className="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter">
-                {project.name}
-              </h1>
-              <p className="mt-4 text-xl md:text-2xl text-muted-foreground max-w-3xl">
-                {project.description}
-              </p>
-            </header>
+            <DraggableImage image={heroImage} constraintsRef={constraintsRef} width={600} />
           </AnimateOnScroll>
+        )}
 
-          {heroImage && (
-            <AnimateOnScroll
-              animation="fade-in"
-              className="container mx-auto mb-16 h-[50vh] flex items-center justify-center"
-            >
-              <DraggableImage image={heroImage} constraintsRef={constraintsRef} width={600} />
-            </AnimateOnScroll>
-          )}
-
-          <AnimateOnScroll animation="fade-in" className="container mx-auto">
+        <AnimateOnScroll animation="fade-in" className="container mx-auto">
+          <div>
             <div>
-              <div>
-                <h2 className="font-headline text-3xl font-bold mb-4">The Story</h2>
-                <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line max-w-4xl">
-                  {project.story}
-                </p>
-              </div>
+              <h2 className="font-headline text-3xl font-bold mb-4">The Story</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line max-w-4xl">
+                {project.story}
+              </p>
             </div>
-          </AnimateOnScroll>
+          </div>
+        </AnimateOnScroll>
 
-          <div className="container mx-auto mt-16">
-            <h2 className="font-headline text-3xl font-bold mb-8">Visuals</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {project.visuals.map((visualId, index) => {
-                const visualImage = PlaceHolderImages.find(
-                  (img) => img.id === visualId
-                );
-                if (!visualImage) return null;
-                return (
-                  <AnimateOnScroll
-                    key={visualId}
-                    animation="fade-in"
+        <div className="container mx-auto mt-16">
+          <h2 className="font-headline text-3xl font-bold mb-8">Visuals</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {project.visuals.map((visualId, index) => {
+              const visualImage = PlaceHolderImages.find(
+                (img) => img.id === visualId
+              );
+              if (!visualImage) return null;
+              return (
+                <AnimateOnScroll
+                  key={visualId}
+                  animation="fade-in"
+                >
+                  <div
+                    className={cn(
+                      'relative w-full overflow-hidden rounded-lg shadow-md',
+                      project.slug === 'hukams-lalit-mahal'
+                        ? 'aspect-[4/3]'
+                        : 'aspect-video'
+                    )}
                   >
-                    <div
-                      className={cn(
-                        'relative w-full overflow-hidden rounded-lg shadow-md',
-                        project.slug === 'hukams-lalit-mahal'
-                          ? 'aspect-[4/3]'
-                          : 'aspect-video'
-                      )}
-                    >
-                      <Image
-                        src={visualImage.imageUrl}
-                        alt={`Visual for ${project.name}`}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        data-ai-hint={visualImage.imageHint}
-                      />
-                    </div>
-                  </AnimateOnScroll>
-                );
-              })}
-            </div>
+                    <Image
+                      src={visualImage.imageUrl}
+                      alt={`Visual for ${project.name}`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      data-ai-hint={visualImage.imageHint}
+                    />
+                  </div>
+                </AnimateOnScroll>
+              );
+            })}
           </div>
         </div>
         <Footer />
